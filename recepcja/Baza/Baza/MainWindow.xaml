@@ -5,8 +5,327 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Baza"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="Przychodnia Recepcja"  WindowStyle="ThreeDBorderWindow" ResizeMode="NoResize" WindowState="Maximized">
+    <Grid Background="BurlyWood">
+        <TabControl x:Name="tabControl"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Background="BurlyWood" UseLayoutRounding="True" RenderTransformOrigin="0.5,0.5">
+            <TabItem Header="Strefa użytkownika"  VerticalAlignment="Stretch" Margin="-2,-2,0,0"  Background="BurlyWood" HorizontalAlignment="Left" Width="100">
+                <Grid Name="MainGrid" ShowGridLines="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="1*"></RowDefinition>
+                        <RowDefinition Height="15*"></RowDefinition>
+                        <RowDefinition  Height="2*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition  Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Name="MainGridRight" Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="lekarzeLabel" Grid.Row="0" Grid.Column="0" Content="Lekarze"></Label>
+                    <Label x:Name="dyzuryLabel" Grid.Row="0" Grid.Column="1" Content="Dyzury"></Label>
+                    <Label x:Name="pacjenciLabel" Grid.Row="0" Grid.Column="2" Content="Pacjenci"></Label>
+                    <Button Grid.Column="0" Grid.Row="2" Content="Wyloguj" Margin="10,0,10,10"></Button>
+                    <Grid Grid.Row="1" Grid.Column="0" ShowGridLines="True">
+                        <Grid.RowDefinitions >
+                            <RowDefinition  Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition  Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition  Height="10*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Wybierz specjalizację:"></Label>
+                        <Label Grid.Row="2" Content="Wybierz lekarza:"></Label>
+                        <ComboBox Grid.Row="1"  Margin="10,0,10,0" ></ComboBox>
+                        <ComboBox Grid.Row="3"   Margin="10,0,10,0" ></ComboBox>
+                        <Calendar HorizontalAlignment="Center" Margin="0,70,0,0" Grid.Row="4" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="2" ShowGridLines="True" Margin="10,0">
+                        <Grid.RowDefinitions >
+                            <RowDefinition  Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition  Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="3*"></RowDefinition>
+                            <RowDefinition Height="3*"></RowDefinition>
+                            <RowDefinition Height="2*"></RowDefinition>
+                            <RowDefinition  Height="3*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="ID pacjenta:"></Label>
+                        <Label Grid.Row="2" Content="Nazwisko pacjenta:"></Label>
+                        <TextBox Grid.Row="1" Name="pacjentIdTextBox"/>
+                        <TextBox Grid.Row="3" Name="pacjentNameTextBox"/>
+                        <Button Grid.Row="4" Content="Dodaj wizytę" Margin="10,10,10,10"></Button>
+                        <Button Grid.Row="5" Content="Wydrukuj datę wizyty" Margin="10,10,10,10"></Button>
+                        <Button x:Name="nowyPacjent" Grid.Row="7" Margin="10,10,10,10" Click="nowyPacjentClick">
+                            <TextBlock TextWrapping="Wrap">Dodaj nowego pacjenta</TextBlock>
+                        </Button>
+                    </Grid>
+                    <Grid x:Name="SiatkaTygodniowa" Grid.Column="1" Grid.Row="1" ShowGridLines="True" Margin="10,10,10,0" Visibility="Visible">
+                        <Grid.RowDefinitions >
+                            <RowDefinition  Height="1*"></RowDefinition>
+                            <RowDefinition Name="PN" Height="2*" ></RowDefinition>
+                            <RowDefinition Name="WT" Height="2*"></RowDefinition>
+                            <RowDefinition Name="SR"  Height="2*"></RowDefinition>
+                            <RowDefinition Name="CZ" Height="2*"></RowDefinition>
+                            <RowDefinition Name="PT" Height="2*"></RowDefinition>
+                            <RowDefinition Height="3*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="15*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0"  Grid.Column="1" Content="Tu będzie nazwisko wybranego lekarza" ></Label>
+                        <Label Grid.Row="1"  Grid.Column="0" Content="PN" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="2"  Grid.Column="0" Content="WT"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="3"  Grid.Column="0" Content="SR"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="4"  Grid.Column="0" Content="CZ"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="5"  Grid.Column="0" Content="PT"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+
+                        <Grid Grid.Row="1"  Grid.Column="1" ShowGridLines="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Name="p800" Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Name="p830" Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="8:00" Click="dyzurClick"></Button>
+                            <Button Grid.Column="1" Content="8:30" Click="dyzurClick1"></Button>
+                            <Button Grid.Column="2" Content="9:00"></Button>
+                            <Button Grid.Column="3" Content="9:30"></Button>
+                            <Button Grid.Column="4" Content="10:00"></Button>
+                            <Button Grid.Column="5" Content="10:30"></Button>
+                            <Button Grid.Column="6" Content="11:00"></Button>
+                            <Button Grid.Column="7" Content="11:30"></Button>
+                            <Button Grid.Column="8" Content="12:00"></Button>
+                            <Button Grid.Column="9" Content="12:30"></Button>
+                            <Button Grid.Column="10" Content="13:30"></Button>
+                            <Button Grid.Column="11" Content="14:00"></Button>
+                            <Button Grid.Column="12" Content="14:30"></Button>
+                            <Button Grid.Column="13" Content="15:00"></Button>
+                            <Button Grid.Column="14" Content="15:30"></Button>
+                            <Button Grid.Column="15" Content="16:00"></Button>
+                        </Grid>
+
+                        <Grid Grid.Row="2"  Grid.Column="1" ShowGridLines="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="8:00"></Button>
+                            <Button Grid.Column="1" Content="8:30"></Button>
+                            <Button Grid.Column="2" Content="9:00"></Button>
+                            <Button Grid.Column="3" Content="9:30"></Button>
+                            <Button Grid.Column="4" Content="10:00"></Button>
+                            <Button Grid.Column="5" Content="10:30"></Button>
+                            <Button Grid.Column="6" Content="11:00"></Button>
+                            <Button Grid.Column="7" Content="11:30"></Button>
+                            <Button Grid.Column="8" Content="12:00"></Button>
+                            <Button Grid.Column="9" Content="12:30"></Button>
+                            <Button Grid.Column="10" Content="13:30"></Button>
+                            <Button Grid.Column="11" Content="14:00"></Button>
+                            <Button Grid.Column="12" Content="14:30"></Button>
+                            <Button Grid.Column="13" Content="15:00"></Button>
+                            <Button Grid.Column="14" Content="15:30"></Button>
+                            <Button Grid.Column="15" Content="16:00"></Button>
+                        </Grid>
+
+                        <Grid Grid.Row="2"  Grid.Column="1" ShowGridLines="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="8:00"></Button>
+                            <Button Grid.Column="1" Content="8:30"></Button>
+                            <Button Grid.Column="2" Content="9:00"></Button>
+                            <Button Grid.Column="3" Content="9:30"></Button>
+                            <Button Grid.Column="4" Content="10:00"></Button>
+                            <Button Grid.Column="5" Content="10:30"></Button>
+                            <Button Grid.Column="6" Content="11:00"></Button>
+                            <Button Grid.Column="7" Content="11:30"></Button>
+                            <Button Grid.Column="8" Content="12:00"></Button>
+                            <Button Grid.Column="9" Content="12:30"></Button>
+                            <Button Grid.Column="10" Content="13:30"></Button>
+                            <Button Grid.Column="11" Content="14:00"></Button>
+                            <Button Grid.Column="12" Content="14:30"></Button>
+                            <Button Grid.Column="13" Content="15:00"></Button>
+                            <Button Grid.Column="14" Content="15:30"></Button>
+                            <Button Grid.Column="15" Content="16:00"></Button>
+                        </Grid>
+
+                        <Grid Grid.Row="3"  Grid.Column="1" ShowGridLines="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="8:00"></Button>
+                            <Button Grid.Column="1" Content="8:30"></Button>
+                            <Button Grid.Column="2" Content="9:00"></Button>
+                            <Button Grid.Column="3" Content="9:30"></Button>
+                            <Button Grid.Column="4" Content="10:00"></Button>
+                            <Button Grid.Column="5" Content="10:30"></Button>
+                            <Button Grid.Column="6" Content="11:00"></Button>
+                            <Button Grid.Column="7" Content="11:30"></Button>
+                            <Button Grid.Column="8" Content="12:00"></Button>
+                            <Button Grid.Column="9" Content="12:30"></Button>
+                            <Button Grid.Column="10" Content="13:30"></Button>
+                            <Button Grid.Column="11" Content="14:00"></Button>
+                            <Button Grid.Column="12" Content="14:30"></Button>
+                            <Button Grid.Column="13" Content="15:00"></Button>
+                            <Button Grid.Column="14" Content="15:30"></Button>
+                            <Button Grid.Column="15" Content="16:00"></Button>
+                        </Grid>
+
+                        <Grid Grid.Row="4"  Grid.Column="1" ShowGridLines="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="8:00"></Button>
+                            <Button Grid.Column="1" Content="8:30"></Button>
+                            <Button Grid.Column="2" Content="9:00"></Button>
+                            <Button Grid.Column="3" Content="9:30"></Button>
+                            <Button Grid.Column="4" Content="10:00"></Button>
+                            <Button Grid.Column="5" Content="10:30"></Button>
+                            <Button Grid.Column="6" Content="11:00"></Button>
+                            <Button Grid.Column="7" Content="11:30"></Button>
+                            <Button Grid.Column="8" Content="12:00"></Button>
+                            <Button Grid.Column="9" Content="12:30"></Button>
+                            <Button Grid.Column="10" Content="13:30"></Button>
+                            <Button Grid.Column="11" Content="14:00"></Button>
+                            <Button Grid.Column="12" Content="14:30"></Button>
+                            <Button Grid.Column="13" Content="15:00"></Button>
+                            <Button Grid.Column="14" Content="15:30"></Button>
+                            <Button Grid.Column="15" Content="16:00"></Button>
+                        </Grid>
+
+                        <Grid Grid.Row="5"  Grid.Column="1" ShowGridLines="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="8:00"></Button>
+                            <Button Grid.Column="1" Content="8:30"></Button>
+                            <Button Grid.Column="2" Content="9:00"></Button>
+                            <Button Grid.Column="3" Content="9:30"></Button>
+                            <Button Grid.Column="4" Content="10:00"></Button>
+                            <Button Grid.Column="5" Content="10:30"></Button>
+                            <Button Grid.Column="6" Content="11:00"></Button>
+                            <Button Grid.Column="7" Content="11:30"></Button>
+                            <Button Grid.Column="8" Content="12:00"></Button>
+                            <Button Grid.Column="9" Content="12:30"></Button>
+                            <Button Grid.Column="10" Content="13:30"></Button>
+                            <Button Grid.Column="11" Content="14:00"></Button>
+                            <Button Grid.Column="12" Content="14:30"></Button>
+                            <Button Grid.Column="13" Content="15:00"></Button>
+                            <Button Grid.Column="14" Content="15:30"></Button>
+                            <Button Grid.Column="15" Content="16:00"></Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Admin"  VerticalAlignment="Stretch" Margin="0,0,0,0" Background="DarkOliveGreen" HorizontalAlignment="Right" Width="100">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="28*"></ColumnDefinition>
+                        <ColumnDefinition Width="256*"/>
+                        <ColumnDefinition Width="189*"></ColumnDefinition>
+                        <ColumnDefinition Width="283*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="7*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="6*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="2" Margin="10,0,0,10" Grid.Row="1"  Content="Podpowiedź do hasła"/>
+                    <PasswordBox Grid.Column="2" Grid.Row="2" Margin="10,0,10,0"/>
+                    <Button x:Name="LogowanieButton" Grid.Column="2" Grid.Row="3" Margin="30,20,30,30" Content="Załoguj" Click="logowanieButton"/>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+
     </Grid>
 </Window>
