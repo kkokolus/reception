@@ -73,14 +73,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Klasy\Dyzur.cs" />
     <Compile Include="Klasy\Lekarz.cs" />
+    <Compile Include="Klasy\Pacjent.cs" />
+    <Compile Include="Klasy\Przychodnia.cs" />
+    <Compile Include="Klasy\Wizyta.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mapowanie\Mapowanie_Lekarz.cs" />
     <Compile Include="Project_context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

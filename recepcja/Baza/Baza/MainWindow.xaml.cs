@@ -35,16 +35,16 @@ namespace Baza
             using (var db = new Project_context())
             {
 
-                var L = new Lekarz { Imie = "Jan", Nazwisko = "Kowalski", PESEL = 93040234527 };
+                var L = new Lekarz { Imie = "Jan", Nazwisko = "Kowalski", PESEL = 93040234527, Telefon = 675384920 };
                 db.Lekarze.Add(L);
                 db.SaveChanges();
 
-                // Display all Blogs from the database 
+                
                 var query = from b in db.Lekarze
                             orderby b.Imie
                             select b;
 
-                Console.WriteLine("All blogs in the database:");
+                
                 foreach (var item in query)
                 {
                     Console.WriteLine(item.Imie);
