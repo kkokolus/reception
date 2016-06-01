@@ -32,10 +32,10 @@
                             <RowDefinition Height="1*"></RowDefinition>
                             <RowDefinition  Height="10*"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Content="Wybierz specjalizację:"></Label>
-                        <Label Grid.Row="2" Content="Wybierz lekarza:"></Label>
-                        <ComboBox Grid.Row="1"  Margin="10,0,10,0" ></ComboBox>
-                        <ComboBox Grid.Row="3"   Margin="10,0,10,0" ></ComboBox>
+                        <Label Grid.Row="0" Content="Wybierz specjalizację:" VerticalAlignment="Bottom"></Label>
+                        <Label Grid.Row="2" Content="Wybierz lekarza:" VerticalAlignment="Bottom"></Label>
+                        <ComboBox x:Name="specjalizacjaComboBox" Grid.Row="1"  Margin="10,0,10,0" IsEditable="True"></ComboBox>
+                        <ComboBox x:Name="lekarzeComboBox" Grid.Row="3"   Margin="10,0,10,0" IsEditable="True"></ComboBox>
                         <Calendar HorizontalAlignment="Center" Margin="0,70,0,0" Grid.Row="4" VerticalAlignment="Center"/>
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="2" ShowGridLines="True" Margin="10,0">
@@ -49,8 +49,8 @@
                             <RowDefinition Height="2*"></RowDefinition>
                             <RowDefinition  Height="3*"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Content="ID pacjenta:"></Label>
-                        <Label Grid.Row="2" Content="Nazwisko pacjenta:"></Label>
+                        <Label Grid.Row="0" Content="ID pacjenta:" VerticalAlignment="Bottom"></Label>
+                        <Label Grid.Row="2" Content="Nazwisko pacjenta:" VerticalAlignment="Bottom"></Label>
                         <TextBox Grid.Row="1" Name="pacjentIdTextBox"/>
                         <TextBox Grid.Row="3" Name="pacjentNameTextBox"/>
                         <Button Grid.Row="4" Content="Dodaj wizytę" Margin="10,10,10,10"></Button>
@@ -99,8 +99,8 @@
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Content="8:00" Click="dyzurClick"></Button>
-                            <Button Grid.Column="1" Content="8:30" Click="dyzurClick1"></Button>
+                            <Button Grid.Column="0" Content="8:00" ></Button>
+                            <Button Grid.Column="1" Content="8:30" ></Button>
                             <Button Grid.Column="2" Content="9:00"></Button>
                             <Button Grid.Column="3" Content="9:30"></Button>
                             <Button Grid.Column="4" Content="10:00"></Button>
