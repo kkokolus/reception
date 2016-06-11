@@ -44,7 +44,7 @@ namespace Baza
             {
                 try
                 {
-                    db.Lekarze.Add(L); //w tym miejscu u mnie zatrzymuje sie :((
+                    db.Lekarze.Add(L); //w tym miejscu u mnie zatrzymuje sie :(( error  26
                     db.SaveChanges();
 
                 var query = from b in db.Lekarze
@@ -91,8 +91,21 @@ namespace Baza
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
-            ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
-            //teraz mozna cos z tym itemom zrobic
+           int selectedIndex = comboBox.SelectedIndex;
+           string[] selectedValue = cmb.SelectedValue.ToString().Split();
+           string comboItemText = "";
+           for (int i = 1; i < selectedValue.Length; i++)
+                comboItemText += selectedValue[i] + " ";
+            //teraz mozna cos z tym comboItemText zrobic: LINQ -> lista lekarzy o wybranej specjalizacji -> foreach add item
+            var query = from b in db.Lekarze
+                          //  where b.IDLekarz == ( from i  in db.Srecjalizacja where i.Nazwa == comboItemText select i.ID <- podobne podzapytanie albo JOIN
+                            orderby b.Nazwisko
+                            select b.Nazwisko;
+            foreach (var item in query)
+                {
+                    ComboBoxItem combo = new ComboBoxItem() { Content = (string)item };
+                    lekarzeComboBox.Items.Add(combo);
+                }
         }
     }
 }
