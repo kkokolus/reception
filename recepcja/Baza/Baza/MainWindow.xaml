@@ -8,6 +8,10 @@
         Title="Przychodnia Recepcja"  WindowStyle="ThreeDBorderWindow" ResizeMode="NoResize" WindowState="Maximized">
         
         <Window.Resources>
+        <Style TargetType="ComboBox">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
         <Style TargetType="Button">
             <Setter Property="Background" Value="AntiqueWhite" />
             <Setter Property="FontSize" Value="17" />
@@ -94,9 +98,12 @@
                         <Label Content="Adres" Grid.Column="1" Grid.Row="4" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
                         <Label Content="Telefon kontaktowy" Grid.Column="0" Grid.Row="5" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="2"></Label>
                         <Label Content="@mail" Grid.Column="1" Grid.Row="6" Margin="0,10,10,11" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
-                        <TextBox  x:Name="textImie" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox>
+                        <StackPanel  Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal" >
+                            <TextBox  x:Name="textImie1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,10,20" Width="300"  ></TextBox>
+                            <TextBox  x:Name="textImie2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="20,20,10,20" Width="300"  ></TextBox>
+                        </StackPanel>
                         <TextBox  x:Name="textNazwisko" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox>
-                        <TextBox  x:Name="textPESEL" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox>
+                        <TextBox  x:Name="textPESEL" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
                         <TextBox  x:Name="textUbezpieczenie" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20"  ></TextBox>
                         <StackPanel  Grid.Column="2" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal" >
                             <TextBox  x:Name="textAdresUlica" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,10,20" Width="200" ></TextBox>
@@ -106,7 +113,7 @@
                             <TextBox  x:Name="textAdresMiasto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="5,20,1,20" Width="200" ></TextBox>
                         </StackPanel>
 
-                        <TextBox  x:Name="textTelefon" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox>
+                        <TextBox  x:Name="textTelefon" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300" ></TextBox>
                         <TextBox  x:Name="textMail" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox>
                     </Grid>
                     
