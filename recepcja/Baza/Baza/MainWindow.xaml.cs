@@ -68,20 +68,27 @@ namespace Baza
                     lekarzeComboBox.Items.Add(combo);
 
         }
-        //ukrywa całą siatke tygodniową
+        //ukrywa całą siatke tygodniową, zamiast niej wyswietla textboxy dla nowego pacjenta
         private void nowyPacjentClick(object sender, RoutedEventArgs e)
         {
             if (SiatkaTygodniowa.Visibility == Visibility.Visible)
             {
                 SiatkaTygodniowa.Visibility = Visibility.Hidden;
-                nowyPacjent.Content = "Cofnij";
+                dyzuryLabel.Visibility = Visibility.Hidden;
+               nowyPacjent.Content = "Cofnij";
+                personalButtons.Visibility = Visibility.Visible;
+                gridPacjent.Visibility = Visibility.Visible;
+                labelPacjent.Visibility = Visibility.Visible;
             }
             else if (SiatkaTygodniowa.Visibility == Visibility.Hidden)
             {
                 SiatkaTygodniowa.Visibility = Visibility.Visible;
+                dyzuryLabel.Visibility = Visibility.Visible;
                 nowyPacjent.Content = "Dodaj nowego pacjenta";
+                personalButtons.Visibility = Visibility.Hidden;
+                gridPacjent.Visibility = Visibility.Hidden;
+                labelPacjent.Visibility = Visibility.Hidden;
             }
-            //tu mam dopisac by pojawili sie textbox'y dla wpisania danych nowego pacjenta
         }
         private void logowanieButton(object sender, RoutedEventArgs e)
         {
