@@ -55,12 +55,18 @@ namespace Baza
                 {
                     MessageBox.Show("A handled exception just occurred: " + ex.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
-
-
+ //wypelniamy na starcie danymi 2 combobox'a - specjalisci i lekarze - tylko trzeba dodac tabelę w stylu TypLekarza
+               //var query = from b in db.Lekarze orderby b.Nazwisko select b.Nazwisko;                          
+               // foreach (var item in query)
+               // {
+               //     ComboBoxItem Le = new ComboBoxItem() { Content = (string)item };
+               //     lekarzeComboBox.Items.Add(Le);
+               // }
+                //query = from b in db.Specjalisci orderby b.Nazwa select b.Nazwa;
                 //foreach (var item in query)
                 //{
-                //    ComboBoxItem combo = new ComboBoxItem() { Content = (string)item };
-                //    lekarzeComboBox.Items.Add(combo);
+                //    ComboBoxItem Le = new ComboBoxItem() { Content = (string)item };
+                //    specjalizacjaComboBox.Items.Add(Le);
                 //}
 
             }
@@ -99,20 +105,29 @@ namespace Baza
         {
             ComboBox comboBox = (ComboBox)sender;
            int selectedIndex = comboBox.SelectedIndex;
-           string[] selectedValue = cmb.SelectedValue.ToString().Split();
+           string[] selectedValue = comboBox.SelectedValue.ToString().Split();
            string comboItemText = "";
            for (int i = 1; i < selectedValue.Length; i++)
                 comboItemText += selectedValue[i] + " ";
             //teraz mozna cos z tym comboItemText zrobic: LINQ -> lista lekarzy o wybranej specjalizacji -> foreach add item
+            if (comboBox.Name == "specjalizacjaComboBox")
+            {
             var query = from b in db.Lekarze
-                          //  where b.IDLekarz == ( from i  in db.Srecjalizacja where i.Nazwa == comboItemText select i.ID <- podobne podzapytanie albo JOIN
+                            //where b.IDLekarz == ( from i  in db.Srecjalizacja where i.Nazwa == comboItemText select i.ID <- podobne podzapytanie albo JOIN
                             orderby b.Nazwisko
                             select b.Nazwisko;
+
+            lekarzeComboBox.Items.Clear();
             foreach (var item in query)
                 {
                     ComboBoxItem combo = new ComboBoxItem() { Content = (string)item };
                     lekarzeComboBox.Items.Add(combo);
                 }
+            }
+            if (comboBox.Name == "lekarzeComboBox")
+            {
+                tuBedzieNazwisko.Content = comboItemText;
+            }
         }
     }
 }
