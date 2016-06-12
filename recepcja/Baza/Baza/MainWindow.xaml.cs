@@ -26,7 +26,8 @@ namespace Baza
     /// </summary>
     public partial class MainWindow : Window
     {
-
+         Project_context db = new Project_context();
+         string defaultPassword = "adm";
 
         public MainWindow()
         {
@@ -40,7 +41,7 @@ namespace Baza
             //    dbx.Entry(L).State = EntityState.Added;
             //    dbx.SaveChanges();
             //}
-            using (var db = new Project_context())
+            using (db = new Project_context())
             {
                 try
                 {
@@ -98,7 +99,9 @@ namespace Baza
         }
         private void logowanieButton(object sender, RoutedEventArgs e)
         {
-
+            //tymczasowo nie ma hasła
+            adminLogowanie.Visibility = Visibility.Hidden;
+            adminPanel.Visibility = Visibility.Visible;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
