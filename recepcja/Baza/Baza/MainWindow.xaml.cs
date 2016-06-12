@@ -41,7 +41,7 @@ namespace Baza
             //    dbx.Entry(L).State = EntityState.Added;
             //    dbx.SaveChanges();
             //}
-            using (db = new Project_context())
+            using (db)
             {
                 try
                 {
