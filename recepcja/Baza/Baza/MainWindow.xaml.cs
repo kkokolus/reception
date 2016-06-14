@@ -132,5 +132,40 @@ namespace Baza
                 tuBedzieNazwisko.Content = comboItemText;
             }
         }
+        private void Click_uzytkownikEdit(object sender, RoutedEventArgs e)
+        {
+            // uzytkownicyData.ItemsSource = Uzytkownik.GetUzytkownik();
+            uzytkownicyData.Visibility = Visibility.Visible;
+            gridLekarz.Visibility = Visibility.Hidden;
+            gridUzytkownik.Visibility = Visibility.Hidden;
+        }
+        private void Click_lekarzEdit(object sender, RoutedEventArgs e)
+        {
+            // lekarzeData.ItemsSource = 
+            uzytkownicyData.Visibility = Visibility.Hidden;
+            gridLekarz.Visibility = Visibility.Hidden;
+            gridUzytkownik.Visibility = Visibility.Hidden;
+        }
+        private void Click_adminLogout(object sender, RoutedEventArgs e)
+        {
+            adminLogowanie.Visibility = Visibility.Visible;
+            adminPanel.Visibility = Visibility.Hidden;
+            passwordTip.Visibility = Visibility.Hidden;
+            gridUzytkownik.Visibility = Visibility.Hidden;
+        }
+
+        private void Click_nowyLekarz(object sender, RoutedEventArgs e)
+        {
+            gridLekarz.Visibility = Visibility.Visible;
+            uzytkownicyData.Visibility = Visibility.Hidden;
+            gridUzytkownik.Visibility = Visibility.Hidden;
+        }
+
+        private void nowyUzytkownik(object sender, RoutedEventArgs e)
+        {
+            gridUzytkownik.Visibility = Visibility.Visible;
+            gridLekarz.Visibility = Visibility.Hidden;
+            uzytkownicyData.Visibility = Visibility.Hidden;
+        }
     }
 }
