@@ -16,6 +16,7 @@ namespace Baza.Klasy
 
         [Key]
         public int IDLekarz { get; set; }
+        public int IDPrzychodnia { get; set; }
         public long PESEL { get; set; }
         public string Data_zatrudnienia { get; set; }
         public string Imie { get; set; }
@@ -24,5 +25,6 @@ namespace Baza.Klasy
         public long Telefon { get; set; }
 
         public virtual ICollection<Dyzur> Dyzury { get; set; }
+        public virtual Przychodnia Przychodnia { get; set; }
     }
 }

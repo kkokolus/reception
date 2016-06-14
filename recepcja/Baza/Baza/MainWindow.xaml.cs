@@ -28,41 +28,93 @@ namespace Baza
     {
          Project_context db = new Project_context();
          string defaultPassword = "adm";
+        IQueryable qry;
+        IQueryable q3;
+
+        /*
+        // Wątek który ma sprawdzać która specjalizacja jest wybrana i wyświetlać na liście lekarzy lekarzy którzy mają dyżur w tej przychodni
+        void doSomething()
+        {
+            if(przychodnieComboBox.SelectedItem != null)
+            foreach (var i in q3)
+            {
+                ComboBoxItem Le = new ComboBoxItem() { Content = (string)i };
+                lekarzeComboBox.Items.Add(Le);
+            }
+        }*/
 
         public MainWindow()
         {
             InitializeComponent();
 
-            var L = new Lekarz { Imie = "Jan", Nazwisko = "Kowalski", PESEL = 93040234527, Telefon = 675384920 };
+            /* Thread thr = new Thread(doSomething);
+           thr.Start();*/
+
+            // Stworzenie przykładowych lekarzy, przychodni itp. na potrzeby stworzenia bazy w SQL Server i testów
+            var przykladowy_lekarz = new Lekarz { Imie = "Jan", Nazwisko = "Kowalski", PESEL = 93040234527, Telefon = 675384920 };
+            var przykladowy_lekarz2 = new Lekarz { Imie = "Jan", Nazwisko = "Nowak", PESEL = 93040234527, Telefon = 675384920 };
+            var przykladowa_przychodnia = new Przychodnia { Rodzaj = "Okulistyczna" };
+            var przykladowa_przychodnia2 = new Przychodnia { Rodzaj = "Rehabilitacyjna" };
+
+            var przykladowy_dyzur = new Dyzur { IDPrzychodnia = 1, IDLekarz = 2 };
+            var przykladowy_dyzur2 = new Dyzur { IDPrzychodnia = 2, IDLekarz = 2 };
+
+            // Inny sposób na dodawanie
 
             //using (var dbx = new Project_context())
             //{
-            //    //taki sam sposob na dodawanie 
-            //    dbx.Entry(L).State = EntityState.Added;
+            //    dbx.Entry(przykladowy_lekarz).State = EntityState.Added;
             //    dbx.SaveChanges();
             //}
+
             using (db)
             {
                 try
                 {
-                    db.Lekarze.Add(L); //w tym miejscu u mnie zatrzymuje sie :(( error  26
+                    db.Lekarze.Add(przykladowy_lekarz); //w tym miejscu u mnie zatrzymuje sie :(( error  26
+                    db.Lekarze.Add(przykladowy_lekarz2);
+                    db.Przychodnie.Add(przykladowa_przychodnia);
+                    db.Przychodnie.Add(przykladowa_przychodnia2);
                     db.SaveChanges();
 
-                var query = from b in db.Lekarze
-                            orderby b.Nazwisko
-                            select b.Nazwisko;
+                    qry = from b in db.Lekarze
+                          orderby b.Nazwisko
+                          select b.Nazwisko;
                 }
                catch (Exception ex)
                 {
                     MessageBox.Show("A handled exception just occurred: " + ex.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
- //wypelniamy na starcie danymi 2 combobox'a - specjalisci i lekarze - tylko trzeba dodac tabelę w stylu TypLekarza
-               //var query = from b in db.Lekarze orderby b.Nazwisko select b.Nazwisko;                          
-               // foreach (var item in query)
-               // {
-               //     ComboBoxItem Le = new ComboBoxItem() { Content = (string)item };
-               //     lekarzeComboBox.Items.Add(Le);
-               // }
+
+
+                var q2 = from rodzaje in db.Przychodnie orderby rodzaje.Rodzaj select rodzaje.Rodzaj;
+
+                foreach (var item in q2)
+                {
+                    ComboBoxItem R = new ComboBoxItem() { Content = (string)item };
+                    przychodnieComboBox.Items.Add(R);
+
+                }
+
+                // Query które sprawdza co jest wybrane na liście rodzajów przychodni i zwraca nazwiska lekarzy którzy mają tam dyżur
+                //  q3 = from z in db.Dyzury join przych in db.Przychodnie on z.IDPrzychodnia equals przych.IDPrzychodnia join lek in db.Lekarze on z.IDLekarz equals lek.IDLekarz orderby z.IDLekarz where (przych.Rodzaj).ToString() == przychodnieComboBox.SelectedItem.ToString() select lek.Nazwisko;
+
+                //  lekarzeComboBox.Items.Clear();
+
+                foreach (var i in qry)
+                {
+                    ComboBoxItem Le = new ComboBoxItem() { Content = (string)i };
+                    lekarzeComboBox.Items.Add(Le);
+                }
+
+
+                //wypelniamy na starcie danymi 2 combobox'a - specjalisci i lekarze - tylko trzeba dodac tabelę w stylu TypLekarza
+                //var query = from b in db.Lekarze orderby b.Nazwisko select b.Nazwisko;                          
+                // foreach (var item in query)
+                // {
+                //     ComboBoxItem Le = new ComboBoxItem() { Content = (string)item };
+                //     lekarzeComboBox.Items.Add(Le);
+                // }
                 //query = from b in db.Specjalisci orderby b.Nazwa select b.Nazwa;
                 //foreach (var item in query)
                 //{
@@ -75,8 +127,31 @@ namespace Baza
                     lekarzeComboBox.Items.Add(combo);
 
         }
-        //ukrywa całą siatke tygodniową, zamiast niej wyswietla textboxy dla nowego pacjenta
-        private void nowyPacjentClick(object sender, RoutedEventArgs e)
+
+
+        // var query = from b in db.Lekarze orderby b.Nazwisko where b.IDLekarz == 1 select b.Nazwisko;     
+
+        //query = from b in db.Specjalisci orderby b.Nazwa select b.Nazwa;
+        //foreach (var item in query)
+        //{
+        //    ComboBoxItem Le = new ComboBoxItem() { Content = (string)item };
+        //    specjalizacjaComboBox.Items.Add(Le);
+        //}
+
+    
+
+
+
+    //  ComboBoxItem combo = new ComboBoxItem() { Content = "Kowalski"};
+
+
+    // Dodawanie listy lekarzy do Comboboxa 
+    // lekarzeComboBox.Items.Add(combo);
+
+
+
+//ukrywa całą siatke tygodniową, zamiast niej wyswietla textboxy dla nowego pacjenta
+private void nowyPacjentClick(object sender, RoutedEventArgs e)
         {
             if (SiatkaTygodniowa.Visibility == Visibility.Visible)
             {
@@ -115,12 +190,22 @@ namespace Baza
             //teraz mozna cos z tym comboItemText zrobic: LINQ -> lista lekarzy o wybranej specjalizacji -> foreach add item
             if (comboBox.Name == "specjalizacjaComboBox")
             {
-            var query = from b in db.Lekarze
+            var query = //from b in db.Lekarze
                             //where b.IDLekarz == ( from i  in db.Srecjalizacja where i.Nazwa == comboItemText select i.ID <- podobne podzapytanie albo JOIN
-                            orderby b.Nazwisko
-                            select b.Nazwisko;
+                            //orderby b.Nazwisko
+                            //select b.Nazwisko;
 
-            lekarzeComboBox.Items.Clear();
+                            from z in db.Dyzury
+                            join przych in db.Przychodnie on z.IDPrzychodnia equals przych.IDPrzychodnia
+                            join lek in db.Lekarze on z.IDLekarz equals lek.IDLekarz
+                            orderby z.IDLekarz
+                            where (przych.Rodzaj) == comboItemText
+                            select lek.Nazwisko;
+
+                //  orderby b.Nazwisko
+                // select b.Nazwisko;
+
+                lekarzeComboBox.Items.Clear();
             foreach (var item in query)
                 {
                     ComboBoxItem combo = new ComboBoxItem() { Content = (string)item };

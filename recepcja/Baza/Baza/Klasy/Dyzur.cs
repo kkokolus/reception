@@ -16,7 +16,6 @@ namespace Baza.Klasy
 
         [Key]
         public int IDDyzur { get; set; }
-        public int IDPrzychodnia { get; set; }
         public int IDLekarz { get; set; }
         public string OdGodziny { get; set; }
         public string DoGodziny { get; set; }
@@ -24,7 +23,7 @@ namespace Baza.Klasy
         public string DzienTygodnia { get; set; }
 
         public virtual Lekarz Lekarz { get; set; }
-        public virtual Przychodnia Przychodnia { get; set; }
+      
         public virtual ICollection<Wizyta> Wizyty { get; set; }
         
     }
