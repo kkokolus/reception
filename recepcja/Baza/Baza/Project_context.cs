@@ -11,6 +11,7 @@ namespace Baza
 {
     class Project_context : DbContext
     {
+
         public DbSet<Lekarz> Lekarze { get; set; }
         public DbSet<Dyzur> Dyzury { get; set; }
         public DbSet<Przychodnia> Przychodnie { get; set; }

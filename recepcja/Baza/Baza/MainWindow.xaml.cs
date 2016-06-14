@@ -31,6 +31,9 @@ namespace Baza
         IQueryable qry;
         IQueryable q3;
 
+
+        
+
         /*
         // Wątek który ma sprawdzać która specjalizacja jest wybrana i wyświetlać na liście lekarzy lekarzy którzy mają dyżur w tej przychodni
         void doSomething()
@@ -47,14 +50,15 @@ namespace Baza
         {
             InitializeComponent();
 
+
             /* Thread thr = new Thread(doSomething);
            thr.Start();*/
 
             // Stworzenie przykładowych lekarzy, przychodni itp. na potrzeby stworzenia bazy w SQL Server i testów
             var przykladowy_lekarz = new Lekarz { Imie = "Jan", Nazwisko = "Kowalski", PESEL = 93040234527, Telefon = 675384920 };
             var przykladowy_lekarz2 = new Lekarz { Imie = "Jan", Nazwisko = "Nowak", PESEL = 93040234527, Telefon = 675384920 };
-            var przykladowa_przychodnia = new Przychodnia { Rodzaj = "Okulistyczna" };
-            var przykladowa_przychodnia2 = new Przychodnia { Rodzaj = "Rehabilitacyjna" };
+            var przykladowa_przychodnia = new Przychodnia {  Rodzaj = "Okulistyczna" };
+            var przykladowa_przychodnia2 = new Przychodnia {  Rodzaj = "Rehabilitacyjna" };
 
             var przykladowy_dyzur = new Dyzur { IDPrzychodnia = 1, IDLekarz = 2 };
             var przykladowy_dyzur2 = new Dyzur { IDPrzychodnia = 2, IDLekarz = 2 };
@@ -101,11 +105,11 @@ namespace Baza
 
                 //  lekarzeComboBox.Items.Clear();
 
-                foreach (var i in qry)
+             /*   foreach (var i in qry)
                 {
                     ComboBoxItem Le = new ComboBoxItem() { Content = (string)i };
                     lekarzeComboBox.Items.Add(Le);
-                }
+                }*/
 
 
                 //wypelniamy na starcie danymi 2 combobox'a - specjalisci i lekarze - tylko trzeba dodac tabelę w stylu TypLekarza
@@ -123,8 +127,8 @@ namespace Baza
                 //}
 
             }
-            ComboBoxItem combo = new ComboBoxItem() { Content = "Kowalski"};
-                    lekarzeComboBox.Items.Add(combo);
+        /*    ComboBoxItem combo = new ComboBoxItem() { Content = "Kowalski"};
+                    lekarzeComboBox.Items.Add(combo);*/
 
         }
 
@@ -179,44 +183,8 @@ private void nowyPacjentClick(object sender, RoutedEventArgs e)
             adminPanel.Visibility = Visibility.Visible;
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox comboBox = (ComboBox)sender;
-           int selectedIndex = comboBox.SelectedIndex;
-           string[] selectedValue = comboBox.SelectedValue.ToString().Split();
-           string comboItemText = "";
-           for (int i = 1; i < selectedValue.Length; i++)
-                comboItemText += selectedValue[i] + " ";
-            //teraz mozna cos z tym comboItemText zrobic: LINQ -> lista lekarzy o wybranej specjalizacji -> foreach add item
-            if (comboBox.Name == "specjalizacjaComboBox")
-            {
-            var query = //from b in db.Lekarze
-                            //where b.IDLekarz == ( from i  in db.Srecjalizacja where i.Nazwa == comboItemText select i.ID <- podobne podzapytanie albo JOIN
-                            //orderby b.Nazwisko
-                            //select b.Nazwisko;
-
-                            from z in db.Dyzury
-                            join przych in db.Przychodnie on z.IDPrzychodnia equals przych.IDPrzychodnia
-                            join lek in db.Lekarze on z.IDLekarz equals lek.IDLekarz
-                            orderby z.IDLekarz
-                            where (przych.Rodzaj) == comboItemText
-                            select lek.Nazwisko;
-
-                //  orderby b.Nazwisko
-                // select b.Nazwisko;
-
-                lekarzeComboBox.Items.Clear();
-            foreach (var item in query)
-                {
-                    ComboBoxItem combo = new ComboBoxItem() { Content = (string)item };
-                    lekarzeComboBox.Items.Add(combo);
-                }
-            }
-            if (comboBox.Name == "lekarzeComboBox")
-            {
-                tuBedzieNazwisko.Content = comboItemText;
-            }
-        }
+     
+        
         private void Click_uzytkownikEdit(object sender, RoutedEventArgs e)
         {
             // uzytkownicyData.ItemsSource = Uzytkownik.GetUzytkownik();
@@ -252,5 +220,57 @@ private void nowyPacjentClick(object sender, RoutedEventArgs e)
             gridLekarz.Visibility = Visibility.Hidden;
             uzytkownicyData.Visibility = Visibility.Hidden;
         }
+
+
+        private void przychodnieComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Project_context db = new Project_context();
+
+            
+
+        ComboBox comboBox = (ComboBox)sender;
+            int selectedIndex = comboBox.SelectedIndex;
+            string[] selectedValue = comboBox.SelectedValue.ToString().Split();
+            string comboItemText = "";
+            for (int i = 1; i < selectedValue.Length; i++)
+                comboItemText += selectedValue[i] + " ";
+            //teraz mozna cos z tym comboItemText zrobic: LINQ -> lista lekarzy o wybranej specjalizacji -> foreach add item
+            
+           
+
+                var query = //from b in db.Lekarze
+                            //where b.IDLekarz == ( from i  in db.Srecjalizacja where i.Nazwa == comboItemText select i.ID <- podobne podzapytanie albo JOIN
+                            //orderby b.Nazwisko
+                            //select b.Nazwisko;
+
+                 from z in db.Dyzury.Local join przych in db.Przychodnie on z.IDPrzychodnia equals przych.IDPrzychodnia join lek in db.Lekarze on z.IDLekarz equals lek.IDLekarz
+                 orderby z.IDLekarz
+                 where przychodnieComboBox.Items.IndexOf((przych.Rodzaj).ToString()) == przychodnieComboBox.SelectedIndex select lek.Nazwisko;
+
+                                            // where (przych.Rodzaj) == comboItemText
+
+            //select z.Nazwisko;
+
+            //  orderby b.Nazwisko
+            // select b.Nazwisko;
+
+        
+
+                 lekarzeComboBox.Items.Clear();
+
+                foreach (var item in query)
+                {
+                    ComboBoxItem combo = new ComboBoxItem() { Content = (string)item };
+                    lekarzeComboBox.Items.Add(combo);
+                }
+            }
+
+            /*if (comboBox.Name == "lekarzeComboBox")
+            {
+                tuBedzieNazwisko.Content = comboItemText;
+            }*/
+        }
+
+        
     }
-}
+

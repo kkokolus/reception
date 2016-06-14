@@ -11,13 +11,13 @@ namespace Baza.Klasy
     {
         public Przychodnia()
         {
-            this.Lekarze = new HashSet<Lekarz>();
+            this.Dyzury = new HashSet<Dyzur>();
         }
 
         [Key]
         public int IDPrzychodnia { get; set; }
         public string Rodzaj { get; set; }
-        public virtual ICollection<Lekarz> Lekarze { get; set; }
+        public virtual ICollection<Dyzur> Dyzury { get; set; }
 
     }
 }
