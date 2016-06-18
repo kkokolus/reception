@@ -183,7 +183,7 @@ namespace Baza
 
         // Czyszczenie za każdym razem listy lekarzy i dodawanie na nowo tylko tych, którzy spełniają warunek podany w zapytaniu query_lista_lekarzy
         // Co sie dzieje? Jak sie wybierze lekarza, a potem wybierzesz Przychodnie, to wysypuje sie
-                    if (lekarzeComboBox is ComboBox)
+                  //  if (lekarzeComboBox is ComboBox)
                     lekarzeComboBox.Items.Clear();
 
                 var t = string.Join(" ", query_lista_lekarzy);
@@ -213,13 +213,17 @@ namespace Baza
             }
         }
 
-        private void lekarzeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+       private void lekarzeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox comboBox = (ComboBox)sender;
-            string tmp =  comboBox.SelectedValue.ToString();
-            string[] words = tmp.Split(' ');
-            string nazwisko_lekarza = words[1];
-            tuBedzieNazwisko.Content = nazwisko_lekarza;
+            // Błąd polegał na nakazaniu mu pracy na nullu, teraz instrukcja wykonuje się dopiero po sprawdzeniu że na comboboxie wybraliśmy jakiegoś lekarza
+            if (lekarzeComboBox.SelectedItem != null)
+            {
+                ComboBox comboBox = (ComboBox)sender;
+                string tmp = comboBox.SelectedValue.ToString();
+                string[] words = tmp.Split(' ');
+                string nazwisko_lekarza = words[1];
+                tuBedzieNazwisko.Content = nazwisko_lekarza;
+            }
         }
 
         private void calendarSelectedDateChanged(object sender, SelectionChangedEventArgs e)
