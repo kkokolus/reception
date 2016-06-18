@@ -133,8 +133,8 @@
                         <Label Grid.Row="0" Content="Wybierz specjalizację:" VerticalAlignment="Bottom"></Label>
                         <Label Grid.Row="2" Content="Wybierz lekarza:" VerticalAlignment="Bottom"></Label>
                         <ComboBox x:Name="przychodnieComboBox" Grid.Row="1"  Margin="10,0,10,0" IsEditable="True" SelectionChanged="przychodnieComboBox_SelectionChanged"/>
-                        <ComboBox x:Name="lekarzeComboBox" Grid.Row="3"   Margin="10,0,10,0" IsEditable="True"/>
-                        <Calendar HorizontalAlignment="Center" Margin="0,70,0,0" Grid.Row="4" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="lekarzeComboBox" Grid.Row="3"   Margin="10,0,10,0" IsEditable="True" SelectionChanged="lekarzeComboBox_SelectionChanged"/>
+                        <Calendar x:Name="calendar" HorizontalAlignment="Center" Margin="0,70,0,0" Grid.Row="4" VerticalAlignment="Center" SelectedDatesChanged="calendarSelectedDateChanged"  />
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="2" ShowGridLines="True" Margin="10,0">
                         <Grid.RowDefinitions >
@@ -149,8 +149,8 @@
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Content="ID pacjenta:" VerticalAlignment="Bottom"></Label>
                         <Label Grid.Row="2" Content="Nazwisko pacjenta:" VerticalAlignment="Bottom"></Label>
-                        <TextBox Grid.Row="1" Name="pacjentIdTextBox"/>
-                        <TextBox Grid.Row="3" Name="pacjentNameTextBox"/>
+                        <TextBox Name="textBoxPacjentID" Text="007" Grid.Row="1"  Margin="10,0,10,0" TextChanged="pacjentIdTextBox_TextChanged"/>
+                        <ComboBox Grid.Row="3" x:Name="pacjentNameComboBox"  Margin="10,0,10,0" IsEditable="True" SelectionChanged="pacjentNameCombobox_SelectionChanged"/>
                         <Button Grid.Row="4" Content="Dodaj wizytę" Margin="10,10,10,10"></Button>
                         <Button Grid.Row="5" Content="Wydrukuj datę wizyty" Margin="10,10,10,10"></Button>
                         <Button x:Name="nowyPacjent" Grid.Row="7" Margin="10,10,10,10" Click="nowyPacjentClick">
@@ -171,7 +171,7 @@
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                             <ColumnDefinition Width="15*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label x:Name="tuBedzieNazwisko" Grid.Row="0"  Grid.Column="1" Content="{Binding k}"></Label>
+                        <Label x:Name="tuBedzieNazwisko" Grid.Row="0"  Grid.Column="1" Content=""></Label>
                         <Label Grid.Row="1"  Grid.Column="0" Content="PN" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                         <Label Grid.Row="2"  Grid.Column="0" Content="WT"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                         <Label Grid.Row="3"  Grid.Column="0" Content="SR"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
