@@ -149,7 +149,7 @@
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Content="ID pacjenta:" VerticalAlignment="Bottom"></Label>
                         <Label Grid.Row="2" Content="Nazwisko pacjenta:" VerticalAlignment="Bottom"></Label>
-                        <TextBox Name="textBoxPacjentID" Text="007" Grid.Row="1"  Margin="10,0,10,0" TextChanged="pacjentIdTextBox_TextChanged"/>
+                        <TextBox Name="textBoxPacjentID" Grid.Row="1"  Margin="10,0,10,0" TextChanged="pacjentIdTextBox_TextChanged"/>
                         <ComboBox Grid.Row="3" x:Name="pacjentNameComboBox"  Margin="10,0,10,0" IsEditable="True" SelectionChanged="pacjentNameCombobox_SelectionChanged"/>
                         <Button Grid.Row="4" Content="Dodaj wizytę" Margin="10,10,10,10"></Button>
                         <Button Grid.Row="5" Content="Wydrukuj datę wizyty" Margin="10,10,10,10"></Button>

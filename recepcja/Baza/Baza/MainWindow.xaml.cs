@@ -44,6 +44,7 @@ namespace Baza
             var przykladowa_przychodnia = new Przychodnia { Rodzaj = "Okulistyczna" };
             var przykladowa_przychodnia2 = new Przychodnia { Rodzaj = "Rehabilitacyjna" };
             var pacjent = new Pacjent { Imie = "Tomasz", Nazwisko = "Szklarski", PESEL = 12345678901234 };
+            var pacjent2 = new Pacjent { Imie = "Antoni", Nazwisko = "Janowski", PESEL = 12345678901234 };
             var przykladowy_dyzur = new Dyzur { IDPrzychodnia = 1, IDLekarz = 2 };
             var przykladowy_dyzur2 = new Dyzur { IDPrzychodnia = 1, IDLekarz = 1, DzienTygodnia = "Poniedziałek" };
             var przykladowy_dyzur3 = new Dyzur { IDPrzychodnia = 2, IDLekarz = 3, DzienTygodnia = "Poniedziałek" };
@@ -58,6 +59,7 @@ namespace Baza
                     db.Przychodnie.Add(przykladowa_przychodnia);
                     db.Przychodnie.Add(przykladowa_przychodnia2);
                     db.Pacjenci.Add(pacjent);
+                    db.Pacjenci.Add(pacjent2);
                     db.SaveChanges();
                     db.Dyzury.Add(przykladowy_dyzur);
                     db.Dyzury.Add(przykladowy_dyzur2);
@@ -86,7 +88,7 @@ namespace Baza
                         ComboBoxItem P = new ComboBoxItem() { Content = item };
                         pacjentNameComboBox.Items.Add(P);
                     }
-                    textBoxPacjentID.Text = "test";
+                    //textBoxPacjentID.Text = "test";
                 }
                 catch (Exception ex)
                 {
@@ -182,7 +184,7 @@ namespace Baza
                 select l.Nazwisko;
 
         // Czyszczenie za każdym razem listy lekarzy i dodawanie na nowo tylko tych, którzy spełniają warunek podany w zapytaniu query_lista_lekarzy
-        // Co sie dzieje? Jak sie wybierze lekarza, a potem wybierzesz Przychodnie, to wysypuje sie
+        // Co sie dzieje? Jak sie wybierze lekarza, a potem wybierzesz Przychodnie, to wysypuje sie // Naprawione
                   //  if (lekarzeComboBox is ComboBox)
                     lekarzeComboBox.Items.Clear();
 
@@ -206,10 +208,14 @@ namespace Baza
                 string[] words = tmp.Split(' ');
                 string pacjentWybrany = "";
                 for (int i = 1; i < words.Length; i++)
-                    pacjentWybrany += words[i] + " ";
-                var query = from p in db.Pacjenci where p.Nazwisko == pacjentWybrany select p;
-                textBoxPacjentID.Text = query.ToString();
+                    pacjentWybrany += words[i];
+                var query_lista_pacjentow = from p in db.Pacjenci where p.Nazwisko == pacjentWybrany select p.IDPacjent;
+
+                var t = string.Join(" ", query_lista_pacjentow);
+                textBoxPacjentID.Text = t;
                  //nic nie otrzymuje na textBoxe, czemu?
+                 // Musisz wyciagnąć wartość z tego co zwraca ci zapytanie, tu miałeś wrzuconą w text treść zapytania
+
             }
         }
 
