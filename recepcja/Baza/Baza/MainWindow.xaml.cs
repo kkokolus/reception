@@ -28,12 +28,11 @@ namespace Baza
     public partial class MainWindow : Window
     {
         Project_context db = new Project_context();
-        string pacjentWizytaUstalona = "";
 
         string defaultPassword = "adm";
         IQueryable qry;
         IQueryable q3;
-        
+        string godzinaWizyty = "";
         public MainWindow()
         {
             InitializeComponent();
@@ -57,18 +56,26 @@ namespace Baza
             {
                 try
                 {
-                    db.Lekarze.Add(przykladowy_lekarz); 
+                    if(db.Lekarze.SingleOrDefault(s => s.Nazwisko == przykladowy_lekarz.Nazwisko)==null)
+                    db.Lekarze.Add(przykladowy_lekarz);
+                    if (db.Lekarze.SingleOrDefault(s => s.Nazwisko == przykladowy_lekarz2.Nazwisko) == null)
                     db.Lekarze.Add(przykladowy_lekarz2);
+                    if (db.Lekarze.SingleOrDefault(s => s.Nazwisko == przykladowy_lekarz3.Nazwisko) == null)
                     db.Lekarze.Add(przykladowy_lekarz3);
                     db.Przychodnie.Add(przykladowa_przychodnia);
                     db.Przychodnie.Add(przykladowa_przychodnia2);
                     db.Pacjenci.Add(pacjent);
                     db.Pacjenci.Add(pacjent2);
                     db.SaveChanges();
+                 if( db.Dyzury.SingleOrDefault(b => b.DzienTygodnia == przykladowy_dyzur.DzienTygodnia) == null)
                     db.Dyzury.Add(przykladowy_dyzur);
+                 if (db.Dyzury.SingleOrDefault(b => b.DzienTygodnia == przykladowy_dyzur2.DzienTygodnia) == null)
                     db.Dyzury.Add(przykladowy_dyzur2);
+                 if (db.Dyzury.SingleOrDefault(b => b.DzienTygodnia == przykladowy_dyzur3.DzienTygodnia) == null)
                     db.Dyzury.Add(przykladowy_dyzur3);
+                 if (db.Dyzury.SingleOrDefault(b => b.DzienTygodnia == przykladowy_dyzur4.DzienTygodnia) == null)
                     db.Dyzury.Add(przykladowy_dyzur4);
+                 if (db.Dyzury.SingleOrDefault(b => b.DzienTygodnia == przykladowy_dyzur5.DzienTygodnia) == null)
                     db.Dyzury.Add(przykladowy_dyzur5);
                     db.SaveChanges();
         // Dodawanie lekarzy na listę lekarzy
@@ -96,7 +103,7 @@ namespace Baza
                     }
                     //siatka z dyżurami zablokowana az wybierze sie lekarza
                     WyczyscSiatketygodniowa();
-                    
+                    PrzypiszEvent();
                 }
                 catch (Exception ex)
                 {
@@ -319,9 +326,14 @@ namespace Baza
                             {
                                 if (b is Button)
                                 {
+                                    string[] dyzurGodzina = ((Button)b).Content.ToString().Split(':');
+                                    int g = Convert.ToInt32(dyzurGodzina[0]);
+                                    if (g >= start[0] && g<= finish[0])
+                                    {
                                     ((Button)b).IsEnabled = true;
                                     ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
                                     licznik++;
+                                    }                                  
                                 }
                             }
                         }
@@ -335,8 +347,14 @@ namespace Baza
                             {
                                 if (b is Button)
                                 {
-                                    ((Button)b).IsEnabled = true; ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
-                                    licznik++;
+                                    string[] dyzurGodzina = ((Button)b).Content.ToString().Split(':');
+                                    int g = Convert.ToInt32(dyzurGodzina[0]);
+                                    if (g >= start[1] && g <= finish[1])
+                                    {
+                                        ((Button)b).IsEnabled = true;
+                                        ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
+                                        licznik++;
+                                    }
                                 }
                             }
                         }
@@ -350,8 +368,14 @@ namespace Baza
                             {
                                 if (b is Button)
                                 {
-                                    ((Button)b).IsEnabled = true; ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
-                                    licznik++;
+                                    string[] dyzurGodzina = ((Button)b).Content.ToString().Split(':');
+                                    int g = Convert.ToInt32(dyzurGodzina[0]);
+                                    if (g >= start[2] && g <= finish[2])
+                                    {
+                                        ((Button)b).IsEnabled = true;
+                                        ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
+                                        licznik++;
+                                    }
                                 }
                             }
                         }
@@ -365,8 +389,14 @@ namespace Baza
                             {
                                 if (b is Button)
                                 {
-                                    ((Button)b).IsEnabled = true; ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
-                                    licznik++;
+                                    string[] dyzurGodzina = ((Button)b).Content.ToString().Split(':');
+                                    int g = Convert.ToInt32(dyzurGodzina[0]);
+                                    if (g >= start[3] && g <= finish[3])
+                                    {
+                                        ((Button)b).IsEnabled = true;
+                                        ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
+                                        licznik++;
+                                    }
                                 }
                             }
                         }
@@ -380,8 +410,14 @@ namespace Baza
                             {
                                 if (b is Button)
                                 {
-                                    ((Button)b).IsEnabled = true; ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
-                                    licznik++;
+                                    string[] dyzurGodzina = ((Button)b).Content.ToString().Split(':');
+                                    int g = Convert.ToInt32(dyzurGodzina[0]);
+                                    if (g >= start[4] && g <= finish[4])
+                                    {
+                                        ((Button)b).IsEnabled = true;
+                                        ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
+                                        licznik++;
+                                    }
                                 }
                             }
                         }
@@ -403,7 +439,6 @@ namespace Baza
             {
                   // trzeba pobrac z bazy dane dot. dyzurow
             }
-            textBoxPacjentID.Text = "";
 
         }
 
@@ -466,7 +501,48 @@ namespace Baza
                 if (b is Button)
                     ((Button)b).IsEnabled = false;
             }
+            
+        }
+        public void PrzypiszEvent()
+        {
+            foreach (UIElement b in _PN_.Children)
+            {
+                if (b is Button)
+                    ((Button)b).Click += Click_dyzurButton;
+            }
+            foreach (UIElement b in _WT_.Children)
+            {
+                if (b is Button)
+                    ((Button)b).Click += Click_dyzurButton;
+            }
+            foreach (UIElement b in _SR_.Children)
+            {
+                if (b is Button)
+                    ((Button)b).Click += Click_dyzurButton;
+            }
+            foreach (UIElement b in _CZ_.Children)
+            {
+                if (b is Button)
+                    ((Button)b).Click += Click_dyzurButton;
+            }
+            foreach (UIElement b in _PT_.Children)
+            {
+                if (b is Button)
+                    ((Button)b).Click += Click_dyzurButton;
+            }
 
+        }
+  //event zapisuje godzine wizyty do zmiennej
+        private void Click_dyzurButton(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button)sender;
+            godzinaWizyty = b.Content.ToString();          
+        }
+//teraz pora poskladac wszystko do jednego worku - do wizyty!
+//wizyta nie ma nazwiska lekarza - czy tak to ma być?
+        private void Click_dodajWizyte(object sender, RoutedEventArgs e)
+        {
+            Wizyta wizyta = new Wizyta { GodzinaWizyty = godzinaWizyty  };
         }
     }
 }

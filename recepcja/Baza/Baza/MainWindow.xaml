@@ -153,7 +153,7 @@
                         <Label Grid.Row="2" Content="Nazwisko pacjenta:" VerticalAlignment="Bottom"></Label>
                         <TextBox Name="textBoxPacjentID" Grid.Row="1"  Margin="10,0,10,0" TextChanged="pacjentIdTextBox_TextChanged"/>
                         <ComboBox Grid.Row="3" x:Name="pacjentNameComboBox"  Margin="10,0,10,0" IsEditable="True" SelectionChanged="pacjentNameCombobox_SelectionChanged"/>
-                        <Button Grid.Row="4" Content="Dodaj wizytę" Margin="10,10,10,10"></Button>
+                        <Button Grid.Row="4" Content="Dodaj wizytę" Margin="10,10,10,10" Click="Click_dodajWizyte"></Button>
                         <Button Grid.Row="5" Content="Wydrukuj datę wizyty" Margin="10,10,10,10"></Button>
                         <Button x:Name="nowyPacjent" Grid.Row="7" Margin="10,10,10,10" Click="nowyPacjentClick">
                             <TextBlock TextWrapping="Wrap">Dodaj nowego pacjenta</TextBlock>
@@ -199,7 +199,7 @@
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Content="8:00" ></Button>
+                            <Button Grid.Column="0" Content="8:00" HorizontalAlignment="Left" Width="25" ></Button>
                             <Button Grid.Column="1" Content="8:30" ></Button>
                             <Button Grid.Column="2" Content="9:00"></Button>
                             <Button Grid.Column="3" Content="9:30"></Button>
