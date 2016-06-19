@@ -46,9 +46,9 @@
     </Window.Resources>
     
     <Grid Background="BurlyWood">
-        <TabControl x:Name="tabControl"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Background="BurlyWood" UseLayoutRounding="True" RenderTransformOrigin="0.5,0.5">
+        <TabControl x:Name="tabControl"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Background="BurlyWood" UseLayoutRounding="True" RenderTransformOrigin="0.5,0.5" SelectionChanged="tabControl_SelectionChanged">
             <!-- panel USER ================================================================================================================================ -->
-            <TabItem Header="Strefa użytkownika"  VerticalAlignment="Stretch" Margin="-2,-2,0,0"  Background="BurlyWood" HorizontalAlignment="Left" Width="100">
+            <TabItem x:Name="userTabHeader" Header="Strefa użytkownika"  VerticalAlignment="Stretch" Margin="-2,-2,0,0"  Background="BurlyWood" HorizontalAlignment="Left" Width="100" >
                 <Grid Name="MainGrid" ShowGridLines="True">
                     <Grid.RowDefinitions>
                         <RowDefinition  Height="1*"></RowDefinition>
@@ -60,9 +60,9 @@
                         <ColumnDefinition  Width="3*"></ColumnDefinition>
                         <ColumnDefinition Name="MainGridRight" Width="1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    
-                     <Label x:Name="labelPacjent" Grid.Column="1" Grid.Row="0" Content="Pacjent" Visibility="Hidden"/>
-                     <Grid x:Name="personalButtons" Grid.Row="2" Grid.Column="1" Visibility="Hidden">
+
+                    <Label x:Name="labelPacjent" Grid.Column="1" Grid.Row="0" Content="Pacjent" Visibility="Hidden"/>
+                    <Grid x:Name="personalButtons" Grid.Row="2" Grid.Column="1" Visibility="Hidden">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                             <ColumnDefinition  Width="1*"></ColumnDefinition>
@@ -74,7 +74,7 @@
                         <!-- <Button x:Name="usun" Grid.Column="2"  Margin="10,10,10,10" Content="Usun"></Button>-->
                         <!--<Button x:Name="zapisz" Grid.Column="3"  Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue"></Button>-->
                     </Grid>
-                     <Grid x:Name="gridPacjent" Grid.Row="1" Grid.Column="1" Visibility="Hidden">
+                    <Grid x:Name="gridPacjent" Grid.Row="1" Grid.Column="1" Visibility="Hidden">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                             <ColumnDefinition Width="3*"/>
@@ -116,10 +116,10 @@
 
                         <TextBox  x:Name="textTelefon" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
                         <Button x:Name="uzytkownikZapiszPacjenta" Grid.Column="1" Grid.Row="8"  Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue"></Button>
-                        
+
                         <!-- <TextBox  x:Name="textMail" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox> -->
                     </Grid>
-                    
+
                     <Label x:Name="lekarzeLabel" Grid.Row="0" Grid.Column="0" Content="Lekarze"></Label>
                     <Label x:Name="dyzuryLabel" Grid.Row="0" Grid.Column="1" Content="Dyzury" Visibility="Visible"></Label>
                     <Label x:Name="pacjenciLabel" Grid.Row="0" Grid.Column="2" Content="Pacjenci"></Label>
@@ -405,9 +405,9 @@
                 </Grid>
             </TabItem>
             <!-- panel ADMIN ====================================================================================================================== -->
-            <TabItem Header="Admin"  VerticalAlignment="Stretch" Margin="0,0,0,0" Background="DarkOliveGreen" HorizontalAlignment="Right" Width="100">
+            <TabItem x:Name="adminTabHeader" Header="Admin"  VerticalAlignment="Stretch" Margin="0,0,0,0" Background="DarkOliveGreen" HorizontalAlignment="Right" Width="100" >
                 <Grid>
-                    <Grid x:Name="adminPanel" ShowGridLines="True" Visibility="Hidden">
+                    <Grid x:Name="adminPanel" ShowGridLines="True"  Visibility="Hidden">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                             <ColumnDefinition Width="4*"></ColumnDefinition>
@@ -434,7 +434,7 @@
                                 <RowDefinition  Height="1*"></RowDefinition>
                                 <RowDefinition  Height="1*"></RowDefinition>
                                 <RowDefinition  Height="1*"></RowDefinition>
-                                
+
                             </Grid.RowDefinitions>
                             <Label Content="Imię" Grid.Column="0" Grid.Row="0" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                             <Label Content="Nazwisko" Grid.Column="0" Grid.Row="1" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
@@ -449,12 +449,12 @@
                             <TextBox  x:Name="nowyPacjentTelefon" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
                             <Button x:Name="zapiszPacjenta" Grid.Column="1" Grid.Row="8" Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue" Click="zapiszPacjenta_Click"></Button>
                             <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
-                                
+
                             </StackPanel>
                         </Grid>
                         <!-- panel ADMIN nowy lekarz -->
                         <Grid x:Name="gridLekarz" Grid.Row="0" Grid.Column="1" Margin="10,10,10,10" Visibility="Hidden">
-                            
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="3*"/>
@@ -483,7 +483,7 @@
                                 <!--<TextBox  x:Name="textLekarzImie2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="20,20,10,20" Width="300"  ></TextBox>-->
                             </StackPanel>
                             <TextBox  x:Name="textLekarzNazwisko" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="200"></TextBox>
-                            
+
                             <TextBox  x:Name="textLekarzPESEL" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
                             <!--<TextBox  x:Name="Data zatrudnienia" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20"  ></TextBox>-->
                             <StackPanel  Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal" >
@@ -495,10 +495,10 @@
                             </StackPanel>
 
                             <TextBox  x:Name="textTelefonLekarz" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
-                           <!-- <TextBox  x:Name="textMailLekarz" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox>-->
+                            <!-- <TextBox  x:Name="textMailLekarz" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox>-->
                             <Button x:Name="zapiszLekarza" Grid.Column="1" Grid.Row="8" Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue"></Button>
                         </Grid>
-                        
+
                         <!-- panel Admina, nowy Dyżur -->
                         <Grid x:Name="gridDyzur" Grid.Row="0" Grid.Column="1" Margin="10,10,10,10" Visibility="Hidden">
                             <Grid.ColumnDefinitions>
@@ -561,11 +561,11 @@
 
                             </StackPanel>
                         </Grid>
-                        
+
                         <!-- panel ADMIN edit uzytkownicy -->
                         <DataGrid Grid.Column="1" Grid.Row="0" Name="uzytkownicyData" Visibility="Hidden">
                             <DataGrid.Columns>
-                                
+
                             </DataGrid.Columns>
                         </DataGrid>
                         <!-- panel ADMIN edit lekarze -->
@@ -592,7 +592,7 @@
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                             <Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
                                 <RowDefinition Height="1*"></RowDefinition>
                                 <RowDefinition Height="2*"></RowDefinition>
                                 <RowDefinition Height="1*"></RowDefinition>
@@ -634,41 +634,41 @@
                                 <!--<Button x:Name="undo2"  Grid.Column="0"  Margin="10,10,10,10" Content="Undo"></Button>-->
                                 <!-- <Button x:Name="zmien2" Grid.Column="1"  Margin="10,10,10,10" Content="Edytuj"></Button>
                             <Button x:Name="usun2" Grid.Column="2"  Margin="10,10,10,10" Content="Usun"></Button>-->
-                            
+
                             </Grid>
-                            
+
                         </Grid>
-                        
+
                     </Grid>
                     <!-- panel ADMIN ========================================= logowanie -->
                     <Grid x:Name="adminLogowanie" Visibility="Visible">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    
-                    <Grid Grid.Column="1">
-                        <Grid.RowDefinitions>
-                        <RowDefinition Height="7*"></RowDefinition>
-                        <RowDefinition Height="1*"></RowDefinition>
-                        <RowDefinition Height="1*"></RowDefinition>
-                        <RowDefinition Height="2*"></RowDefinition>
-                        <RowDefinition Height="6*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                        <Label x:Name="passwordTip"  Margin="10,0,0,10" Grid.Row="1"  Content="Podpowiedź do hasła" Visibility="Hidden"/>
-                        <PasswordBox x:Name="passwordTextBox" Grid.Row="2" Margin="10,0,10,0" VerticalContentAlignment="Center"/>
-                        <Button x:Name="LogowanieButton"  Grid.Row="3" Margin="30,20,30,30" Content="Załoguj" Click="logowanieButton"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="7*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="2*"></RowDefinition>
+                                <RowDefinition Height="6*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="passwordTip"  Margin="10,0,0,10" Grid.Row="1"  Content="Podpowiedź do hasła" Visibility="Hidden"/>
+                            <PasswordBox x:Name="passwordTextBox" Grid.Row="2" Margin="10,0,10,0" VerticalContentAlignment="Center"/>
+                            <Button x:Name="LogowanieButton"  Grid.Row="3" Margin="30,20,30,30" Content="Załoguj" Click="logowanieButton"/>
+                        </Grid>
+
                     </Grid>
-                         
+
+
                 </Grid>
-               
-                    
-                </Grid>
-               
+
             </TabItem>
 
-        </TabControl>
 
+        </TabControl>
     </Grid>
 </Window>

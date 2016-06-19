@@ -82,8 +82,7 @@ namespace Baza
                         przychodnieComboBox.Items.Add(R);
                     }
                     // Dodawanie pacjentow na listę pacjentow
-                    var q3 = db.Pacjenci
-                        .Select(x => x.Nazwisko + " " + x.Imie).ToList();
+                    var q3 = db.Pacjenci.Select(x => x.Nazwisko + " " + x.Imie).ToList();
 
                     var y = string.Join(" ", q3);
                     var f = y.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
@@ -240,9 +239,7 @@ namespace Baza
                 where przych.Rodzaj == nazwa_przychodni
                 select l.Nazwisko;
 
-        // Czyszczenie za każdym razem listy lekarzy i dodawanie na nowo tylko tych, którzy spełniają warunek podany w zapytaniu query_lista_lekarzy
-        // Co sie dzieje? Jak sie wybierze lekarza, a potem wybierzesz Przychodnie, to wysypuje sie // Naprawione
-                  //  if (lekarzeComboBox is ComboBox)
+       
                     lekarzeComboBox.Items.Clear();
 
                 var t = string.Join(" ", query_lista_lekarzy);
@@ -261,17 +258,20 @@ namespace Baza
 
             using (db)
             {
+                // U mnie to nadal nie działa, a jeśli w imieniu dajesz mu words[2] wyrzuca przekroczenie zakresu tablicy
                 var tmp = pacjentNameComboBox.SelectedItem.ToString();
                 string[] words = tmp.Split(' ');
-                string pacjentWybrany = "";
-                for (int i = 1; i < words.Length; i++)
-                    pacjentWybrany += words[i];
-                var query_lista_pacjentow = from p in db.Pacjenci where p.Nazwisko == pacjentWybrany select p.IDPacjent;
+                string pacjentWybranyNazwisko = words[1];
+                string pacjentWybranyImie = words[0];
+                var query = from p in db.Pacjenci where p.Nazwisko == pacjentWybranyNazwisko select p.IDPacjent;
 
-                var t = string.Join(" ", query_lista_pacjentow);
-                textBoxPacjentID.Text = t;
-                 //nic nie otrzymuje na textBoxe, czemu?
-                 // Musisz wyciagnąć wartość z tego co zwraca ci zapytanie, tu miałeś wrzuconą w text treść zapytania
+                if (query != null)
+                    {
+                     foreach (var q in query)
+                     textBoxPacjentID.Text = ((int)q).ToString();
+                    }
+                else
+                textBoxPacjentID.Text = "";
 
             }
         }
@@ -291,12 +291,18 @@ namespace Baza
 
         private void calendarSelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            string selectedDate = calendar.SelectedDate.ToString();
-            string[] words = selectedDate.Split(' ');
-            string data = words[0];
-            //data jest z formacie DATETIME, teraz trzeba z tym trafic do SQL - DATEPART
-            //nic nie otrzymuje na textBoxe, czemu?
-            textBoxPacjentID.Text = data;
+            Project_context db = new Project_context();
+            string selectedDate = calendar.SelectedDate.ToString();     
+                  
+            string[] data = selectedDate.Split(' ');
+            data[0].Replace('/', '-');
+                  //data jest teraz w formacie dd-mm-yyyy jak w SQL
+            using (db)
+            {
+                  // trzeba pobrac z bazy dane dot. dyzurow
+            }
+            textBoxPacjentID.Text = "";
+
         }
 
         private void pacjentIdTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -305,6 +311,22 @@ namespace Baza
 
         }
 
+        //inny kolor dla panelu admina
+        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+           if(adminTabHeader.IsSelected)
+           {
+                SolidColorBrush brush = new SolidColorBrush(Colors.DarkOliveGreen);
+               tabControl.Background = brush;
+           }
+           if (userTabHeader.IsSelected)
+           {
+              SolidColorBrush brush = new SolidColorBrush(Colors.BurlyWood);
+              tabControl.Background = brush;
+           }   
+                
+        }
         private void zapiszPacjenta_Click(object sender, RoutedEventArgs e)
         {
              Project_context db = new Project_context();
