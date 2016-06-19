@@ -69,16 +69,16 @@
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                             <ColumnDefinition  Width="1*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="undo"  Grid.Column="0"  Margin="10,10,10,10" Content="Undo"></Button>
-                        <Button x:Name="zmien" Grid.Column="1"  Margin="10,10,10,10" Content="Edytuj"></Button>
-                        <Button x:Name="usun" Grid.Column="2"  Margin="10,10,10,10" Content="Usun"></Button>
-                        <Button x:Name="zapisz" Grid.Column="3"  Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue"></Button>
+                        <!-- <Button x:Name="undo"  Grid.Column="0"  Margin="10,10,10,10" Content="Undo"></Button>-->
+                        <!-- <Button x:Name="zmien" Grid.Column="1"  Margin="10,10,10,10" Content="Edytuj"></Button>-->
+                        <!-- <Button x:Name="usun" Grid.Column="2"  Margin="10,10,10,10" Content="Usun"></Button>-->
+                        <!--<Button x:Name="zapisz" Grid.Column="3"  Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue"></Button>-->
                     </Grid>
                      <Grid x:Name="gridPacjent" Grid.Row="1" Grid.Column="1" Visibility="Hidden">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="23*"></ColumnDefinition>
-                            <ColumnDefinition Width="128*"/>
-                            <ColumnDefinition  Width="303*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition  Width="2*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition  Height="1*"></RowDefinition>
@@ -92,36 +92,38 @@
                             <RowDefinition  Height="1*"></RowDefinition>
                         </Grid.RowDefinitions>
 
-                        <Label Content="Imie (drugie imie)" Grid.Column="0" Grid.Row="0" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="2"></Label>
-                        <Label Content="Nazwisko" Grid.Column="1" Grid.Row="1" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
-                        <Label Content="PESEL" Grid.Column="1" Grid.Row="2" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
-                        <Label Content="Nr ubezpieczeniowy" Grid.Column="0" Grid.Row="3" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="2"></Label>
-                        <Label Content="Adres" Grid.Column="1" Grid.Row="4" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
-                        <Label Content="Telefon kontaktowy" Grid.Column="0" Grid.Row="5" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="2"></Label>
-                        <Label Content="@mail" Grid.Column="1" Grid.Row="6" Margin="0,10,10,11" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
-                        <StackPanel  Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal" >
+                        <Label Content="Imie" Grid.Column="0" Grid.Row="0" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center" ></Label>
+                        <Label Content="Nazwisko" Grid.Column="0" Grid.Row="1" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                        <Label Content="PESEL" Grid.Column="0" Grid.Row="2" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                        <!-- <Label Content="Nr ubezpieczeniowy" Grid.Column="0" Grid.Row="3" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="2"></Label>-->
+                        <Label Content="Adres" Grid.Column="0" Grid.Row="3" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                        <Label Content="Telefon kontaktowy" Grid.Column="0" Grid.Row="4" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                        <!--<Label Content="@mail" Grid.Column="1" Grid.Row="6" Margin="0,10,10,11" HorizontalAlignment="Right" VerticalAlignment="Center"></> -->
+                        <StackPanel  Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal" >
                             <TextBox  x:Name="textImie1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,10,20" Width="300"  ></TextBox>
-                            <TextBox  x:Name="textImie2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="20,20,10,20" Width="300"  ></TextBox>
+                            <!-- <TextBox  x:Name="textImie2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="20,20,10,20" Width="300"  ></TextBox>-->
                         </StackPanel>
-                        <TextBox  x:Name="textNazwisko" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox>
-                        <TextBox  x:Name="textPESEL" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
-                        <TextBox  x:Name="textUbezpieczenie" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20"  ></TextBox>
-                        <StackPanel  Grid.Column="2" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal" >
-                            <TextBox  x:Name="textAdresUlica" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,10,20" Width="200" ></TextBox>
-                            <Label Content="Nr.domu" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Margin="10,10,5,10" ></Label>
-                            <TextBox  x:Name="textAdresDom" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="5,20,1,20" Width="50"  ></TextBox>
-                            <Label Content="Miejscowość" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Margin="10,10,5,10" ></Label>
-                            <TextBox  x:Name="textAdresMiasto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="5,20,1,20" Width="200" ></TextBox>
+                        <TextBox  x:Name="textNazwisko" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox>
+                        <TextBox  x:Name="textPESEL" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
+                        <!--<TextBox  x:Name="textUbezpieczenie" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20"  ></TextBox>-->
+                        <StackPanel  Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal" >
+                            <TextBox  x:Name="textAdres" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,10,20" Width="200" ></TextBox>
+                            <!-- <Label Content="Nr.domu" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Margin="10,10,5,10" ></Label>-->
+                            <!-- <TextBox  x:Name="textAdresDom" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="5,20,1,20" Width="50"  ></TextBox>-->
+                            <!-- <Label Content="Miejscowość" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Margin="10,10,5,10" ></Label>-->
+                            <!--<TextBox  x:Name="textAdresMiasto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="5,20,1,20" Width="200" ></TextBox>-->
                         </StackPanel>
 
-                        <TextBox  x:Name="textTelefon" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
-                        <TextBox  x:Name="textMail" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox>
+                        <TextBox  x:Name="textTelefon" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
+                        <Button x:Name="uzytkownikZapiszPacjenta" Grid.Column="1" Grid.Row="8"  Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue"></Button>
+                        
+                        <!-- <TextBox  x:Name="textMail" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox> -->
                     </Grid>
                     
                     <Label x:Name="lekarzeLabel" Grid.Row="0" Grid.Column="0" Content="Lekarze"></Label>
                     <Label x:Name="dyzuryLabel" Grid.Row="0" Grid.Column="1" Content="Dyzury" Visibility="Visible"></Label>
                     <Label x:Name="pacjenciLabel" Grid.Row="0" Grid.Column="2" Content="Pacjenci"></Label>
-                    <Button Grid.Column="0" Grid.Row="2" Content="Wyloguj" Margin="10,0,10,10"></Button>
+                    <Button Grid.Column="0" Grid.Row="2" Content="Wyloguj" Margin="10,10,10,10"></Button>
                     <Grid Grid.Row="1" Grid.Column="0" ShowGridLines="True">
                         <Grid.RowDefinitions >
                             <RowDefinition  Height="1*"></RowDefinition>
@@ -415,7 +417,7 @@
                             <RowDefinition Height="2*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Button  Grid.Column="0" Grid.Row="1" Content="Wyloguj" Margin="10,10,10,10" Click="Click_adminLogout" ></Button>
-                        <!-- panel ADMIN nowy uzytkownik -->
+                        <!-- panel ADMIN nowy pacjent -->
                         <Grid x:Name="gridUzytkownik" Grid.Row="0" Grid.Column="1" Margin="10,10,10,10" Visibility="Hidden">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -426,13 +428,26 @@
                                 <RowDefinition  Height="1*"></RowDefinition>
                                 <RowDefinition Height="1*"></RowDefinition>
                                 <RowDefinition  Height="1*"></RowDefinition>
-                                <RowDefinition  Height="6*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                
                             </Grid.RowDefinitions>
-                            <Label Content="Login" Grid.Column="0" Grid.Row="1" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                            <Label Content="Hasło" Grid.Column="0" Grid.Row="2" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                            <Label Content="Uprawnienia" Grid.Column="0" Grid.Row="3" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                            <TextBox  x:Name="nowyUzytkownikLogin" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox>
-                            <TextBox  x:Name="nowyUzytkownikHaslo" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox>
+                            <Label Content="Imię" Grid.Column="0" Grid.Row="0" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <Label Content="Nazwisko" Grid.Column="0" Grid.Row="1" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <Label Content="PESEL" Grid.Column="0" Grid.Row="2" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                            <Label Content="Adres" Grid.Column="0" Grid.Row="3" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <Label Content="Telefon" Grid.Column="0" Grid.Row="4" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+                            <TextBox  x:Name="nowyPacjentImie" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300" ></TextBox>
+                            <TextBox  x:Name="nowyPacjentNazwisko" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="200" ></TextBox>
+                            <TextBox  x:Name="nowyPacjentPESEL" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
+                            <TextBox  x:Name="nowyPacjentAdres" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="200"></TextBox>
+                            <TextBox  x:Name="nowyPacjentTelefon" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
+                            <Button x:Name="zapiszPacjenta" Grid.Column="1" Grid.Row="8" Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue" Click="zapiszPacjenta_Click"></Button>
                             <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
                                 
                             </StackPanel>
@@ -456,31 +471,97 @@
                                 <RowDefinition Height="1*"></RowDefinition>
                                 <RowDefinition  Height="1*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Label Content="Imie (drugie imie)" Grid.Column="0" Grid.Row="0" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                            <Label Content="Imię" Grid.Column="0" Grid.Row="0" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
                             <Label Content="Nazwisko" Grid.Column="0" Grid.Row="1" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
                             <Label Content="PESEL" Grid.Column="0" Grid.Row="2" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
-                            <Label Content="Lekarz specjalista" Grid.Column="0" Grid.Row="3" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
-                            <Label Content="Adres" Grid.Column="0" Grid.Row="4" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
-                            <Label Content="Telefon kontaktowy" Grid.Column="0" Grid.Row="5" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
-                            <Label Content="@mail" Grid.Column="0" Grid.Row="6" Margin="0,10,10,11" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                            <!--<Label Content="Data zatrudnienia" Grid.Column="0" Grid.Row="3" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>-->
+                            <Label Content="Adres" Grid.Column="0" Grid.Row="3" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                            <Label Content="Telefon kontaktowy" Grid.Column="0" Grid.Row="4" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                            <!--<Label Content="@mail" Grid.Column="0" Grid.Row="6" Margin="0,10,10,11" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>-->
                             <StackPanel  Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal" >
-                                <TextBox  x:Name="textLekarzImie1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,10,20" Width="300"  ></TextBox>
-                                <TextBox  x:Name="textLekarzImie2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="20,20,10,20" Width="300"  ></TextBox>
+                                <TextBox  x:Name="textLekarzImie" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,10,20" Width="300"  ></TextBox>
+                                <!--<TextBox  x:Name="textLekarzImie2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="20,20,10,20" Width="300"  ></TextBox>-->
                             </StackPanel>
-                            <TextBox  x:Name="textLekarzNazwisko" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox>
+                            <TextBox  x:Name="textLekarzNazwisko" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="200"></TextBox>
+                            
                             <TextBox  x:Name="textLekarzPESEL" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
-                            <TextBox  x:Name="specjalizacjaLekarza" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20"  ></TextBox>
-                            <StackPanel  Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal" >
-                                <TextBox  x:Name="textAdresUlicaLekarz" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,10,20" Width="200" ></TextBox>
-                                <Label Content="Nr.domu" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Margin="10,10,5,10" ></Label>
+                            <!--<TextBox  x:Name="Data zatrudnienia" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20"  ></TextBox>-->
+                            <StackPanel  Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal" >
+                                <TextBox  x:Name="textAdresLekarz" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,10,20" Width="200" ></TextBox>
+                                <!--<Label Content="Nr.domu" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Margin="10,10,5,10" ></Label>
                                 <TextBox  x:Name="textAdresDomLekarz" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="5,20,1,20" Width="50"  ></TextBox>
                                 <Label Content="Miejscowość" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Margin="10,10,5,10" ></Label>
-                                <TextBox  x:Name="textAdresMiastoLekarz" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="5,20,1,20" Width="200" ></TextBox>
+                                <TextBox  x:Name="textAdresMiastoLekarz" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="5,20,1,20" Width="200" ></TextBox>-->
                             </StackPanel>
 
-                            <TextBox  x:Name="textTelefonLekarz" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
-                            <TextBox  x:Name="textMailLekarz" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox>
+                            <TextBox  x:Name="textTelefonLekarz" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
+                           <!-- <TextBox  x:Name="textMailLekarz" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox>-->
+                            <Button x:Name="zapiszLekarza" Grid.Column="1" Grid.Row="8" Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue"></Button>
                         </Grid>
+                        
+                        <!-- panel Admina, nowy Dyżur -->
+                        <Grid x:Name="gridDyzur" Grid.Row="0" Grid.Column="1" Margin="10,10,10,10" Visibility="Hidden">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="IDPrzychodnia/Nazwa przychodni" Grid.Column="0" Grid.Row="0" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <Label Content="IDLekarz/Nazwisko lekarza" Grid.Column="0" Grid.Row="1" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <Label Content="Od godziny" Grid.Column="0" Grid.Row="2" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <Label Content="Do godziny" Grid.Column="0" Grid.Row="3" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <Label Content="Numer gabinetu" Grid.Column="0" Grid.Row="4" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <Label Content="Dzien tygodnia" Grid.Column="0" Grid.Row="5" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+                            <TextBox  x:Name="nowyDyzurIDPrzychodnia" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300" ></TextBox>
+                            <TextBox  x:Name="nowyDyzurIDLekarz" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="200" ></TextBox>
+                            <TextBox  x:Name="nowyDyzurOdGodziny" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="200"></TextBox>
+                            <TextBox  x:Name="nowyDyzurDoGodziny" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="200"></TextBox>
+                            <TextBox  x:Name="nowyDyzurNrGabinetu" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="100"></TextBox>
+                            <TextBox  x:Name="nowyDyzurDzienTygodnia" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
+                            <Button x:Name="zapiszDyzur" Grid.Column="1" Grid.Row="8" Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue"></Button>
+                            <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- panel Admina, nowa Przychodnia -->
+                        <Grid x:Name="gridPrzychodnia" Grid.Row="0" Grid.Column="1" Margin="10,10,10,10" Visibility="Hidden">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                                <RowDefinition  Height="1*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="Nazwa przychodni" Grid.Column="0" Grid.Row="0" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <TextBox  x:Name="nowaPrzychodniaRodzaj" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300" ></TextBox>
+                            <Button x:Name="zapiszPrzychodnie" Grid.Column="1" Grid.Row="8" Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue"></Button>
+                            <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+
+                            </StackPanel>
+                        </Grid>
+                        
                         <!-- panel ADMIN edit uzytkownicy -->
                         <DataGrid Grid.Column="1" Grid.Row="0" Name="uzytkownicyData" Visibility="Hidden">
                             <DataGrid.Columns>
@@ -525,18 +606,18 @@
                                 <RowDefinition Height="1*"></RowDefinition>
                                 <RowDefinition Height="2*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Label Content="Użytkownik:" Grid.Column="0" Grid.Row="0"/>
-                            <Button x:Name="nowyUzutkownikDodaj" Content="Dodaj" Margin="10,10,10,10" Grid.Column="0" Grid.Row="1" Click="nowyUzytkownik"/>
-                            <Button x:Name="nowyUzutkownikEdytuj" Content="Edytuj" Margin="10,10,10,10" Grid.Column="1" Grid.Row="1" Click="Click_uzytkownikEdit" />
+                            <Label Content="Pacjent:" Grid.Column="0" Grid.Row="0"/>
+                            <Button x:Name="nowyPacjentDodaj" Content="Dodaj" Margin="10,10,10,10" Grid.Column="0" Grid.Row="1" Click="Click_nowyPacjent"/>
+                            <Button x:Name="nowyPacjentUsun" Content="Usun" Margin="10,10,10,10" Grid.Column="1" Grid.Row="1" Click="Click_pacjentUsun" />
                             <Label Content="Lekarz:" Grid.Column="0" Grid.Row="2"/>
                             <Button x:Name="nowyLekarzkDodaj" Content="Dodaj" Margin="10,10,10,10" Grid.Column="0" Grid.Row="3" Click="Click_nowyLekarz"/>
-                            <Button x:Name="nowyLekarzkEdytuj" Content="Edytuj" Margin="10,10,10,10" Grid.Column="1" Grid.Row="3" Click="Click_lekarzEdit"/>
+                            <Button x:Name="nowyLekarzkUsun" Content="Usun" Margin="10,10,10,10" Grid.Column="1" Grid.Row="3" Click="Click_lekarzUsun"/>
                             <Label Content="Dyżur:" Grid.Column="0" Grid.Row="4"/>
-                            <Button x:Name="nowyDyzurDodaj" Content="Dodaj" Margin="10,10,10,10" Grid.Column="0" Grid.Row="5" />
-                            <Button x:Name="nowyDyzurEdytuj" Content="Edytuj" Margin="10,10,10,10" Grid.Column="1" Grid.Row="5" />
-                            <Label Content="Specjalizacja:" Grid.Column="0" Grid.Row="6"/>
-                            <Button x:Name="nowaSpecjalizacjaDodaj" Content="Dodaj" Margin="10,10,10,10" Grid.Column="0" Grid.Row="7" />
-                            <Button x:Name="nowaSpecjalizacjaEdytuj" Content="Edytuj" Margin="10,10,10,10" Grid.Column="1" Grid.Row="7" />
+                            <Button x:Name="nowyDyzurDodaj" Content="Dodaj" Margin="10,10,10,10" Grid.Column="0" Grid.Row="5" Click="Click_nowyDyzur"/>
+                            <Button x:Name="nowyDyzurUsun" Content="Usun" Margin="10,10,10,10" Grid.Column="1" Grid.Row="5" Click="Click_dyzurUsun" />
+                            <Label Content="Przychodnia:" Grid.Column="0" Grid.Row="6"/>
+                            <Button x:Name="nowaPrzychodniaDodaj" Content="Dodaj" Margin="10,10,10,10" Grid.Column="0" Grid.Row="7" Click="Click_nowaPrzychodnia"/>
+                            <Button x:Name="nowaPrzychodniaUsun" Content="Usun" Margin="10,10,10,10" Grid.Column="1" Grid.Row="7" Click="Click_przychodniaUsun" />
                         </Grid>
                         <Grid Grid.Column="1" Grid.Row="1">
                             <Grid.ColumnDefinitions>
@@ -550,10 +631,10 @@
                                     <ColumnDefinition Width="1*"></ColumnDefinition>
                                     <ColumnDefinition Width="1*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Button x:Name="undo2"  Grid.Column="0"  Margin="10,10,10,10" Content="Undo"></Button>
-                            <Button x:Name="zmien2" Grid.Column="1"  Margin="10,10,10,10" Content="Edytuj"></Button>
-                            <Button x:Name="usun2" Grid.Column="2"  Margin="10,10,10,10" Content="Usun"></Button>
-                            <Button x:Name="zapisz2" Grid.Column="3"  Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue"></Button>
+                                <!--<Button x:Name="undo2"  Grid.Column="0"  Margin="10,10,10,10" Content="Undo"></Button>-->
+                                <!-- <Button x:Name="zmien2" Grid.Column="1"  Margin="10,10,10,10" Content="Edytuj"></Button>
+                            <Button x:Name="usun2" Grid.Column="2"  Margin="10,10,10,10" Content="Usun"></Button>-->
+                            
                             </Grid>
                             
                         </Grid>

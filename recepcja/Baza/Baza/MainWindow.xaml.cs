@@ -81,14 +81,21 @@ namespace Baza
                         ComboBoxItem R = new ComboBoxItem() { Content = item };
                         przychodnieComboBox.Items.Add(R);
                     }
-         // Dodawanie pacjentow na listę pacjentow
-                var q3 = from p in db.Pacjenci orderby p.Nazwisko select p.Nazwisko;
-                    foreach (var item in q3)
-                    {
+                    // Dodawanie pacjentow na listę pacjentow
+                    var q3 = db.Pacjenci
+                        .Select(x => x.Nazwisko + " " + x.Imie).ToList();
+
+                    var y = string.Join(" ", q3);
+                    var f = y.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (var item in f)
+
+                    { 
                         ComboBoxItem P = new ComboBoxItem() { Content = item };
                         pacjentNameComboBox.Items.Add(P);
                     }
                     //textBoxPacjentID.Text = "test";
+                    int sg = 5;
                 }
                 catch (Exception ex)
                 {
@@ -127,19 +134,46 @@ namespace Baza
             adminPanel.Visibility = Visibility.Visible;
         }
 
-        private void Click_uzytkownikEdit(object sender, RoutedEventArgs e)
+        private void Click_pacjentUsun(object sender, RoutedEventArgs e)
         {
             // uzytkownicyData.ItemsSource = Uzytkownik.GetUzytkownik();
-            uzytkownicyData.Visibility = Visibility.Visible;
+            uzytkownicyData.Visibility = Visibility.Hidden;
             gridLekarz.Visibility = Visibility.Hidden;
             gridUzytkownik.Visibility = Visibility.Hidden;
+            gridDyzur.Visibility = Visibility.Hidden;
+            gridPrzychodnia.Visibility = Visibility.Hidden;
         }
-        private void Click_lekarzEdit(object sender, RoutedEventArgs e)
+        private void Click_lekarzUsun(object sender, RoutedEventArgs e)
         {
             // lekarzeData.ItemsSource = 
             uzytkownicyData.Visibility = Visibility.Hidden;
             gridLekarz.Visibility = Visibility.Hidden;
             gridUzytkownik.Visibility = Visibility.Hidden;
+            gridDyzur.Visibility = Visibility.Hidden;
+            gridPrzychodnia.Visibility = Visibility.Hidden;
+
+        }
+
+        private void Click_dyzurUsun(object sender, RoutedEventArgs e)
+        {
+
+            uzytkownicyData.Visibility = Visibility.Hidden;
+            gridLekarz.Visibility = Visibility.Hidden;
+            gridUzytkownik.Visibility = Visibility.Hidden;
+            gridDyzur.Visibility = Visibility.Hidden;
+            gridPrzychodnia.Visibility = Visibility.Hidden;
+
+        }
+
+        private void Click_przychodniaUsun(object sender, RoutedEventArgs e)
+        {
+             
+            uzytkownicyData.Visibility = Visibility.Hidden;
+            gridLekarz.Visibility = Visibility.Hidden;
+            gridUzytkownik.Visibility = Visibility.Hidden;
+            gridDyzur.Visibility = Visibility.Hidden;
+            gridPrzychodnia.Visibility = Visibility.Hidden;
+
         }
         private void Click_adminLogout(object sender, RoutedEventArgs e)
         {
@@ -153,14 +187,37 @@ namespace Baza
         {
             gridLekarz.Visibility = Visibility.Visible;
             uzytkownicyData.Visibility = Visibility.Hidden;
+            gridDyzur.Visibility = Visibility.Hidden;
             gridUzytkownik.Visibility = Visibility.Hidden;
+            gridPrzychodnia.Visibility = Visibility.Hidden;
+
         }
 
-        private void nowyUzytkownik(object sender, RoutedEventArgs e)
+        private void Click_nowyPacjent(object sender, RoutedEventArgs e)
         {
             gridUzytkownik.Visibility = Visibility.Visible;
             gridLekarz.Visibility = Visibility.Hidden;
+            gridDyzur.Visibility = Visibility.Hidden;
             uzytkownicyData.Visibility = Visibility.Hidden;
+            gridPrzychodnia.Visibility = Visibility.Hidden;
+        }
+
+        private void Click_nowyDyzur(object sender, RoutedEventArgs e)
+        {
+            gridUzytkownik.Visibility = Visibility.Hidden;
+            gridLekarz.Visibility = Visibility.Hidden;
+            gridDyzur.Visibility = Visibility.Visible;
+            uzytkownicyData.Visibility = Visibility.Hidden;
+            gridPrzychodnia.Visibility = Visibility.Hidden;
+        }
+
+        private void Click_nowaPrzychodnia(object sender, RoutedEventArgs e)
+        {
+            gridUzytkownik.Visibility = Visibility.Hidden;
+            gridLekarz.Visibility = Visibility.Hidden;
+            gridDyzur.Visibility = Visibility.Hidden;
+            uzytkownicyData.Visibility = Visibility.Hidden;
+            gridPrzychodnia.Visibility = Visibility.Visible;
         }
 
 
@@ -235,15 +292,28 @@ namespace Baza
         private void calendarSelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             string selectedDate = calendar.SelectedDate.ToString();
+            string[] words = selectedDate.Split(' ');
+            string data = words[0];
             //data jest z formacie DATETIME, teraz trzeba z tym trafic do SQL - DATEPART
             //nic nie otrzymuje na textBoxe, czemu?
-            textBoxPacjentID.Text = selectedDate;
+            textBoxPacjentID.Text = data;
         }
 
         private void pacjentIdTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var textBox = sender as TextBox;
 
+        }
+
+        private void zapiszPacjenta_Click(object sender, RoutedEventArgs e)
+        {
+             Project_context db = new Project_context();
+             using (db)
+             {
+                 var przykladowy_pacjent7 = new Pacjent { Imie = nowyPacjentImie.Text, Nazwisko = nowyPacjentNazwisko.Text, Adres = nowyPacjentAdres.Text, PESEL = Int64.Parse(nowyPacjentPESEL.Text), Telefon = Int64.Parse(nowyPacjentTelefon.Text) };
+                 db.Pacjenci.Add(przykladowy_pacjent7);
+                 db.SaveChanges();
+             }
         }
     }
 }
