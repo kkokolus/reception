@@ -18,10 +18,10 @@ namespace Baza.Klasy
         public int IDDyzur { get; set; }
         public int IDPrzychodnia { get; set; }
         public int IDLekarz { get; set; }
-        public string OdGodziny { get; set; }
-        public string DoGodziny { get; set; }
+        public int OdGodziny { get; set; }
+        public int DoGodziny { get; set; }
         public string NrGabinetu { get; set; }
-        public string DzienTygodnia { get; set; }
+        public int DzienTygodnia { get; set; }
 
         public virtual Lekarz Lekarz { get; set; }
         public virtual Przychodnia Przychodnia { get; set; }

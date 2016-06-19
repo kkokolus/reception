@@ -180,7 +180,7 @@
                         <Label Grid.Row="4"  Grid.Column="0" Content="CZ"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                         <Label Grid.Row="5"  Grid.Column="0" Content="PT"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
 
-                        <Grid Grid.Row="1"  Grid.Column="1" ShowGridLines="True">
+                        <Grid x:Name="_PN_" Grid.Row="1"  Grid.Column="1" ShowGridLines="True">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Name="p800" Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Name="p830" Width="1*"></ColumnDefinition>
@@ -254,7 +254,7 @@
                             <Button Grid.Column="15" Content="16:00"></Button>
                         </Grid>
 
-                        <Grid Grid.Row="2"  Grid.Column="1" ShowGridLines="True">
+                        <Grid x:Name="_WT_" Grid.Row="2"  Grid.Column="1" ShowGridLines="True">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -291,7 +291,7 @@
                             <Button Grid.Column="15" Content="16:00"></Button>
                         </Grid>
 
-                        <Grid Grid.Row="3"  Grid.Column="1" ShowGridLines="True">
+                        <Grid x:Name="_SR_" Grid.Row="3"  Grid.Column="1" ShowGridLines="True">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -328,7 +328,7 @@
                             <Button Grid.Column="15" Content="16:00"></Button>
                         </Grid>
 
-                        <Grid Grid.Row="4"  Grid.Column="1" ShowGridLines="True">
+                        <Grid x:Name="_CZ_" Grid.Row="4"  Grid.Column="1" ShowGridLines="True">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -365,7 +365,7 @@
                             <Button Grid.Column="15" Content="16:00"></Button>
                         </Grid>
 
-                        <Grid Grid.Row="5"  Grid.Column="1" ShowGridLines="True">
+                        <Grid x:Name="_PT_" Grid.Row="5"  Grid.Column="1" ShowGridLines="True">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>

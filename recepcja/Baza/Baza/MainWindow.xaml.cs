@@ -2,6 +2,7 @@ using System.Data.Entity;
 using System.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,16 +39,19 @@ namespace Baza
             InitializeComponent();
 
       // Stworzenie przykładowych lekarzy, przychodni itp. na potrzeby stworzenia bazy w SQL Server i testów
+            var przykladowa_przychodnia = new Przychodnia { Rodzaj = "Okulistyczna" };
+            var przykladowa_przychodnia2 = new Przychodnia { Rodzaj = "Rehabilitacyjna" };
             var przykladowy_lekarz = new Lekarz { Imie = "Jan", Nazwisko = "Kowalski", PESEL = 93040234527, Telefon = 675384920 };
             var przykladowy_lekarz2 = new Lekarz { Imie = "Adam", Nazwisko = "Nowak", PESEL = 93040234527, Telefon = 675384920 };
             var przykladowy_lekarz3 = new Lekarz { Imie = "Anna", Nazwisko = "Nowacka", PESEL = 93040234527, Telefon = 675384920 };
-            var przykladowa_przychodnia = new Przychodnia { Rodzaj = "Okulistyczna" };
-            var przykladowa_przychodnia2 = new Przychodnia { Rodzaj = "Rehabilitacyjna" };
+            
             var pacjent = new Pacjent { Imie = "Tomasz", Nazwisko = "Szklarski", PESEL = 12345678901234 };
             var pacjent2 = new Pacjent { Imie = "Antoni", Nazwisko = "Janowski", PESEL = 12345678901234 };
-            var przykladowy_dyzur = new Dyzur { IDPrzychodnia = 1, IDLekarz = 2 };
-            var przykladowy_dyzur2 = new Dyzur { IDPrzychodnia = 1, IDLekarz = 1, DzienTygodnia = "Poniedziałek" };
-            var przykladowy_dyzur3 = new Dyzur { IDPrzychodnia = 2, IDLekarz = 3, DzienTygodnia = "Poniedziałek" };
+            var przykladowy_dyzur = new Dyzur { IDPrzychodnia = 1, IDLekarz = 1, DzienTygodnia = 1, OdGodziny = 9, DoGodziny = 13 };
+            var przykladowy_dyzur2 = new Dyzur { IDPrzychodnia = 1, IDLekarz = 1, DzienTygodnia = 5, OdGodziny = 8, DoGodziny = 12 };
+            var przykladowy_dyzur3 = new Dyzur { IDPrzychodnia = 1, IDLekarz = 1, DzienTygodnia = 2, OdGodziny = 10, DoGodziny = 16 };
+            var przykladowy_dyzur4 = new Dyzur { IDPrzychodnia = 1, IDLekarz = 1, DzienTygodnia = 3, OdGodziny = 0, DoGodziny = 0 };
+            var przykladowy_dyzur5 = new Dyzur { IDPrzychodnia = 1, IDLekarz = 1, DzienTygodnia = 4, OdGodziny = 10, DoGodziny = 16 };
 
             using (db)
             {
@@ -64,6 +68,8 @@ namespace Baza
                     db.Dyzury.Add(przykladowy_dyzur);
                     db.Dyzury.Add(przykladowy_dyzur2);
                     db.Dyzury.Add(przykladowy_dyzur3);
+                    db.Dyzury.Add(przykladowy_dyzur4);
+                    db.Dyzury.Add(przykladowy_dyzur5);
                     db.SaveChanges();
         // Dodawanie lekarzy na listę lekarzy
                 qry = from b in db.Lekarze orderby b.Nazwisko select b.Nazwisko;
@@ -82,19 +88,15 @@ namespace Baza
                         przychodnieComboBox.Items.Add(R);
                     }
                     // Dodawanie pacjentow na listę pacjentow
-                    var q3 = db.Pacjenci.Select(x => x.Nazwisko + " " + x.Imie).ToList();
-
-                    var y = string.Join(" ", q3);
-                    var f = y.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
-
-                    foreach (var item in f)
-
-                    { 
+                    var q3 = db.Pacjenci.Select(x => x.Nazwisko + " " + x.Imie).OrderBy(s => s).ToList();
+                    foreach (var item in q3)
+                    {
                         ComboBoxItem P = new ComboBoxItem() { Content = item };
                         pacjentNameComboBox.Items.Add(P);
                     }
-                    //textBoxPacjentID.Text = "test";
-                    int sg = 5;
+                    //siatka z dyżurami zablokowana az wybierze sie lekarza
+                    WyczyscSiatketygodniowa();
+                    
                 }
                 catch (Exception ex)
                 {
@@ -218,8 +220,6 @@ namespace Baza
             uzytkownicyData.Visibility = Visibility.Hidden;
             gridPrzychodnia.Visibility = Visibility.Visible;
         }
-
-
         private void przychodnieComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Project_context db = new Project_context();
@@ -238,8 +238,7 @@ namespace Baza
                 join przych in db.Przychodnie on dyz.IDPrzychodnia equals przych.IDPrzychodnia
                 where przych.Rodzaj == nazwa_przychodni
                 select l.Nazwisko;
-
-       
+      
                     lekarzeComboBox.Items.Clear();
 
                 var t = string.Join(" ", query_lista_lekarzy);
@@ -251,14 +250,12 @@ namespace Baza
                 }
             }
         }
-
         private void pacjentNameCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Project_context db = new Project_context();
 
             using (db)
             {
-                // U mnie to nadal nie działa, a jeśli w imieniu dajesz mu words[2] wyrzuca przekroczenie zakresu tablicy
                 var tmp = pacjentNameComboBox.SelectedItem.ToString();
                 string[] words = tmp.Split(' ');
                 string pacjentWybranyNazwisko = words[1];
@@ -272,21 +269,126 @@ namespace Baza
                     }
                 else
                 textBoxPacjentID.Text = "";
-
             }
         }
 
        private void lekarzeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Błąd polegał na nakazaniu mu pracy na nullu, teraz instrukcja wykonuje się dopiero po sprawdzeniu że na comboboxie wybraliśmy jakiegoś lekarza
+            WyczyscSiatketygodniowa();
+            tuBedzieNazwisko.Content = "";
+            Project_context db = new Project_context();
             if (lekarzeComboBox.SelectedItem != null)
             {
                 ComboBox comboBox = (ComboBox)sender;
                 string tmp = comboBox.SelectedValue.ToString();
                 string[] words = tmp.Split(' ');
                 string nazwisko_lekarza = words[1];
-                tuBedzieNazwisko.Content = nazwisko_lekarza;
-            }
+                var tmpID = from l in db.Lekarze where l.Nazwisko == nazwisko_lekarza select l.IDLekarz;
+                int id = 0;
+                foreach (var i in tmpID){id = i;}
+                tuBedzieNazwisko.Content = nazwisko_lekarza + " " + "Id: " + id ; 
+                //siatka tygodniowa ma wypełnic się dyżurami wybranego lekarza w biezącym tygodniu
+                
+ //zapisuje dane o godzinach dyzurow lekarza do 2 list
+                var odgodziny = from d in db.Dyzury where d.IDLekarz == id orderby d.DzienTygodnia select d.OdGodziny;
+                var dogodziny = from d in db.Dyzury where d.IDLekarz == id orderby d.DzienTygodnia select d.DoGodziny;
+                List<int> start = new List<int>();
+                foreach (var item in odgodziny)
+                {
+                    start.Add(item);
+                }
+                List<int> finish = new List<int>();
+                foreach (var item in dogodziny)
+                {
+                   finish.Add(item);
+                }
+                int idx = 0;
+                foreach(int s  in start )
+                {
+                    int ilegodzin = finish[idx] - s;
+                    textBoxPacjentID.Text += ilegodzin.ToString() + "-";
+                    idx++;
+                //odblokowuje tyle przycisków ile godzin przyjmuje lekarz 
+                    if (idx == 1)
+                    {
+                        int licznik = 0;
+                        foreach (UIElement b in _PN_.Children)
+                        {
+                            if (licznik < ilegodzin*2)
+                            {
+                                if (b is Button)
+                                {
+                                    ((Button)b).IsEnabled = true;
+                                    ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
+                                    licznik++;
+                                }
+                            }
+                        }
+                    }
+                    if (idx == 2)
+                    {
+                        int licznik = 0;
+                        foreach (UIElement b in _WT_.Children)
+                        {
+                            if (licznik < ilegodzin * 2)
+                            {
+                                if (b is Button)
+                                {
+                                    ((Button)b).IsEnabled = true; ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
+                                    licznik++;
+                                }
+                            }
+                        }
+                    }
+                    if (idx == 3)
+                    {
+                        int licznik = 0;
+                        foreach (UIElement b in _SR_.Children)
+                        {
+                            if (licznik < ilegodzin * 2)
+                            {
+                                if (b is Button)
+                                {
+                                    ((Button)b).IsEnabled = true; ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
+                                    licznik++;
+                                }
+                            }
+                        }
+                    }
+                    if (idx == 4)
+                    {
+                        int licznik = 0;
+                        foreach (UIElement b in _CZ_.Children)
+                        {
+                            if (licznik < ilegodzin * 2)
+                            {
+                                if (b is Button)
+                                {
+                                    ((Button)b).IsEnabled = true; ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
+                                    licznik++;
+                                }
+                            }
+                        }
+                    }
+                    if (idx == 5)
+                    {
+                        int licznik = 0;
+                        foreach (UIElement b in _PT_.Children)
+                        {
+                            if (licznik < ilegodzin * 2)
+                            {
+                                if (b is Button)
+                                {
+                                    ((Button)b).IsEnabled = true; ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
+                                    licznik++;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }          
         }
 
         private void calendarSelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -336,6 +438,35 @@ namespace Baza
                  db.Pacjenci.Add(przykladowy_pacjent7);
                  db.SaveChanges();
              }
+        }
+        public void WyczyscSiatketygodniowa()
+        {
+            foreach (UIElement b in _PN_.Children)
+            {
+                if (b is Button)
+                    ((Button)b).IsEnabled = false;
+            }
+            foreach (UIElement b in _WT_.Children)
+            {
+                if (b is Button)
+                    ((Button)b).IsEnabled = false;
+            }
+            foreach (UIElement b in _SR_.Children)
+            {
+                if (b is Button)
+                    ((Button)b).IsEnabled = false;
+            }
+            foreach (UIElement b in _CZ_.Children)
+            {
+                if (b is Button)
+                    ((Button)b).IsEnabled = false;
+            }
+            foreach (UIElement b in _PT_.Children)
+            {
+                if (b is Button)
+                    ((Button)b).IsEnabled = false;
+            }
+
         }
     }
 }
