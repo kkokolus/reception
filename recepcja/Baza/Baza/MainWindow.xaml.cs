@@ -566,24 +566,23 @@ namespace Baza
             Wizyta wizyta = new Wizyta { GodzinaWizyty = godzinaWizyty  };
         }
         private void textBox_tylkoLiczby(object sender, TextCompositionEventArgs e)
-+        {
-+            TextBox t = (TextBox)sender;
-+            if (t.Name.Contains("Telefon"))
-+            {
-+                if (!Char.IsDigit(e.Text,0)&&!e.Text.Contains('-'))
-+                e.Handled = true;
-+            }            
-+            else
-+            {
-+                if (!Char.IsDigit(e.Text, 0))
-+                e.Handled = true;
-+            }           
-+        }
-+        private void textBox_tylkoLitery(object sender, TextCompositionEventArgs e)
-+        { 
-+                if (!Char.IsLetter(e.Text, 0) && !e.Text.Contains('-'))
-+                    e.Handled = true;
-+        }
+       {
+           TextBox t = (TextBox)sender;
+            if (t.Name.Contains("Telefon"))
+           {
+               if (!Char.IsDigit(e.Text,0)&&!e.Text.Contains('-'))
+               e.Handled = true;            }            
+            else
+            {
+               if (!Char.IsDigit(e.Text, 0))
+                e.Handled = true;
+            }           
+        }
+        private void textBox_tylkoLitery(object sender, TextCompositionEventArgs e)
+        { 
+               if (!Char.IsLetter(e.Text, 0) && !e.Text.Contains('-'))
+                    e.Handled = true;
+        }
         //funkcja zwraca dzien tygodnia dla wybranej daty
         public static int DzienTygodnia(string[] data)
         {
