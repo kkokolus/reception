@@ -432,9 +432,22 @@ namespace Baza
             Project_context db = new Project_context();
             string selectedDate = calendar.SelectedDate.ToString();     
                   
-            string[] data = selectedDate.Split(' ');
-            data[0].Replace('/', '-');
-                  //data jest teraz w formacie dd-mm-yyyy jak w SQL
+            string[] dataTmp = selectedDate.Split(' ');
+            string[] data = dataTmp[0].Split('.');         
+            string[] tydzien = { "poniedziałek", "wtorek", "sroda", "czwartek", "piatek", "sobota", "niedziela" };
+            int dzienTygodnia = DzienTygodnia(data);
+            // textBoxPacjentID.Text = tydzien[dzienTygodnia];
+            if (dzienTygodnia == 0)
+                label_pndData.Content = data[0] + '/' + data[1];
+            if (dzienTygodnia == 1)
+                label_wtrData.Content = data[0] + '/' + data[1];
+            if (dzienTygodnia == 2)
+                label_srdData.Content = data[0] + '/' + data[1];
+            if (dzienTygodnia == 3)
+                label_cztData.Content = data[0] + '/' + data[1];
+            if (dzienTygodnia == 4)
+                label_ptnData.Content = data[0] + '/' + data[1];
+            //chcę dodać wyswietlanie daty na siatce tygodniowej
             using (db)
             {
                   // trzeba pobrac z bazy dane dot. dyzurow
@@ -530,12 +543,20 @@ namespace Baza
                 if (b is Button)
                     ((Button)b).Click += Click_dyzurButton;
             }
-
         }
-  //event zapisuje godzine wizyty do zmiennej
+  
         private void Click_dyzurButton(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
+            //chcę zamienic kolor buttona przy kliknieciu
+            //i czemu to nie działa?
+            ((Button)sender).Background = new SolidColorBrush(Colors.Orange);
+            if (b.Background.ToString() == Colors.LimeGreen.ToString())
+                b.Background = new SolidColorBrush(Colors.Orange);
+            if (b.Background.ToString() == Colors.Orange.ToString())
+                b.Background = new SolidColorBrush(Colors.LimeGreen);
+
+//event zapisuje godzine wizyty do zmiennej
             godzinaWizyty = b.Content.ToString();          
         }
 //teraz pora poskladac wszystko do jednego worku - do wizyty!
@@ -544,26 +565,31 @@ namespace Baza
         {
             Wizyta wizyta = new Wizyta { GodzinaWizyty = godzinaWizyty  };
         }
-
-        private void textBox_tylkoLiczby(object sender, TextCompositionEventArgs e)
+        //funkcja zwraca dzien tygodnia dla wybranej daty
+        public static int DzienTygodnia(string[] data)
         {
-            TextBox t = (TextBox)sender;
-            if (t.Name.Contains("Telefon"))
+            int[] liczbaDni = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334};
+            int dzien =Convert.ToInt32(data[0]);
+            int miesiac = Convert.ToInt32(data[1]);
+            int rok = Convert.ToInt32(data[2]);
+            if ((rok % 4 == 0 && rok % 100 != 0) || rok % 400 == 0)
             {
-                if (!Char.IsDigit(e.Text,0)&&!e.Text.Contains('-'))
-                e.Handled = true;
-            }            
-            else
-            {
-                if (!Char.IsDigit(e.Text, 0))
-                e.Handled = true;
-            }           
+                for (int i = 2; i < liczbaDni.Length; i++)
+                    liczbaDni[i] += 1;
+            }
+            int dzienRoku =0;
+            int yy, c, g;
+            int wynik=0;
+            dzienRoku = dzien + liczbaDni[miesiac - 1];
+            yy = (rok - 1) % 100;
+            c = (rok - 1) - yy;
+            g = yy + (yy / 4);
+            wynik = (((((c / 100) % 4) * 5) + g) % 7);
+            wynik += dzienRoku - 1;
+            wynik %= 7;
+            return wynik;
         }
-        private void textBox_tylkoLitery(object sender, TextCompositionEventArgs e)
-        { 
-                if (!Char.IsLetter(e.Text, 0) && !e.Text.Contains('-'))
-                    e.Handled = true;
-        }
+    
     }
 }
 
