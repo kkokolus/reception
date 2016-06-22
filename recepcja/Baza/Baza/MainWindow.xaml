@@ -49,7 +49,7 @@
         <TabControl x:Name="tabControl"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Background="BurlyWood" UseLayoutRounding="True" RenderTransformOrigin="0.5,0.5" SelectionChanged="tabControl_SelectionChanged">
             <!-- panel USER ================================================================================================================================ -->
             <TabItem x:Name="userTabHeader" Header="Strefa użytkownika"  VerticalAlignment="Stretch" Margin="-2,-2,0,0"  Background="BurlyWood" HorizontalAlignment="Left" Width="100" >
-                <Grid Name="MainGrid" ShowGridLines="True">
+                <Grid Name="MainGrid" ShowGridLines="False">
                     <Grid.RowDefinitions>
                         <RowDefinition  Height="1*"></RowDefinition>
                         <RowDefinition Height="15*"></RowDefinition>
@@ -169,28 +169,28 @@
                             <RowDefinition Name="PT" Height="2*"></RowDefinition>
                             <RowDefinition Height="3*"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition  Width="3*"></ColumnDefinition>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Label x:Name="tuBedzieNazwisko" Grid.Row="0"  Grid.Column="1" Content=""></Label>
-                        <StackPanel Grid.Row="1"  Grid.Column="0" Orientation="Vertical">
+                        <StackPanel x:Name="stackPN" Grid.Row="1"  Grid.Column="0" Orientation="Vertical" >
                             <Label  Content="PN" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                             <Label x:Name="label_pndData" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <StackPanel Grid.Row="2"  Grid.Column="0" Orientation="Vertical">
+                        <StackPanel x:Name="stackWT" Grid.Row="2"  Grid.Column="0" Orientation="Vertical">
                             <Label  Content="WT"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                             <Label x:Name="label_wtrData" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <StackPanel Grid.Row="3"  Grid.Column="0" Orientation="Vertical">
+                        <StackPanel x:Name="stackSR" Grid.Row="3"  Grid.Column="0" Orientation="Vertical">
                             <Label  Content="SR"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                             <Label x:Name="label_srdData" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <StackPanel Grid.Row="4"  Grid.Column="0" Orientation="Vertical">
+                        <StackPanel x:Name="stackCZ" Grid.Row="4"  Grid.Column="0" Orientation="Vertical">
                             <Label  Content="CZ"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                             <Label x:Name="label_cztData" HorizontalAlignment="Center"/>
                         </StackPanel>
-                        <StackPanel Grid.Row="5"  Grid.Column="0" Orientation="Vertical">
+                        <StackPanel x:Name="stackPT" Grid.Row="5"  Grid.Column="0" Orientation="Vertical">
                             <Label  Content="PT"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                             <Label x:Name="label_ptnData" HorizontalAlignment="Center"/>
                         </StackPanel>

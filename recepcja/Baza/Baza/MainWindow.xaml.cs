@@ -330,7 +330,7 @@ namespace Baza
                                     int g = Convert.ToInt32(dyzurGodzina[0]);
                                     if (g >= start[0] && g<= finish[0])
                                     {
-                                    ((Button)b).IsEnabled = true;
+                                   ((Button)b).IsEnabled = true;
                                     ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
                                     licznik++;
                                     }                                  
@@ -430,24 +430,47 @@ namespace Baza
         private void calendarSelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             Project_context db = new Project_context();
-            string selectedDate = calendar.SelectedDate.ToString();     
-                  
+            string selectedDate = calendar.SelectedDate.ToString();                     
             string[] dataTmp = selectedDate.Split(' ');
             string[] data = dataTmp[0].Split('.');         
-            string[] tydzien = { "poniedziałek", "wtorek", "sroda", "czwartek", "piatek", "sobota", "niedziela" };
+            //string[] tydzien = { "poniedziałek", "wtorek", "sroda", "czwartek", "piatek", "sobota", "niedziela" };
             int dzienTygodnia = DzienTygodnia(data);
-            // textBoxPacjentID.Text = tydzien[dzienTygodnia];
-            if (dzienTygodnia == 0)
-                label_pndData.Content = data[0] + '/' + data[1];
-            if (dzienTygodnia == 1)
-                label_wtrData.Content = data[0] + '/' + data[1];
-            if (dzienTygodnia == 2)
-                label_srdData.Content = data[0] + '/' + data[1];
-            if (dzienTygodnia == 3)
-                label_cztData.Content = data[0] + '/' + data[1];
-            if (dzienTygodnia == 4)
-                label_ptnData.Content = data[0] + '/' + data[1];
+            // textBoxPacjentID.Text = tydzien[dzienTygodnia];           
             //chcę dodać wyswietlanie daty na siatce tygodniowej
+      
+            UIElement[] dniSiatkitygodniowej = { stackPN, stackWT, stackSR, stackCZ, stackPT };
+            foreach (StackPanel day in dniSiatkitygodniowej)
+            {
+                ///if (day.Children is Label)
+                 ///   (day.Children)..Content = "";
+            }
+            if (dzienTygodnia == 0)
+            {
+                label_pndData.Content = data[0] + '/' + data[1];
+                stackPN.Background = new SolidColorBrush(Colors.OliveDrab);
+            }               
+            if (dzienTygodnia == 1)
+            {
+                label_wtrData.Content = data[0] + '/' + data[1];
+                stackPN.Background = new SolidColorBrush(Colors.OliveDrab);
+            }                
+            if (dzienTygodnia == 2)
+            {
+                stackPN.Background = new SolidColorBrush(Colors.OliveDrab);
+                label_srdData.Content = data[0] + '/' + data[1];
+            }               
+            if (dzienTygodnia == 3)
+            {
+                stackPN.Background = new SolidColorBrush(Colors.OliveDrab);
+                label_cztData.Content = data[0] + '/' + data[1];
+            }               
+            if (dzienTygodnia == 4)
+            {
+                stackPN.Background = new SolidColorBrush(Colors.OliveDrab);
+                label_ptnData.Content = data[0] + '/' + data[1];
+            }
+                
+           
             using (db)
             {
                   // trzeba pobrac z bazy dane dot. dyzurow
@@ -489,75 +512,48 @@ namespace Baza
         }
         public void WyczyscSiatketygodniowa()
         {
-            foreach (UIElement b in _PN_.Children)
+            UIElementCollection[] dniSiatkitygodniowej = { _PN_.Children, _WT_.Children, _SR_.Children, _CZ_.Children, _PT_.Children };
+            foreach (var day in dniSiatkitygodniowej)
             {
+            foreach (UIElement b in day)
+                {
                 if (b is Button)
                     ((Button)b).IsEnabled = false;
-            }
-            foreach (UIElement b in _WT_.Children)
-            {
-                if (b is Button)
-                    ((Button)b).IsEnabled = false;
-            }
-            foreach (UIElement b in _SR_.Children)
-            {
-                if (b is Button)
-                    ((Button)b).IsEnabled = false;
-            }
-            foreach (UIElement b in _CZ_.Children)
-            {
-                if (b is Button)
-                    ((Button)b).IsEnabled = false;
-            }
-            foreach (UIElement b in _PT_.Children)
-            {
-                if (b is Button)
-                    ((Button)b).IsEnabled = false;
-            }
-            
+                }
+            } 
         }
         public void PrzypiszEvent()
         {
-            foreach (UIElement b in _PN_.Children)
+            UIElementCollection[] dniSiatkitygodniowej = { _PN_.Children, _WT_.Children, _SR_.Children, _CZ_.Children, _PT_.Children };
+            foreach (var day in dniSiatkitygodniowej)
             {
-                if (b is Button)
-                    ((Button)b).Click += Click_dyzurButton;
-            }
-            foreach (UIElement b in _WT_.Children)
-            {
-                if (b is Button)
-                    ((Button)b).Click += Click_dyzurButton;
-            }
-            foreach (UIElement b in _SR_.Children)
-            {
-                if (b is Button)
-                    ((Button)b).Click += Click_dyzurButton;
-            }
-            foreach (UIElement b in _CZ_.Children)
-            {
-                if (b is Button)
-                    ((Button)b).Click += Click_dyzurButton;
-            }
-            foreach (UIElement b in _PT_.Children)
-            {
-                if (b is Button)
-                    ((Button)b).Click += Click_dyzurButton;
+                foreach (UIElement b in day)
+                {
+                    if (b is Button)
+                        ((Button)b).Click += Click_dyzurButton;
+                }                    
             }
         }
   
         private void Click_dyzurButton(object sender, RoutedEventArgs e)
         {
-            Button b = (Button)sender;
-            //chcę zamienic kolor buttona przy kliknieciu
-            //i czemu to nie działa?
-            ((Button)sender).Background = new SolidColorBrush(Colors.Orange);
-            if (b.Background.ToString() == Colors.LimeGreen.ToString())
-                b.Background = new SolidColorBrush(Colors.Orange);
-            if (b.Background.ToString() == Colors.Orange.ToString())
-                b.Background = new SolidColorBrush(Colors.LimeGreen);
+                UIElement b = sender as UIElement;
+                    if (b is Button )
+            {
+                if (((Button)b).Background.ToString() == Colors.LimeGreen.ToString())
+                {
+                ((Button)b).Background = new SolidColorBrush(Colors.Orange);
+    //event zapisuje godzine wizyty do zmiennej
+                godzinaWizyty = ((Button)b).Content.ToString();  
+                }
+                    
+                else if (((Button)b).Background.ToString() == Colors.Orange.ToString())
+                {
+                ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
+                godzinaWizyty = "";
+                }
 
-//event zapisuje godzine wizyty do zmiennej
-            godzinaWizyty = b.Content.ToString();          
+            }                 
         }
 //teraz pora poskladac wszystko do jednego worku - do wizyty!
 //wizyta nie ma nazwiska lekarza - czy tak to ma być?
@@ -565,7 +561,7 @@ namespace Baza
         {
             Wizyta wizyta = new Wizyta { GodzinaWizyty = godzinaWizyty  };
         }
-        private void textBox_tylkoLiczby(object sender, TextCompositionEventArgs e)
+        private void textBox_tylkoLiczby(object sender, TextCompositionEventArgs e)//tylko liczby
        {
            TextBox t = (TextBox)sender;
             if (t.Name.Contains("Telefon"))
@@ -578,7 +574,7 @@ namespace Baza
                 e.Handled = true;
             }           
         }
-        private void textBox_tylkoLitery(object sender, TextCompositionEventArgs e)
+        private void textBox_tylkoLitery(object sender, TextCompositionEventArgs e)//tylko litery
         { 
                if (!Char.IsLetter(e.Text, 0) && !e.Text.Contains('-'))
                     e.Handled = true;
