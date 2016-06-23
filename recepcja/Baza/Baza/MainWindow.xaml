@@ -487,12 +487,13 @@
                                 <RowDefinition Height="1*"></RowDefinition>
                                 <RowDefinition  Height="1*"></RowDefinition>
                             </Grid.RowDefinitions>
+                            
                             <Label Content="Imię" Grid.Column="0" Grid.Row="0" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
                             <Label Content="Nazwisko" Grid.Column="0" Grid.Row="1" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
                             <Label Content="PESEL" Grid.Column="0" Grid.Row="2" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
                             <!--<Label Content="Data zatrudnienia" Grid.Column="0" Grid.Row="3" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>-->
                             <Label Content="Adres" Grid.Column="0" Grid.Row="3" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
-                            <Label Content="Telefon kontaktowy" Grid.Column="0" Grid.Row="4" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                            <Label Content="Telefon" Grid.Column="0" Grid.Row="4" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
                             <!--<Label Content="@mail" Grid.Column="0" Grid.Row="6" Margin="0,10,10,11" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>-->
                             <StackPanel  Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal" >
                                 <TextBox  x:Name="textLekarzImie" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,10,20" Width="300"  ></TextBox>
@@ -512,7 +513,7 @@
 
                             <TextBox  x:Name="textTelefonLekarz" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
                             <!-- <TextBox  x:Name="textMailLekarz" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox>-->
-                            <Button x:Name="zapiszLekarza" Grid.Column="1" Grid.Row="8" Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue"></Button>
+                            <Button x:Name="zapiszLekarza" Grid.Column="1" Grid.Row="8" Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue" Click="zapiszLekarza_Click"></Button>
                         </Grid>
 
                         <!-- panel Admina, nowy Dyżur -->
@@ -540,13 +541,13 @@
                             <Label Content="Numer gabinetu" Grid.Column="0" Grid.Row="4" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                             <Label Content="Dzien tygodnia" Grid.Column="0" Grid.Row="5" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
-                            <TextBox  x:Name="nowyDyzurIDPrzychodnia" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300" ></TextBox>
-                            <TextBox  x:Name="nowyDyzurIDLekarz" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="200" ></TextBox>
+                            <TextBox  x:Name="nowyDyzurNazwaPrzychodni" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300" ></TextBox>
+                            <TextBox  x:Name="nowyDyzurNazwiskoLekarza" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="200" ></TextBox>
                             <TextBox  x:Name="nowyDyzurOdGodziny" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="200"></TextBox>
                             <TextBox  x:Name="nowyDyzurDoGodziny" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="200"></TextBox>
                             <TextBox  x:Name="nowyDyzurNrGabinetu" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="100"></TextBox>
                             <TextBox  x:Name="nowyDyzurDzienTygodnia" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300"></TextBox>
-                            <Button x:Name="zapiszDyzur" Grid.Column="1" Grid.Row="8" Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue"></Button>
+                            <Button x:Name="zapiszDyzur" Grid.Column="1" Grid.Row="8" Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue" Click="zapiszDyzur_Click"></Button>
                             <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
 
                             </StackPanel>
@@ -572,7 +573,7 @@
                             </Grid.RowDefinitions>
                             <Label Content="Nazwa przychodni" Grid.Column="0" Grid.Row="0" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                             <TextBox  x:Name="nowaPrzychodniaRodzaj" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300" ></TextBox>
-                            <Button x:Name="zapiszPrzychodnie" Grid.Column="1" Grid.Row="8" Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue"></Button>
+                            <Button x:Name="zapiszPrzychodnie" Grid.Column="1" Grid.Row="8" Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue" Click="zapiszPrzychodnie_Click"></Button>
                             <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
 
                             </StackPanel>

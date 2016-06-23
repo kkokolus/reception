@@ -17,7 +17,7 @@ namespace Baza.Klasy
         [Key]
         public int IDLekarz { get; set; }
         public long PESEL { get; set; }
-        public string Data_zatrudnienia { get; set; }
+     //   public string Data_zatrudnienia { get; set; }
         public string Imie { get; set; }
         public string Nazwisko { get; set; }
         public string Adres { get; set; }

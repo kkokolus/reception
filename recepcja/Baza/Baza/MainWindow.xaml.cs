@@ -48,7 +48,7 @@ namespace Baza
             var pacjent2 = new Pacjent { Imie = "Antoni", Nazwisko = "Janowski", PESEL = 12345678901234 };
             var przykladowy_dyzur = new Dyzur { IDPrzychodnia = 1, IDLekarz = 1, DzienTygodnia = 1, OdGodziny = 9, DoGodziny = 13 };
             var przykladowy_dyzur2 = new Dyzur { IDPrzychodnia = 1, IDLekarz = 1, DzienTygodnia = 5, OdGodziny = 8, DoGodziny = 12 };
-            var przykladowy_dyzur3 = new Dyzur { IDPrzychodnia = 1, IDLekarz = 1, DzienTygodnia = 2, OdGodziny = 10, DoGodziny = 16 };
+            var przykladowy_dyzur3 = new Dyzur { IDPrzychodnia = 2, IDLekarz = 3, DzienTygodnia = 2, OdGodziny = 10, DoGodziny = 16 };
             var przykladowy_dyzur4 = new Dyzur { IDPrzychodnia = 1, IDLekarz = 1, DzienTygodnia = 3, OdGodziny = 0, DoGodziny = 0 };
             var przykladowy_dyzur5 = new Dyzur { IDPrzychodnia = 1, IDLekarz = 1, DzienTygodnia = 4, OdGodziny = 10, DoGodziny = 16 };
 
@@ -314,7 +314,7 @@ namespace Baza
                 foreach(int s  in start )
                 {
                     int ilegodzin = finish[idx] - s;
-                    textBoxPacjentID.Text += ilegodzin.ToString() + "-";
+                   // textBoxPacjentID.Text += ilegodzin.ToString() + "-";
                     idx++;
                 //odblokowuje tyle przycisków ile godzin przyjmuje lekarz 
                     if (idx == 1)
@@ -500,16 +500,7 @@ namespace Baza
            }   
                 
         }
-        private void zapiszPacjenta_Click(object sender, RoutedEventArgs e)
-        {
-             Project_context db = new Project_context();
-             using (db)
-             {
-                 var przykladowy_pacjent7 = new Pacjent { Imie = nowyPacjentImie.Text, Nazwisko = nowyPacjentNazwisko.Text, Adres = nowyPacjentAdres.Text, PESEL = Int64.Parse(nowyPacjentPESEL.Text), Telefon = Int64.Parse(nowyPacjentTelefon.Text) };
-                 db.Pacjenci.Add(przykladowy_pacjent7);
-                 db.SaveChanges();
-             }
-        }
+       
         public void WyczyscSiatketygodniowa()
         {
             UIElementCollection[] dniSiatkitygodniowej = { _PN_.Children, _WT_.Children, _SR_.Children, _CZ_.Children, _PT_.Children };
@@ -557,10 +548,7 @@ namespace Baza
         }
 //teraz pora poskladac wszystko do jednego worku - do wizyty!
 //wizyta nie ma nazwiska lekarza - czy tak to ma być?
-        private void Click_dodajWizyte(object sender, RoutedEventArgs e)
-        {
-            Wizyta wizyta = new Wizyta { GodzinaWizyty = godzinaWizyty  };
-        }
+       
         private void textBox_tylkoLiczby(object sender, TextCompositionEventArgs e)//tylko liczby
        {
            TextBox t = (TextBox)sender;
@@ -583,7 +571,7 @@ namespace Baza
         public static int DzienTygodnia(string[] data)
         {
             int[] liczbaDni = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334};
-            int dzien =Convert.ToInt32(data[0]);
+            int dzien = Convert.ToInt32(data[0]);
             int miesiac = Convert.ToInt32(data[1]);
             int rok = Convert.ToInt32(data[2]);
             if ((rok % 4 == 0 && rok % 100 != 0) || rok % 400 == 0)
@@ -603,7 +591,64 @@ namespace Baza
             wynik %= 7;
             return wynik;
         }
-    
+
+        private void zapiszPacjenta_Click(object sender, RoutedEventArgs e)
+        {
+            Project_context db = new Project_context();
+            using (db)
+            {
+                var nowy_pacjent = new Pacjent { Imie = nowyPacjentImie.Text, Nazwisko = nowyPacjentNazwisko.Text, Adres = nowyPacjentAdres.Text, PESEL = Int64.Parse(nowyPacjentPESEL.Text), Telefon = Int64.Parse(nowyPacjentTelefon.Text) };
+                db.Pacjenci.Add(nowy_pacjent);
+                db.SaveChanges();
+            }
+        }
+        private void zapiszLekarza_Click(object sender, RoutedEventArgs e)
+        {
+            Project_context db = new Project_context();
+            using (db)
+            {
+                var nowy_lekarz = new Lekarz { Imie = textLekarzImie.Text, Nazwisko = textLekarzNazwisko.Text, Adres = textAdresLekarz.Text, PESEL = Int64.Parse(textLekarzPESEL.Text), Telefon = Int64.Parse(textTelefonLekarz.Text) };
+                db.Lekarze.Add(nowy_lekarz);
+                db.SaveChanges();
+            }
+        }
+
+        private void zapiszPrzychodnie_Click(object sender, RoutedEventArgs e)
+        {
+            Project_context db = new Project_context();
+            using (db)
+            {
+                var nowa_przychodnia = new Przychodnia { Rodzaj = nowaPrzychodniaRodzaj.Text };
+                db.Przychodnie.Add(nowa_przychodnia);
+                db.SaveChanges();
+            }
+        }
+
+        private void zapiszDyzur_Click(object sender, RoutedEventArgs e)
+        { 
+       // To jest koniecznie do dokończenia!
+
+            /*var tmp = nowyDyzurNazwaPrzychodni.Text;
+           // string[] words = tmp.Split(' ');
+           // var nazwa_przychodni = words[1];
+
+            var q2 = from rodzaje in db.Przychodnie orderby rodzaje.Rodzaj select rodzaje.Rodzaj;
+            */
+
+        }
+
+        private void Click_dodajWizyte(object sender, RoutedEventArgs e)
+        {
+            Project_context db = new Project_context();
+            using (db)
+            {
+                var wizyta = new Wizyta { IDPacjent = Int32.Parse(textBoxPacjentID.Text),
+        // Wyciągnięcie dyżuru na razie mi nie wychodzi: IDDyzur = 1, 
+                GodzinaWizyty = godzinaWizyty };
+                db.Wizyty.Add(wizyta);
+                db.SaveChanges();
+            }
+        }
     }
 }
 

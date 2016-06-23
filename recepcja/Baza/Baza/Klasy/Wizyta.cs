@@ -16,8 +16,8 @@ namespace Baza.Klasy
         public string Opis { get; set; }
         public string DataWizyty { get; set; }
         public string GodzinaWizyty { get; set; }
-        public string DataRejestracji { get; set; }
-        public string GodzinaRejestracji { get; set; }
+    //    public string DataRejestracji { get; set; }
+    //    public string GodzinaRejestracji { get; set; }
 
         public virtual Dyzur Dyzur { get; set; }
         public virtual Pacjent Pacjent { get; set; }
