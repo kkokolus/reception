@@ -676,7 +676,7 @@
                             </Grid.RowDefinitions>
                             <Label x:Name="passwordTip"  Margin="10,0,0,10" Grid.Row="1"  Content="Podpowiedź do hasła" Visibility="Hidden"/>
                             <TextBox x:Name="passwordTextBox" Grid.Row="2" Margin="10,0,10,0" VerticalContentAlignment="Center"/>
-                            <Button x:Name="LogowanieButton"  Grid.Row="3" Margin="30,20,30,30" Content="Załoguj" Click="logowanieButton"/>
+                            <Button x:Name="LogowanieButton"  Grid.Row="3" Margin="30,20,30,30" Content="Zaloguj" Click="logowanieButton"/>
                         </Grid>
 
                     </Grid>

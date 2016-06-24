@@ -513,8 +513,8 @@ namespace Baza
             Project_context db = new Project_context();
             selectedDate = calendar.SelectedDate.ToString();                     
             string[] dataTmp = selectedDate.Split(' ');
-            string[] words1 = dataTmp[0].Split('.');
-            var gm = 4;
+            string[] data = dataTmp[0].Split('.');
+           
 
             /*      string[] words = data_string.Split('-');
       foreach (var i in words)
@@ -525,8 +525,8 @@ namespace Baza
       int miesiac = Convert.ToInt32(words[1]);
       int rok = Convert.ToInt32(words[0]);*/
 
-            var data_string = words1[0];
-            string[] data = data_string.Split('-');
+            var data_string = data[0];
+            string[]  words1 = data_string.Split('-');
 
             //string[] tydzien = { "poniedziałek", "wtorek", "sroda", "czwartek", "piatek", "sobota", "niedziela" };
             int dzienTygodnia = DzienTygodnia(data);
@@ -551,7 +551,7 @@ namespace Baza
                 label_srdData.Content = null;
                 label_cztData.Content = null;
                 label_ptnData.Content = null;
-                label_pndData.Content = data[1] + '/' + data[2];
+                label_pndData.Content = data[0] + '/' + data[1];
                 stackPN.Background = new SolidColorBrush(Colors.OliveDrab);
             }               
             if (dzienTygodnia == 1)
@@ -566,7 +566,7 @@ namespace Baza
                 label_srdData.Content = null;
                 label_cztData.Content = null;
                 label_ptnData.Content = null;
-                label_wtrData.Content = data[1] + '/' + data[2];
+                label_wtrData.Content = data[0] + '/' + data[1];
                 stackWT.Background = new SolidColorBrush(Colors.OliveDrab);
             }                
             if (dzienTygodnia == 2)
@@ -582,7 +582,7 @@ namespace Baza
                 label_cztData.Content = null;
                 label_ptnData.Content = null;
                 stackSR.Background = new SolidColorBrush(Colors.OliveDrab);
-                label_srdData.Content = data[1] + '/' + data[2];
+                label_srdData.Content = data[0] + '/' + data[1];
             }               
             if (dzienTygodnia == 3)
             {
@@ -597,7 +597,7 @@ namespace Baza
                 label_cztData.Content = null;
                 label_ptnData.Content = null;
                 stackCZ.Background = new SolidColorBrush(Colors.OliveDrab);
-                label_cztData.Content = data[1] + '/' + data[2];
+                label_cztData.Content = data[0] + '/' + data[1];
             }               
             if (dzienTygodnia == 4)
             {
@@ -612,7 +612,7 @@ namespace Baza
                 label_cztData.Content = null;
                 label_ptnData.Content = null;
                 stackPT.Background = new SolidColorBrush(Colors.OliveDrab);
-                label_ptnData.Content = data[1] + '/' + data[2];
+                label_ptnData.Content = data[0] + '/' + data[1];
             }
                 
            
@@ -748,9 +748,9 @@ namespace Baza
         {
 
             int[] liczbaDni = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334};
-            var dzien = Int32.Parse(data1[2]);
+            var dzien = Int32.Parse(data1[0]);
             var miesiac = Int32.Parse(data1[1]);
-            var rok = Int32.Parse(data1[0]);
+            var rok = Int32.Parse(data1[2]);
 
             if ((rok % 4 == 0 && rok % 100 != 0) || rok % 400 == 0)
             {
