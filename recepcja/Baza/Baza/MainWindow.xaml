@@ -97,7 +97,7 @@
                         <Label Content="PESEL" Grid.Column="0" Grid.Row="2" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center" ></Label>
                         <!-- <Label Content="Nr ubezpieczeniowy" Grid.Column="0" Grid.Row="3" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="2"></Label>-->
                         <Label Content="Adres" Grid.Column="0" Grid.Row="3" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
-                        <Label Content="Telefon kontaktowy" Grid.Column="0" Grid.Row="4" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                        <Label Content="Telefon" Grid.Column="0" Grid.Row="4" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
                         <!--<Label Content="@mail" Grid.Column="1" Grid.Row="6" Margin="0,10,10,11" HorizontalAlignment="Right" VerticalAlignment="Center"></> -->
                         <StackPanel  Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal" >
                             <TextBox  x:Name="textImie1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,10,20" Width="300" PreviewTextInput="textBox_tylkoLitery" ></TextBox>
@@ -115,7 +115,7 @@
                         </StackPanel>
 
                         <TextBox  x:Name="textTelefon" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300" PreviewTextInput="textBox_tylkoLiczby"></TextBox>
-                        <Button x:Name="uzytkownikZapiszPacjenta" Grid.Column="1" Grid.Row="8"  Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue"></Button>
+                        <Button x:Name="uzytkownikZapiszPacjenta" Grid.Column="1" Grid.Row="8"  Margin="10,10,10,10" Content="Zapisz" Background="DodgerBlue" Click="uzytkownikZapiszPacjenta_Click"></Button>
 
                         <!-- <TextBox  x:Name="textMail" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,20,50,20" ></TextBox> -->
                     </Grid>
@@ -123,7 +123,7 @@
                     <Label x:Name="lekarzeLabel" Grid.Row="0" Grid.Column="0" Content="Lekarze"></Label>
                     <Label x:Name="dyzuryLabel" Grid.Row="0" Grid.Column="1" Content="Dyzury" Visibility="Visible"></Label>
                     <Label x:Name="pacjenciLabel" Grid.Row="0" Grid.Column="2" Content="Pacjenci"></Label>
-                    <Button Grid.Column="0" Grid.Row="2" Content="Wyloguj" Margin="10,10,10,10" ></Button>
+                    <Button Grid.Column="0" Grid.Row="2" Content="Wyjdź" Margin="10,10,10,10" Click="Button_Click" ></Button>
                     <Grid Grid.Row="1" Grid.Column="0" ShowGridLines="True">
                         <Grid.RowDefinitions >
                             <RowDefinition  Height="1*"></RowDefinition>
@@ -196,7 +196,7 @@
                         </StackPanel>
 
 
-                        <Grid x:Name="_PN_" Grid.Row="1"  Grid.Column="1" ShowGridLines="True">
+                        <Grid x:Name="_PN_" Grid.Row="1"  Grid.Column="1" ShowGridLines="True" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Name="p800" Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Name="p830" Width="1*"></ColumnDefinition>
@@ -215,22 +215,22 @@
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Content="8:00" ></Button>
-                            <Button Grid.Column="1" Content="8:30" ></Button>
-                            <Button Grid.Column="2" Content="9:00"></Button>
-                            <Button Grid.Column="3" Content="9:30"></Button>
-                            <Button Grid.Column="4" Content="10:00"></Button>
-                            <Button Grid.Column="5" Content="10:30"></Button>
-                            <Button Grid.Column="6" Content="11:00"></Button>
-                            <Button Grid.Column="7" Content="11:30"></Button>
-                            <Button Grid.Column="8" Content="12:00"></Button>
-                            <Button Grid.Column="9" Content="12:30"></Button>
-                            <Button Grid.Column="10" Content="13:30"></Button>
-                            <Button Grid.Column="11" Content="14:00"></Button>
-                            <Button Grid.Column="12" Content="14:30"></Button>
-                            <Button Grid.Column="13" Content="15:00"></Button>
-                            <Button Grid.Column="14" Content="15:30"></Button>
-                            <Button Grid.Column="15" Content="16:00"></Button>
+                            <Button Grid.Column="0" Content="8:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="1" Content="8:30"  Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="2" Content="9:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="3" Content="9:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="4" Content="10:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="5" Content="10:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="6" Content="11:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="7" Content="11:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="8" Content="12:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="9" Content="12:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="10" Content="13:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="11" Content="14:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="12" Content="14:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="13" Content="15:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="14" Content="15:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="15" Content="16:00" Click="Click_dyzurButton"></Button>
                         </Grid>
 
                         <Grid Grid.Row="2"  Grid.Column="1" ShowGridLines="True">
@@ -252,22 +252,22 @@
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Content="8:00"></Button>
-                            <Button Grid.Column="1" Content="8:30"></Button>
-                            <Button Grid.Column="2" Content="9:00"></Button>
-                            <Button Grid.Column="3" Content="9:30"></Button>
-                            <Button Grid.Column="4" Content="10:00"></Button>
-                            <Button Grid.Column="5" Content="10:30"></Button>
-                            <Button Grid.Column="6" Content="11:00"></Button>
-                            <Button Grid.Column="7" Content="11:30"></Button>
-                            <Button Grid.Column="8" Content="12:00"></Button>
-                            <Button Grid.Column="9" Content="12:30"></Button>
-                            <Button Grid.Column="10" Content="13:30"></Button>
-                            <Button Grid.Column="11" Content="14:00"></Button>
-                            <Button Grid.Column="12" Content="14:30"></Button>
-                            <Button Grid.Column="13" Content="15:00"></Button>
-                            <Button Grid.Column="14" Content="15:30"></Button>
-                            <Button Grid.Column="15" Content="16:00"></Button>
+                            <Button Grid.Column="0" Content="8:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="1" Content="8:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="2" Content="9:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="3" Content="9:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="4" Content="10:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="5" Content="10:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="6" Content="11:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="7" Content="11:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="8" Content="12:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="9" Content="12:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="10" Content="13:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="11" Content="14:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="12" Content="14:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="13" Content="15:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="14" Content="15:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="15" Content="16:00" Click="Click_dyzurButton"></Button>
                         </Grid>
 
                         <Grid x:Name="_WT_" Grid.Row="2"  Grid.Column="1" ShowGridLines="True">
@@ -289,22 +289,22 @@
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Content="8:00"></Button>
-                            <Button Grid.Column="1" Content="8:30"></Button>
-                            <Button Grid.Column="2" Content="9:00"></Button>
-                            <Button Grid.Column="3" Content="9:30"></Button>
-                            <Button Grid.Column="4" Content="10:00"></Button>
-                            <Button Grid.Column="5" Content="10:30"></Button>
-                            <Button Grid.Column="6" Content="11:00"></Button>
-                            <Button Grid.Column="7" Content="11:30"></Button>
-                            <Button Grid.Column="8" Content="12:00"></Button>
-                            <Button Grid.Column="9" Content="12:30"></Button>
-                            <Button Grid.Column="10" Content="13:30"></Button>
-                            <Button Grid.Column="11" Content="14:00"></Button>
-                            <Button Grid.Column="12" Content="14:30"></Button>
-                            <Button Grid.Column="13" Content="15:00"></Button>
-                            <Button Grid.Column="14" Content="15:30"></Button>
-                            <Button Grid.Column="15" Content="16:00"></Button>
+                            <Button Grid.Column="0" Content="8:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="1" Content="8:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="2" Content="9:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="3" Content="9:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="4" Content="10:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="5" Content="10:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="6" Content="11:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="7" Content="11:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="8" Content="12:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="9" Content="12:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="10" Content="13:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="11" Content="14:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="12" Content="14:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="13" Content="15:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="14" Content="15:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="15" Content="16:00" Click="Click_dyzurButton"></Button>
                         </Grid>
 
                         <Grid x:Name="_SR_" Grid.Row="3"  Grid.Column="1" ShowGridLines="True">
@@ -326,22 +326,22 @@
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Content="8:00"></Button>
-                            <Button Grid.Column="1" Content="8:30"></Button>
-                            <Button Grid.Column="2" Content="9:00"></Button>
-                            <Button Grid.Column="3" Content="9:30"></Button>
-                            <Button Grid.Column="4" Content="10:00"></Button>
-                            <Button Grid.Column="5" Content="10:30"></Button>
-                            <Button Grid.Column="6" Content="11:00"></Button>
-                            <Button Grid.Column="7" Content="11:30"></Button>
-                            <Button Grid.Column="8" Content="12:00"></Button>
-                            <Button Grid.Column="9" Content="12:30"></Button>
-                            <Button Grid.Column="10" Content="13:30"></Button>
-                            <Button Grid.Column="11" Content="14:00"></Button>
-                            <Button Grid.Column="12" Content="14:30"></Button>
-                            <Button Grid.Column="13" Content="15:00"></Button>
-                            <Button Grid.Column="14" Content="15:30"></Button>
-                            <Button Grid.Column="15" Content="16:00"></Button>
+                            <Button Grid.Column="0" Content="8:00"  Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="1" Content="8:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="2" Content="9:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="3" Content="9:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="4" Content="10:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="5" Content="10:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="6" Content="11:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="7" Content="11:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="8" Content="12:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="9" Content="12:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="10" Content="13:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="11" Content="14:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="12" Content="14:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="13" Content="15:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="14" Content="15:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="15" Content="16:00" Click="Click_dyzurButton"></Button>
                         </Grid>
 
                         <Grid x:Name="_CZ_" Grid.Row="4"  Grid.Column="1" ShowGridLines="True">
@@ -363,22 +363,22 @@
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Content="8:00"></Button>
-                            <Button Grid.Column="1" Content="8:30"></Button>
-                            <Button Grid.Column="2" Content="9:00"></Button>
-                            <Button Grid.Column="3" Content="9:30"></Button>
-                            <Button Grid.Column="4" Content="10:00"></Button>
-                            <Button Grid.Column="5" Content="10:30"></Button>
-                            <Button Grid.Column="6" Content="11:00"></Button>
-                            <Button Grid.Column="7" Content="11:30"></Button>
-                            <Button Grid.Column="8" Content="12:00"></Button>
-                            <Button Grid.Column="9" Content="12:30"></Button>
-                            <Button Grid.Column="10" Content="13:30"></Button>
-                            <Button Grid.Column="11" Content="14:00"></Button>
-                            <Button Grid.Column="12" Content="14:30"></Button>
-                            <Button Grid.Column="13" Content="15:00"></Button>
-                            <Button Grid.Column="14" Content="15:30"></Button>
-                            <Button Grid.Column="15" Content="16:00"></Button>
+                            <Button Grid.Column="0" Content="8:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="1" Content="8:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="2" Content="9:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="3" Content="9:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="4" Content="10:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="5" Content="10:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="6" Content="11:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="7" Content="11:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="8" Content="12:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="9" Content="12:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="10" Content="13:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="11" Content="14:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="12" Content="14:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="13" Content="15:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="14" Content="15:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="15" Content="16:00" Click="Click_dyzurButton"></Button>
                         </Grid>
 
                         <Grid x:Name="_PT_" Grid.Row="5"  Grid.Column="1" ShowGridLines="True">
@@ -400,22 +400,22 @@
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Content="8:00"></Button>
-                            <Button Grid.Column="1" Content="8:30"></Button>
-                            <Button Grid.Column="2" Content="9:00"></Button>
-                            <Button Grid.Column="3" Content="9:30"></Button>
-                            <Button Grid.Column="4" Content="10:00"></Button>
-                            <Button Grid.Column="5" Content="10:30"></Button>
-                            <Button Grid.Column="6" Content="11:00"></Button>
-                            <Button Grid.Column="7" Content="11:30"></Button>
-                            <Button Grid.Column="8" Content="12:00"></Button>
-                            <Button Grid.Column="9" Content="12:30"></Button>
-                            <Button Grid.Column="10" Content="13:30"></Button>
-                            <Button Grid.Column="11" Content="14:00"></Button>
-                            <Button Grid.Column="12" Content="14:30"></Button>
-                            <Button Grid.Column="13" Content="15:00"></Button>
-                            <Button Grid.Column="14" Content="15:30"></Button>
-                            <Button Grid.Column="15" Content="16:00"></Button>
+                            <Button Grid.Column="0" Content="8:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="1" Content="8:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="2" Content="9:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="3" Content="9:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="4" Content="10:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="5" Content="10:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="6" Content="11:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="7" Content="11:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="8" Content="12:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="9" Content="12:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="10" Content="13:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="11" Content="14:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="12" Content="14:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="13" Content="15:00" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="14" Content="15:30" Click="Click_dyzurButton"></Button>
+                            <Button Grid.Column="15" Content="16:00" Click="Click_dyzurButton"></Button>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -534,15 +534,15 @@
                                 <RowDefinition  Height="1*"></RowDefinition>
                                 <RowDefinition  Height="1*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Label Content="IDPrzychodnia/Nazwa przychodni" Grid.Column="0" Grid.Row="0" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                            <Label Content="IDLekarz/Nazwisko lekarza" Grid.Column="0" Grid.Row="1" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <Label Content="Nazwa przychodni" Grid.Column="0" Grid.Row="0" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <Label Content="Nazwisko lekarza" Grid.Column="0" Grid.Row="1" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                             <Label Content="Od godziny" Grid.Column="0" Grid.Row="2" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                             <Label Content="Do godziny" Grid.Column="0" Grid.Row="3" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                             <Label Content="Numer gabinetu" Grid.Column="0" Grid.Row="4" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                             <Label Content="Dzien tygodnia" Grid.Column="0" Grid.Row="5" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
-                            <TextBox  x:Name="nowyDyzurNazwaPrzychodni" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300" ></TextBox>
-                            <TextBox  x:Name="nowyDyzurNazwiskoLekarza" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="200" ></TextBox>
+                            <ComboBox  x:Name="nowyDyzurNazwaPrzychodni" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="300" SelectionChanged="nowyDyzurNazwaPrzychodni_SelectionChanged" ></ComboBox>
+                            <ComboBox  x:Name="nowyDyzurNazwiskoLekarza" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="200" SelectionChanged="nowyDyzurNazwiskoLekarza_SelectionChanged"></ComboBox>
                             <TextBox  x:Name="nowyDyzurOdGodziny" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="200"></TextBox>
                             <TextBox  x:Name="nowyDyzurDoGodziny" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="200"></TextBox>
                             <TextBox  x:Name="nowyDyzurNrGabinetu" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Margin="10,20,50,20" Width="100"></TextBox>
@@ -578,6 +578,7 @@
 
                             </StackPanel>
                         </Grid>
+                        
 
                         <!-- panel ADMIN edit uzytkownicy -->
                         <DataGrid Grid.Column="1" Grid.Row="0" Name="uzytkownicyData" Visibility="Hidden">
@@ -674,7 +675,7 @@
                                 <RowDefinition Height="6*"></RowDefinition>
                             </Grid.RowDefinitions>
                             <Label x:Name="passwordTip"  Margin="10,0,0,10" Grid.Row="1"  Content="Podpowiedź do hasła" Visibility="Hidden"/>
-                            <PasswordBox x:Name="passwordTextBox" Grid.Row="2" Margin="10,0,10,0" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="passwordTextBox" Grid.Row="2" Margin="10,0,10,0" VerticalContentAlignment="Center"/>
                             <Button x:Name="LogowanieButton"  Grid.Row="3" Margin="30,20,30,30" Content="Załoguj" Click="logowanieButton"/>
                         </Grid>
 
