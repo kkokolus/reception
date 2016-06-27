@@ -699,18 +699,19 @@ namespace Baza
                 foreach (var v in _iddyzur)
                     iddyzur = v;
                 //podsumujmy: taka data bardziej poprawna by byla - 2016-06-23 23:40:51.840 ale mamy tam stringa, wiec to nieistotne
-                var wybrana_data = selectedDate.Split(' ');
-                var wybrana_data1= wybrana_data[0];
+                var wybrana_data = selectedDate;
+                //var wybrana_data1= wybrana_data[0];
                 var wizyta = new Wizyta
                 {
                     IDPacjent = Int32.Parse(textBoxPacjentID.Text),
                     IDDyzur = iddyzur,
                     GodzinaWizyty = godzinaWizyty,
-                    DataWizyty = wybrana_data1
+                    DataWizyty = wybrana_data
                 };
 
                 db.Wizyty.Add(wizyta);
                 db.SaveChanges();
+                PokazDyzury(nazwisko_lekarza);
                 MessageBox.Show("Wizyta zapisana");
             }
         }
@@ -782,8 +783,24 @@ namespace Baza
                    finish.Add(item);
                 }
                 int idx = 0;
-  
-                foreach(int s  in dniPracy )
+
+            //zobaczymy juz zapisane w bazie wizyty
+
+            var wybrane_wizyty = from d in db.Dyzury
+                                 join l in db.Lekarze on d.IDLekarz equals l.IDLekarz
+                                 join w in db.Wizyty on d.IDDyzur equals w.IDDyzur
+                                 where l.Nazwisko == nazwiskoLekarza && d.IDDyzur == w.IDDyzur
+                                 select w;
+            List<List<string>> wizytyZapisane = new List<List<string>>();             
+            foreach (var w in wybrane_wizyty)
+            {
+                List<string> wizyta = new List<string>();
+                wizyta.Add(w.GodzinaWizyty);
+                wizyta.Add(w.DataWizyty);
+                wizytyZapisane.Add(wizyta);
+            }
+                
+            foreach (int s  in dniPracy )
                 {
                     int ilegodzin = finish[idx] - s;                  
                     
@@ -802,18 +819,27 @@ namespace Baza
                             if (licznik < ilegodzin*2)
                             {
                                 if (b is Button)
+                            {
+                                string[] dyzurGodzina = ((Button)b).Content.ToString().Split(':');
+                                int g = Convert.ToInt32(dyzurGodzina[0]);
+                                if (g >= start[idx] && g <= finish[idx])
                                 {
-                                    string[] dyzurGodzina = ((Button)b).Content.ToString().Split(':');
-                                    int g = Convert.ToInt32(dyzurGodzina[0]);
-                                    if (g >= start[idx] && g<= finish[idx])
-                                    {
-                                   ((Button)b).IsEnabled = true;
+                                    ((Button)b).IsEnabled = true;
                                     ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
                                     licznik++;
-                                    }                                  
                                 }
                             }
                         }
+                        foreach (UIElement c in _PN_.Children)
+                        {
+                            foreach (List<string> wz in wizytyZapisane)
+                            {
+                                if (((Button)c).Content.Equals(wz[0]) && selectedDate == wz[1])
+                                    ((Button)c).Background = new SolidColorBrush(Colors.IndianRed);
+                            }
+
+                        }
+                    }
                         idx++;
                         continue;
                     }
@@ -842,7 +868,16 @@ namespace Baza
                                     }
                                 }
                             }
+                        foreach (UIElement c in _WT_.Children)
+                        {
+                            foreach (List<string> wz in wizytyZapisane)
+                            {
+                                if (((Button)c).Content.Equals(wz[0]) && selectedDate == wz[1])
+                                    ((Button)c).Background = new SolidColorBrush(Colors.IndianRed);
+                            }
+
                         }
+                    }
                         idx++;
                         continue;
                     }
@@ -856,23 +891,32 @@ namespace Baza
                         }
                         int licznik = 0;
                         foreach (UIElement b in _SR_.Children)
+                    {
+                        if (licznik < ilegodzin * 2)
                         {
-                            if (licznik < ilegodzin * 2)
+                            if (b is Button)
                             {
-                                if (b is Button)
+                                string[] dyzurGodzina = ((Button)b).Content.ToString().Split(':');
+                                int g = Convert.ToInt32(dyzurGodzina[0]);
+                                if (g >= start[idx] && g <= finish[idx])
                                 {
-                                    string[] dyzurGodzina = ((Button)b).Content.ToString().Split(':');
-                                    int g = Convert.ToInt32(dyzurGodzina[0]);
-                                    if (g >= start[idx] && g <= finish[idx])
-                                    {
-                                        ((Button)b).IsEnabled = true;
-                                        ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
-                                        licznik++;
-                                    }
+                                    ((Button)b).IsEnabled = true;
+                                    ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
+                                    licznik++;
                                 }
                             }
                         }
-                        idx++;
+                        foreach (UIElement c in _SR_.Children)
+                        {
+                            foreach(List<string> wz in wizytyZapisane)
+                            {
+                                    if (((Button)c).Content.Equals(wz[0])&& selectedDate == wz[1])
+                                        ((Button)c).Background = new SolidColorBrush(Colors.IndianRed);
+                            }
+
+                        }
+                    }
+                    idx++;
                         continue;
                     }
                   else  if (s == 4)
@@ -900,7 +944,16 @@ namespace Baza
                                     }
                                 }
                             }
+                        foreach (UIElement c in _CZ_.Children)
+                        {
+                            foreach (List<string> wz in wizytyZapisane)
+                            {
+                                if (((Button)c).Content.Equals(wz[0]) && selectedDate == wz[1])
+                                    ((Button)c).Background = new SolidColorBrush(Colors.IndianRed);
+                            }
+
                         }
+                    }
                         idx++;
                         continue;
                     }
@@ -930,7 +983,16 @@ namespace Baza
                                     }
                                 }
                             }
+                        foreach (UIElement c in _PT_.Children)
+                        {
+                            foreach (List<string> wz in wizytyZapisane)
+                            {
+                                if (((Button)c).Content.Equals(wz[0]) && selectedDate == wz[1])
+                                    ((Button)c).Background = new SolidColorBrush(Colors.IndianRed);
+                            }
+
                         }
+                    }
                         idx++;
                         continue;
                     }
