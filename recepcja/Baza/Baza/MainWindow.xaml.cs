@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Baza.Klasy;
 using System.Data;
+using System.IO;
 using System.Data.SqlClient;
 
 
@@ -36,14 +37,15 @@ namespace Baza
         string selectedDate = "";
         int numerDniaTygodnia = 0;
         string nazwisko_lekarza = "";
+        string wybranaPrzychodnia = "";
         int idWybranegoLekarza = 0;
-        int iddyzur; 
+        int iddyzur;
         DateTime now = DateTime.Now;
         int n = 0;
         public MainWindow()
         {
             InitializeComponent();
-           
+
             tuBedzieNazwisko.Content = now.DayOfWeek + " " + now.Day + "/" + now.Month;
 
             // Stworzenie przykładowych lekarzy, przychodni itp. na potrzeby stworzenia bazy w SQL Server i testów
@@ -52,13 +54,13 @@ namespace Baza
             var przykladowy_lekarz = new Lekarz { Imie = "Jan", Nazwisko = "Kowalski", PESEL = 93040234527, Telefon = 675384920 };
             var przykladowy_lekarz2 = new Lekarz { Imie = "Adam", Nazwisko = "Nowak", PESEL = 93040234527, Telefon = 675384920 };
             var przykladowy_lekarz3 = new Lekarz { Imie = "Anna", Nazwisko = "Nowacka", PESEL = 93040234527, Telefon = 675384920 };
-            
+
             var pacjent = new Pacjent { Imie = "Tomasz", Nazwisko = "Szklarski", PESEL = 12345678901234 };
             var pacjent2 = new Pacjent { Imie = "Antoni", Nazwisko = "Janowski", PESEL = 12345678901234 };
             var przykladowy_dyzur = new Dyzur { IDPrzychodnia = 2, IDLekarz = 3, DzienTygodnia = 1, OdGodziny = 9, DoGodziny = 13, NrGabinetu = "1" };
             var przykladowy_dyzur2 = new Dyzur { IDPrzychodnia = 1, IDLekarz = 2, DzienTygodnia = 5, OdGodziny = 8, DoGodziny = 12, NrGabinetu = "2A" };
-          //  var przykladowy_dyzur3 = new Dyzur { IDPrzychodnia = 2, IDLekarz = 3, DzienTygodnia = 2, OdGodziny = 10, DoGodziny = 16, NrGabinetu = "4C" };
-            var przykladowy_dyzur4 = new Dyzur { IDPrzychodnia = 1, IDLekarz = 1, DzienTygodnia = 3, OdGodziny = 8, DoGodziny = 12, NrGabinetu = "3"};
+            //  var przykladowy_dyzur3 = new Dyzur { IDPrzychodnia = 2, IDLekarz = 3, DzienTygodnia = 2, OdGodziny = 10, DoGodziny = 16, NrGabinetu = "4C" };
+            var przykladowy_dyzur4 = new Dyzur { IDPrzychodnia = 1, IDLekarz = 1, DzienTygodnia = 3, OdGodziny = 8, DoGodziny = 12, NrGabinetu = "3" };
             var przykladowy_dyzur5 = new Dyzur { IDPrzychodnia = 1, IDLekarz = 2, DzienTygodnia = 4, OdGodziny = 10, DoGodziny = 16, NrGabinetu = "3B" };
 
             using (db)
@@ -79,10 +81,10 @@ namespace Baza
                     db.SaveChanges();
                     if (db.Dyzury.SingleOrDefault(b => b.DzienTygodnia == przykladowy_dyzur.DzienTygodnia) == null)
                         db.Dyzury.Add(przykladowy_dyzur);
-                       if (db.Dyzury.SingleOrDefault(b => b.DzienTygodnia == przykladowy_dyzur2.DzienTygodnia) == null)
-                           db.Dyzury.Add(przykladowy_dyzur2);
-                        //if (db.Dyzury.SingleOrDefault(b => b.DzienTygodnia == przykladowy_dyzur3.DzienTygodnia) == null)
-                        //   db.Dyzury.Add(przykladowy_dyzur3);
+                    if (db.Dyzury.SingleOrDefault(b => b.DzienTygodnia == przykladowy_dyzur2.DzienTygodnia) == null)
+                        db.Dyzury.Add(przykladowy_dyzur2);
+                    //if (db.Dyzury.SingleOrDefault(b => b.DzienTygodnia == przykladowy_dyzur3.DzienTygodnia) == null)
+                    //   db.Dyzury.Add(przykladowy_dyzur3);
                     if (db.Dyzury.SingleOrDefault(b => b.DzienTygodnia == przykladowy_dyzur4.DzienTygodnia) == null)
                         db.Dyzury.Add(przykladowy_dyzur4);
                     if (db.Dyzury.SingleOrDefault(b => b.DzienTygodnia == przykladowy_dyzur5.DzienTygodnia) == null)
@@ -131,9 +133,9 @@ namespace Baza
 
         }
 
-       
-                    
-    private void nowyDyzurNazwaPrzychodni_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+
+        private void nowyDyzurNazwaPrzychodni_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Project_context db = new Project_context();
 
@@ -142,7 +144,7 @@ namespace Baza
                 var tmp = nowyDyzurNazwaPrzychodni.SelectedItem.ToString();
                 string[] words = tmp.Split(' ');
                 var nazwa_przychodni1 = words[1];
-
+                wybranaPrzychodnia = words[1];
                 // Zapytanie zwraca nazwiska lekarzy którzy kiedykolwiek pełnią dyżur w wybranej przychodni
                 var query_lista_lekarzy2 =
                     from l in db.Lekarze
@@ -176,9 +178,9 @@ namespace Baza
                 string tuBedzieNazwisko = nazwisko_lekarza;
             }
         }
-    //--------------------------------------------------------------------------------------------------------------
-    //ukrywa całą siatke tygodniową, zamiast niej wyswietla textboxy dla nowego pacjenta
-    private void nowyPacjentClick(object sender, RoutedEventArgs e)
+        //--------------------------------------------------------------------------------------------------------------
+        //ukrywa całą siatke tygodniową, zamiast niej wyswietla textboxy dla nowego pacjenta
+        private void nowyPacjentClick(object sender, RoutedEventArgs e)
         {
             if (SiatkaTygodniowa.Visibility == Visibility.Visible)
             {
@@ -244,7 +246,7 @@ namespace Baza
 
         private void Click_przychodniaUsun(object sender, RoutedEventArgs e)
         {
-             
+
             uzytkownicyData.Visibility = Visibility.Hidden;
             gridLekarz.Visibility = Visibility.Hidden;
             gridUzytkownik.Visibility = Visibility.Hidden;
@@ -302,20 +304,20 @@ namespace Baza
 
             using (db)
             {
-        // W zmiennej nazwa_przychodni znajduje się nazwa przychodni wybranej w comboboxie przychodni
+                // W zmiennej nazwa_przychodni znajduje się nazwa przychodni wybranej w comboboxie przychodni
                 var tmp = przychodnieComboBox.SelectedItem.ToString();
                 string[] words = tmp.Split(' ');
                 var nazwa_przychodni = words[1];
 
-        // Zapytanie zwraca nazwiska lekarzy którzy kiedykolwiek pełnią dyżur w wybranej przychodni
+                // Zapytanie zwraca nazwiska lekarzy którzy kiedykolwiek pełnią dyżur w wybranej przychodni
                 var query_lista_lekarzy =
                     from l in db.Lekarze
                     join dyz in db.Dyzury on l.IDLekarz equals dyz.IDLekarz
                     join przych in db.Przychodnie on dyz.IDPrzychodnia equals przych.IDPrzychodnia
                     where przych.Rodzaj == nazwa_przychodni
                     select l.Nazwisko;
-      
-                    lekarzeComboBox.Items.Clear();
+
+                lekarzeComboBox.Items.Clear();
 
                 var t = string.Join(" ", query_lista_lekarzy);
                 var f = t.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
@@ -339,15 +341,15 @@ namespace Baza
                 var query = from p in db.Pacjenci where p.Nazwisko == pacjentWybranyNazwisko select p.IDPacjent;
 
                 if (query != null)
-                    {
-                     foreach (var q in query)
-                     textBoxPacjentID.Text = ((int)q).ToString();
-                    }
+                {
+                    foreach (var q in query)
+                        textBoxPacjentID.Text = ((int)q).ToString();
+                }
                 else
-                textBoxPacjentID.Text = "";
+                    textBoxPacjentID.Text = "";
             }
         }
-       private void lekarzeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lekarzeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // czyszczenie siatki i dat przy dniach tygodnia
             stackPN.Background = new SolidColorBrush(Colors.BurlyWood);
@@ -370,29 +372,29 @@ namespace Baza
                 string[] words = tmp.Split(' ');
                 nazwisko_lekarza = words[1];
                 var tmpID = from l in db.Lekarze where l.Nazwisko == nazwisko_lekarza select l.IDLekarz;
-                foreach (var i in tmpID){ idWybranegoLekarza = i;}
-                tuBedzieNazwisko.Content = nazwisko_lekarza; 
+                foreach (var i in tmpID) { idWybranegoLekarza = i; }
+                tuBedzieNazwisko.Content = nazwisko_lekarza;
                 //siatka tygodniowa ma wypełnic się dyżurami wybranego lekarza w biezącym tygodniu
                 n = 0;
                 PokazDyzury(nazwisko_lekarza);
-            }          
+            }
         }
 
         private void calendarSelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             Project_context db = new Project_context();
-            string _selectedDate = calendar.SelectedDate.ToString();                     
+            string _selectedDate = calendar.SelectedDate.ToString();
             string[] dataTmp = _selectedDate.Split(' ');
             string[] data = dataTmp[0].Split('/', '.', '-');
-           
+
             var data_string = data[0];
-            string[]  words1 = data_string.Split('-');
+            string[] words1 = data_string.Split('-');
 
             int dzienTygodnia = DzienTygodnia(data);
             string dzien = data[2];
             string miesiac = data[1];
             //chcę dodać wyswietlanie daty na siatce tygodniowej
-      
+
             UIElement[] dniSiatkitygodniowej = { stackPN, stackWT, stackSR, stackCZ, stackPT };
             if (dzienTygodnia == 0)
             {
@@ -408,7 +410,7 @@ namespace Baza
                 label_ptnData.Content = null;
                 label_pndData.Content = dzien + '/' + miesiac;
                 stackPN.Background = new SolidColorBrush(Colors.OliveDrab);
-            }               
+            }
             if (dzienTygodnia == 1)
             {
                 stackPN.Background = new SolidColorBrush(Colors.BurlyWood);
@@ -423,7 +425,7 @@ namespace Baza
                 label_ptnData.Content = null;
                 label_wtrData.Content = dzien + '/' + miesiac;
                 stackWT.Background = new SolidColorBrush(Colors.OliveDrab);
-            }                
+            }
             if (dzienTygodnia == 2)
             {
                 stackPN.Background = new SolidColorBrush(Colors.BurlyWood);
@@ -438,7 +440,7 @@ namespace Baza
                 label_ptnData.Content = null;
                 stackSR.Background = new SolidColorBrush(Colors.OliveDrab);
                 label_srdData.Content = dzien + '/' + miesiac;
-            }               
+            }
             if (dzienTygodnia == 3)
             {
                 stackPN.Background = new SolidColorBrush(Colors.BurlyWood);
@@ -453,7 +455,7 @@ namespace Baza
                 label_ptnData.Content = null;
                 stackCZ.Background = new SolidColorBrush(Colors.OliveDrab);
                 label_cztData.Content = dzien + '/' + miesiac;
-            }               
+            }
             if (dzienTygodnia == 4)
             {
                 stackPN.Background = new SolidColorBrush(Colors.BurlyWood);
@@ -478,30 +480,30 @@ namespace Baza
         }
         //inny kolor dla panelu admina
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {          
-           if(adminTabHeader.IsSelected)
-           {
+        {
+            if (adminTabHeader.IsSelected)
+            {
                 SolidColorBrush brush = new SolidColorBrush(Colors.Cornsilk);
-               tabControl.Background = brush;
-           }
-           if (userTabHeader.IsSelected)
-           {
-              SolidColorBrush brush = new SolidColorBrush(Colors.BurlyWood);
-              tabControl.Background = brush;
-           }                   
+                tabControl.Background = brush;
+            }
+            if (userTabHeader.IsSelected)
+            {
+                SolidColorBrush brush = new SolidColorBrush(Colors.BurlyWood);
+                tabControl.Background = brush;
+            }
         }
-       
+
         public void WyczyscSiatketygodniowa()
         {
             UIElementCollection[] dniSiatkitygodniowej = { _PN_.Children, _WT_.Children, _SR_.Children, _CZ_.Children, _PT_.Children };
             foreach (var day in dniSiatkitygodniowej)
             {
-            foreach (UIElement b in day)
+                foreach (UIElement b in day)
                 {
-                if (b is Button)
-                    ((Button)b).IsEnabled = false;
+                    if (b is Button)
+                        ((Button)b).IsEnabled = false;
                 }
-            } 
+            }
         }
         public void PrzypiszEvent()
         {
@@ -512,10 +514,10 @@ namespace Baza
                 {
                     if (b is Button)
                         ((Button)b).Click += Click_dyzurButton;
-                }                    
+                }
             }
         }
-  
+
         private void Click_dyzurButton(object sender, RoutedEventArgs e)
         {
             //czyszczenie wczesniej zaznaczonych na pomaranczowo terminow
@@ -528,12 +530,13 @@ namespace Baza
                     {
                         if (((Button)btn).Background.ToString() == Colors.Orange.ToString())
                         {
-                        ((Button)btn).Background = new SolidColorBrush(Colors.LimeGreen);
+                            ((Button)btn).Background = new SolidColorBrush(Colors.LimeGreen);
                         }
-                            
-                        if (((Button)btn).Background.ToString() == Colors.Red.ToString())
-                        {
 
+                        else if (((Button)btn).Background.ToString() == Colors.IndianRed.ToString())
+                        {
+                            //tu ma być anulowanie wizyty
+                            Project_context db = new Project_context();
                         }
                     }
                 }
@@ -581,28 +584,29 @@ namespace Baza
         }
 
         private void textBox_tylkoLiczby(object sender, TextCompositionEventArgs e)//tylko liczby
-       {
-           TextBox t = (TextBox)sender;
+        {
+            TextBox t = (TextBox)sender;
             if (t.Name.Contains("Telefon"))
-           {
-               if (!Char.IsDigit(e.Text,0)&&!e.Text.Contains('-'))
-               e.Handled = true;            }            
+            {
+                if (!Char.IsDigit(e.Text, 0) && !e.Text.Contains('-'))
+                    e.Handled = true;
+            }
             else
             {
-               if (!Char.IsDigit(e.Text, 0))
-                e.Handled = true;
-            }           
+                if (!Char.IsDigit(e.Text, 0))
+                    e.Handled = true;
+            }
         }
         private void textBox_tylkoLitery(object sender, TextCompositionEventArgs e)//tylko litery
-        { 
-               if (!Char.IsLetter(e.Text, 0) && !e.Text.Contains('-'))
-                    e.Handled = true;
+        {
+            if (!Char.IsLetter(e.Text, 0) && !e.Text.Contains('-'))
+                e.Handled = true;
         }
         //funkcja zwraca dzien tygodnia dla wybranej daty
         public static int DzienTygodnia(string[] data1)
         {
 
-            int[] liczbaDni = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334};
+            int[] liczbaDni = { 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 };
             var dzien = Int32.Parse(data1[2]);
             var miesiac = Int32.Parse(data1[1]);
             //var dzien = Int32.Parse(data1[0]);
@@ -614,9 +618,9 @@ namespace Baza
                 for (int i = 2; i < liczbaDni.Length; i++)
                     liczbaDni[i] += 1;
             }
-            int dzienRoku =0;
+            int dzienRoku = 0;
             int yy, c, g;
-            int wynik=0;
+            int wynik = 0;
             dzienRoku = dzien + liczbaDni[miesiac - 1];
             yy = (rok - 1) % 100;
             c = (rok - 1) - yy;
@@ -625,7 +629,7 @@ namespace Baza
             wynik += dzienRoku - 1;
             wynik %= 7;
             return wynik;
-        
+
         }
 
         private void zapiszPacjenta_Click(object sender, RoutedEventArgs e)
@@ -682,7 +686,7 @@ namespace Baza
 
                 var id_przychodni = Int32.Parse(prz);
                 var id_lekarza = Int32.Parse(lek);
-                
+
                 var nowy_dyzur = new Dyzur { IDPrzychodnia = id_przychodni, IDLekarz = id_lekarza, OdGodziny = Int32.Parse(nowyDyzurOdGodziny.Text), DoGodziny = Int32.Parse(nowyDyzurDoGodziny.Text), NrGabinetu = nowyDyzurNrGabinetu.Text, DzienTygodnia = Int32.Parse(nowyDyzurDzienTygodnia.Text) };
                 db.Dyzury.Add(nowy_dyzur);
                 db.SaveChanges();
@@ -701,18 +705,22 @@ namespace Baza
                 //podsumujmy: taka data bardziej poprawna by byla - 2016-06-23 23:40:51.840 ale mamy tam stringa, wiec to nieistotne
                 var wybrana_data = selectedDate;
                 //var wybrana_data1= wybrana_data[0];
-                var wizyta = new Wizyta
+                if (godzinaWizyty != "" && wybrana_data != "" && textBoxPacjentID.Text != null)
                 {
-                    IDPacjent = Int32.Parse(textBoxPacjentID.Text),
-                    IDDyzur = iddyzur,
-                    GodzinaWizyty = godzinaWizyty,
-                    DataWizyty = wybrana_data
-                };
+                    var wizyta = new Wizyta
+                    {
+                        IDPacjent = Int32.Parse(textBoxPacjentID.Text),
+                        IDDyzur = iddyzur,
+                        GodzinaWizyty = godzinaWizyty,
+                        DataWizyty = wybrana_data
+                    };
 
-                db.Wizyty.Add(wizyta);
-                db.SaveChanges();
-                PokazDyzury(nazwisko_lekarza);
-                MessageBox.Show("Wizyta zapisana");
+                    db.Wizyty.Add(wizyta);
+                    db.SaveChanges();
+                    PokazDyzury(nazwisko_lekarza);
+                    MessageBox.Show("Wizyta zapisana");
+                }
+
             }
         }
 
@@ -764,25 +772,25 @@ namespace Baza
         {
             Project_context db = new Project_context();
             //zapisuje dane o godzinach dyzurow lekarza do 2 list
-                var dniDyzurow = from d in db.Dyzury where d.IDLekarz == idWybranegoLekarza orderby d.DzienTygodnia select d.DzienTygodnia;
-                var odgodziny = from d in db.Dyzury where d.IDLekarz == idWybranegoLekarza orderby d.DzienTygodnia select d.OdGodziny;
-                var dogodziny = from d in db.Dyzury where d.IDLekarz == idWybranegoLekarza orderby d.DzienTygodnia select d.DoGodziny;
-                List<int> dniPracy = new List<int>();
-                foreach(var item in dniDyzurow)
-                {
-                   dniPracy.Add(item);
-                }
-                List<int> start = new List<int>();
-                foreach (var item in odgodziny)
-                {
-                    start.Add(item);
-                }
-                List<int> finish = new List<int>();
-                foreach (var item in dogodziny)
-                {
-                   finish.Add(item);
-                }
-                int idx = 0;
+            var dniDyzurow = from d in db.Dyzury where d.IDLekarz == idWybranegoLekarza orderby d.DzienTygodnia select d.DzienTygodnia;
+            var odgodziny = from d in db.Dyzury where d.IDLekarz == idWybranegoLekarza orderby d.DzienTygodnia select d.OdGodziny;
+            var dogodziny = from d in db.Dyzury where d.IDLekarz == idWybranegoLekarza orderby d.DzienTygodnia select d.DoGodziny;
+            List<int> dniPracy = new List<int>();
+            foreach (var item in dniDyzurow)
+            {
+                dniPracy.Add(item);
+            }
+            List<int> start = new List<int>();
+            foreach (var item in odgodziny)
+            {
+                start.Add(item);
+            }
+            List<int> finish = new List<int>();
+            foreach (var item in dogodziny)
+            {
+                finish.Add(item);
+            }
+            int idx = 0;
 
             //zobaczymy juz zapisane w bazie wizyty
 
@@ -791,7 +799,7 @@ namespace Baza
                                  join w in db.Wizyty on d.IDDyzur equals w.IDDyzur
                                  where l.Nazwisko == nazwiskoLekarza && d.IDDyzur == w.IDDyzur
                                  select w;
-            List<List<string>> wizytyZapisane = new List<List<string>>();             
+            List<List<string>> wizytyZapisane = new List<List<string>>();
             foreach (var w in wybrane_wizyty)
             {
                 List<string> wizyta = new List<string>();
@@ -799,26 +807,31 @@ namespace Baza
                 wizyta.Add(w.DataWizyty);
                 wizytyZapisane.Add(wizyta);
             }
-                
-            foreach (int s  in dniPracy )
-                {
-                    int ilegodzin = finish[idx] - s;                  
-                    
+
+            foreach (int s in dniPracy)
+            {
+                int ilegodzin = finish[idx] - s;
+
                 //odblokowuje tyle przycisków ile godzin przyjmuje lekarz 
-                    if (s == 1)
+                if (s == 1)
+                {
+
+                    //nie dotykałem tego, a przestało działać 
+                    label_pndData.Content = now.AddDays(n).Day + "/" + now.AddDays(n).Month;
+                    stackPN.Background = new SolidColorBrush(Colors.OliveDrab);
+                    selectedDate = label_pndData.Content.ToString() + "/2016";
+                    //if (s == NumerDniaTygodnia(now.AddDays(n))) //jak w tym dniu w bierzacym tygodniu jest dyzur -  wpisuje datę
+                    //    {
+                    //        label_pndData.Content = now.AddDays(n).Day + "/" + now.AddDays(n).Month;
+                    //        stackPN.Background = new SolidColorBrush(Colors.OliveDrab);
+                    //        selectedDate = label_pndData.Content.ToString() + "/2016";
+                    //    }
+                    int licznik = 0;
+                    foreach (UIElement b in _PN_.Children)
                     {
-                        if (s == NumerDniaTygodnia(now.AddDays(n))) //jak w tym dniu w bierzacym tygodniu jest dyzur -  wpisuje datę
+                        if (licznik < ilegodzin * 2)
                         {
-                            label_pndData.Content = now.AddDays(n).Day + "/" + now.AddDays(n).Month;
-                            stackPN.Background = new SolidColorBrush(Colors.OliveDrab);
-                            selectedDate = label_pndData.Content.ToString() + "/2016";
-                        }
-                        int licznik = 0;
-                        foreach (UIElement b in _PN_.Children)
-                        {
-                            if (licznik < ilegodzin*2)
-                            {
-                                if (b is Button)
+                            if (b is Button)
                             {
                                 string[] dyzurGodzina = ((Button)b).Content.ToString().Split(':');
                                 int g = Convert.ToInt32(dyzurGodzina[0]);
@@ -840,34 +853,37 @@ namespace Baza
 
                         }
                     }
-                        idx++;
-                        continue;
-                    }
-                 else   if (s == 2)
+                    idx++;
+                    continue;
+                }
+                else if (s == 2)
+                {
+                    label_wtrData.Content = now.AddDays(n + 1).Day + "/" + now.AddDays(n + 1).Month;
+                    stackWT.Background = new SolidColorBrush(Colors.OliveDrab);
+                    selectedDate = label_wtrData.Content.ToString() + "/2016";
+                    //if (s == NumerDniaTygodnia(now.AddDays(n+1)))
+                    //    {
+                    //        label_wtrData.Content = now.AddDays(n+1).Day + "/" + now.AddDays(n+1).Month;
+                    //        stackWT.Background = new SolidColorBrush(Colors.OliveDrab);
+                    //        selectedDate = label_wtrData.Content.ToString() + "/2016";
+                    //    }
+                    int licznik = 0;
+                    foreach (UIElement b in _WT_.Children)
                     {
-                        if (s == NumerDniaTygodnia(now.AddDays(n+1)))
+                        if (licznik < ilegodzin * 2)
                         {
-                            label_wtrData.Content = now.AddDays(n+1).Day + "/" + now.AddDays(n+1).Month;
-                            stackWT.Background = new SolidColorBrush(Colors.OliveDrab);
-                            selectedDate = label_wtrData.Content.ToString() + "/2016";
-                        }
-                        int licznik = 0;
-                        foreach (UIElement b in _WT_.Children)
-                        {
-                            if (licznik < ilegodzin * 2)
+                            if (b is Button)
                             {
-                                if (b is Button)
+                                string[] dyzurGodzina = ((Button)b).Content.ToString().Split(':');
+                                int g = Convert.ToInt32(dyzurGodzina[0]);
+                                if (g >= start[idx] && g <= finish[idx])
                                 {
-                                    string[] dyzurGodzina = ((Button)b).Content.ToString().Split(':');
-                                    int g = Convert.ToInt32(dyzurGodzina[0]);
-                                    if (g >= start[idx] && g <= finish[idx])
-                                    {
-                                        ((Button)b).IsEnabled = true;
-                                        ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
-                                        licznik++;
-                                    }
+                                    ((Button)b).IsEnabled = true;
+                                    ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
+                                    licznik++;
                                 }
                             }
+                        }
                         foreach (UIElement c in _WT_.Children)
                         {
                             foreach (List<string> wz in wizytyZapisane)
@@ -878,19 +894,22 @@ namespace Baza
 
                         }
                     }
-                        idx++;
-                        continue;
-                    }
-                  else  if (s == 3)
-                    {
-                        if (s == NumerDniaTygodnia(now.AddDays(n+2)))
-                        {
-                            label_srdData.Content = now.AddDays(n+2).Day + "/" + now.AddDays(n+2).Month;
-                            stackSR.Background = new SolidColorBrush(Colors.OliveDrab);
-                            selectedDate = label_srdData.Content.ToString() + "/2016";
-                        }
-                        int licznik = 0;
-                        foreach (UIElement b in _SR_.Children)
+                    idx++;
+                    continue;
+                }
+                else if (s == 3)
+                {
+                    label_srdData.Content = now.AddDays(n + 2).Day + "/" + now.AddDays(n + 2).Month;
+                    stackSR.Background = new SolidColorBrush(Colors.OliveDrab);
+                    selectedDate = label_srdData.Content.ToString() + "/2016";
+                    //if (s == NumerDniaTygodnia(now.AddDays(n+2)))
+                    //    {
+                    //        label_srdData.Content = now.AddDays(n+2).Day + "/" + now.AddDays(n+2).Month;
+                    //        stackSR.Background = new SolidColorBrush(Colors.OliveDrab);
+                    //        selectedDate = label_srdData.Content.ToString() + "/2016";
+                    //    }
+                    int licznik = 0;
+                    foreach (UIElement b in _SR_.Children)
                     {
                         if (licznik < ilegodzin * 2)
                         {
@@ -908,42 +927,45 @@ namespace Baza
                         }
                         foreach (UIElement c in _SR_.Children)
                         {
-                            foreach(List<string> wz in wizytyZapisane)
+                            foreach (List<string> wz in wizytyZapisane)
                             {
-                                    if (((Button)c).Content.Equals(wz[0])&& selectedDate == wz[1])
-                                        ((Button)c).Background = new SolidColorBrush(Colors.IndianRed);
+                                if (((Button)c).Content.Equals(wz[0]) && selectedDate == wz[1])
+                                    ((Button)c).Background = new SolidColorBrush(Colors.IndianRed);
                             }
 
                         }
                     }
                     idx++;
-                        continue;
-                    }
-                  else  if (s == 4)
+                    continue;
+                }
+                else if (s == 4)
+                {
+                    label_cztData.Content = now.AddDays(n + 3).Day + "/" + now.AddDays(n + 3).Month;
+                    stackCZ.Background = new SolidColorBrush(Colors.OliveDrab);
+                    selectedDate = label_cztData.Content.ToString() + "/2016";
+                    //if (s == NumerDniaTygodnia(now.AddDays(n+3)))
+                    //    {
+                    //        label_cztData.Content = now.AddDays(n+3).Day + "/" + now.AddDays(n+3).Month;
+                    //        stackCZ.Background = new SolidColorBrush(Colors.OliveDrab);
+                    //        selectedDate = label_cztData.Content.ToString() + "/2016";
+                    //    }
+                    int licznik = 0;
+                    foreach (UIElement b in _CZ_.Children)
                     {
-                        if (s == NumerDniaTygodnia(now.AddDays(n+3)))
+                        if (licznik < ilegodzin * 2)
                         {
-                            label_cztData.Content = now.AddDays(n+3).Day + "/" + now.AddDays(n+3).Month;
-                            stackCZ.Background = new SolidColorBrush(Colors.OliveDrab);
-                            selectedDate = label_cztData.Content.ToString() + "/2016";
-                        }
-                        int licznik = 0;
-                        foreach (UIElement b in _CZ_.Children)
-                        {
-                            if (licznik < ilegodzin * 2)
+                            if (b is Button)
                             {
-                                if (b is Button)
+                                string[] dyzurGodzina = ((Button)b).Content.ToString().Split(':');
+                                int g = Convert.ToInt32(dyzurGodzina[0]);
+                                if (g >= start[idx] && g <= finish[idx])
                                 {
-                                    string[] dyzurGodzina = ((Button)b).Content.ToString().Split(':');
-                                    int g = Convert.ToInt32(dyzurGodzina[0]);
-                                    if (g >= start[idx] && g <= finish[idx])
-                                    {
-                                        ((Button)b).IsEnabled = true;
-                                        ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
-                                        licznik++;
-                                    }
+                                    ((Button)b).IsEnabled = true;
+                                    ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
+                                    licznik++;
                                 }
                             }
+                        }
                         foreach (UIElement c in _CZ_.Children)
                         {
                             foreach (List<string> wz in wizytyZapisane)
@@ -954,35 +976,38 @@ namespace Baza
 
                         }
                     }
-                        idx++;
-                        continue;
-                    }
-                 else   if (s == 5)
+                    idx++;
+                    continue;
+                }
+                else if (s == 5)
+                {
+                    label_ptnData.Content = now.AddDays(n + 4).Day + "/" + now.AddDays(n + 4).Month;
+                    stackPT.Background = new SolidColorBrush(Colors.OliveDrab);
+                    selectedDate = label_ptnData.Content.ToString() + "/2016";
+                    //if (s == NumerDniaTygodnia(now.AddDays(n+4)))
+                    //    {
+                    //        //label_pndData.Content = now.Day + "/" + now.Month;
+                    //        label_ptnData.Content = now.AddDays(n+4).Day + "/" + now.AddDays(n+4).Month;
+                    //        stackPT.Background = new SolidColorBrush(Colors.OliveDrab);
+                    //        selectedDate = label_ptnData.Content.ToString() + "/2016";
+                    //    }
+                    int licznik = 0;
+                    foreach (UIElement b in _PT_.Children)
                     {
-                        if (s == NumerDniaTygodnia(now.AddDays(n+4)))
+                        if (licznik < ilegodzin * 2)
                         {
-                            //label_pndData.Content = now.Day + "/" + now.Month;
-                            label_ptnData.Content = now.AddDays(n+4).Day + "/" + now.AddDays(n+4).Month;
-                            stackPT.Background = new SolidColorBrush(Colors.OliveDrab);
-                            selectedDate = label_ptnData.Content.ToString() + "/2016";
-                        }
-                        int licznik = 0;
-                        foreach (UIElement b in _PT_.Children)
-                        {
-                            if (licznik < ilegodzin * 2)
+                            if (b is Button)
                             {
-                                if (b is Button)
+                                string[] dyzurGodzina = ((Button)b).Content.ToString().Split(':');
+                                int g = Convert.ToInt32(dyzurGodzina[0]);
+                                if (g >= start[idx] && g <= finish[idx])
                                 {
-                                    string[] dyzurGodzina = ((Button)b).Content.ToString().Split(':');
-                                    int g = Convert.ToInt32(dyzurGodzina[0]);
-                                    if (g >= start[idx] && g <= finish[idx])
-                                    {
-                                        ((Button)b).IsEnabled = true;
-                                        ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
-                                        licznik++;
-                                    }
+                                    ((Button)b).IsEnabled = true;
+                                    ((Button)b).Background = new SolidColorBrush(Colors.LimeGreen);
+                                    licznik++;
                                 }
                             }
+                        }
                         foreach (UIElement c in _PT_.Children)
                         {
                             foreach (List<string> wz in wizytyZapisane)
@@ -993,14 +1018,33 @@ namespace Baza
 
                         }
                     }
-                        idx++;
-                        continue;
-                    }
+                    idx++;
+                    continue;
                 }
             }
-
-         
         }
-    
+
+        private void DrukujWisyte(object sender, RoutedEventArgs e)
+        {
+            //inaczej mówiac zapisz plik na dysku
+            string path = @"C:\Users\Public\wizyta.txt";
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.Default))
+                {
+                    sw.WriteLine("Dr." + nazwisko_lekarza);
+                    sw.WriteLine(godzinaWizyty +" "+ selectedDate);
+                    sw.WriteLine(wybranaPrzychodnia);
+                    sw.WriteLine("------------------------------");
+                    sw.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("A handled exception just occurred: " + ex.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+    }
 }
 
