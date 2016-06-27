@@ -389,8 +389,8 @@ namespace Baza
             string[]  words1 = data_string.Split('-');
 
             int dzienTygodnia = DzienTygodnia(data);
-            string dzien = data[1];
-            string miesiac = data[0];
+            string dzien = data[2];
+            string miesiac = data[1];
             //chcę dodać wyswietlanie daty na siatce tygodniowej
       
             UIElement[] dniSiatkitygodniowej = { stackPN, stackWT, stackSR, stackCZ, stackPT };
@@ -603,11 +603,11 @@ namespace Baza
         {
 
             int[] liczbaDni = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334};
-            var dzien = Int32.Parse(data1[1]);
-            var miesiac = Int32.Parse(data1[0]);
+            var dzien = Int32.Parse(data1[2]);
+            var miesiac = Int32.Parse(data1[1]);
             //var dzien = Int32.Parse(data1[0]);
             //var miesiac = Int32.Parse(data1[1]);
-            var rok = Int32.Parse(data1[2]);
+            var rok = Int32.Parse(data1[0]);
 
             if ((rok % 4 == 0 && rok % 100 != 0) || rok % 400 == 0)
             {
@@ -794,7 +794,7 @@ namespace Baza
                         {
                             label_pndData.Content = now.AddDays(n).Day + "/" + now.AddDays(n).Month;
                             stackPN.Background = new SolidColorBrush(Colors.OliveDrab);
-                            selectedDate = label_pndData.Content.ToString();
+                            selectedDate = label_pndData.Content.ToString() + "/2016";
                         }
                         int licznik = 0;
                         foreach (UIElement b in _PN_.Children)
@@ -823,7 +823,7 @@ namespace Baza
                         {
                             label_wtrData.Content = now.AddDays(n+1).Day + "/" + now.AddDays(n+1).Month;
                             stackWT.Background = new SolidColorBrush(Colors.OliveDrab);
-                            selectedDate = label_wtrData.Content.ToString();
+                            selectedDate = label_wtrData.Content.ToString() + "/2016";
                         }
                         int licznik = 0;
                         foreach (UIElement b in _WT_.Children)
@@ -852,7 +852,7 @@ namespace Baza
                         {
                             label_srdData.Content = now.AddDays(n+2).Day + "/" + now.AddDays(n+2).Month;
                             stackSR.Background = new SolidColorBrush(Colors.OliveDrab);
-                            selectedDate = label_srdData.Content.ToString();
+                            selectedDate = label_srdData.Content.ToString() + "/2016";
                         }
                         int licznik = 0;
                         foreach (UIElement b in _SR_.Children)
@@ -881,7 +881,7 @@ namespace Baza
                         {
                             label_cztData.Content = now.AddDays(n+3).Day + "/" + now.AddDays(n+3).Month;
                             stackCZ.Background = new SolidColorBrush(Colors.OliveDrab);
-                            selectedDate = label_cztData.Content.ToString();
+                            selectedDate = label_cztData.Content.ToString() + "/2016";
                         }
                         int licznik = 0;
                         foreach (UIElement b in _CZ_.Children)
@@ -911,7 +911,7 @@ namespace Baza
                             //label_pndData.Content = now.Day + "/" + now.Month;
                             label_ptnData.Content = now.AddDays(n+4).Day + "/" + now.AddDays(n+4).Month;
                             stackPT.Background = new SolidColorBrush(Colors.OliveDrab);
-                            selectedDate = label_ptnData.Content.ToString();
+                            selectedDate = label_ptnData.Content.ToString() + "/2016";
                         }
                         int licznik = 0;
                         foreach (UIElement b in _PT_.Children)
