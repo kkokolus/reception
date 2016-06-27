@@ -381,34 +381,19 @@ namespace Baza
         private void calendarSelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             Project_context db = new Project_context();
-            selectedDate = calendar.SelectedDate.ToString();                     
-            string[] dataTmp = selectedDate.Split(' ');
+            string _selectedDate = calendar.SelectedDate.ToString();                     
+            string[] dataTmp = _selectedDate.Split(' ');
             string[] data = dataTmp[0].Split('/', '.', '-');
            
-
-            /*      string[] words = data_string.Split('-');
-      foreach (var i in words)
-      {
-          var f = i;
-      }
-      int dzien = Int32.Parse(words[2]);
-      int miesiac = Convert.ToInt32(words[1]);
-      int rok = Convert.ToInt32(words[0]);*/
-
             var data_string = data[0];
             string[]  words1 = data_string.Split('-');
 
-            //string[] tydzien = { "poniedziałek", "wtorek", "sroda", "czwartek", "piatek", "sobota", "niedziela" };
             int dzienTygodnia = DzienTygodnia(data);
-            // textBoxPacjentID.Text = tydzien[dzienTygodnia];           
+            string dzien = data[1];
+            string miesiac = data[0];
             //chcę dodać wyswietlanie daty na siatce tygodniowej
       
             UIElement[] dniSiatkitygodniowej = { stackPN, stackWT, stackSR, stackCZ, stackPT };
-            foreach (StackPanel day in dniSiatkitygodniowej)
-            {
-                ///if (day.Children is Label)
-                 ///   (day.Children)..Content = "";
-            }
             if (dzienTygodnia == 0)
             {
                 stackPN.Background = new SolidColorBrush(Colors.BurlyWood);
@@ -421,7 +406,7 @@ namespace Baza
                 label_srdData.Content = null;
                 label_cztData.Content = null;
                 label_ptnData.Content = null;
-                label_pndData.Content = data[0] + '/' + data[1];
+                label_pndData.Content = dzien + '/' + miesiac;
                 stackPN.Background = new SolidColorBrush(Colors.OliveDrab);
             }               
             if (dzienTygodnia == 1)
@@ -436,7 +421,7 @@ namespace Baza
                 label_srdData.Content = null;
                 label_cztData.Content = null;
                 label_ptnData.Content = null;
-                label_wtrData.Content = data[0] + '/' + data[1];
+                label_wtrData.Content = dzien + '/' + miesiac;
                 stackWT.Background = new SolidColorBrush(Colors.OliveDrab);
             }                
             if (dzienTygodnia == 2)
@@ -452,7 +437,7 @@ namespace Baza
                 label_cztData.Content = null;
                 label_ptnData.Content = null;
                 stackSR.Background = new SolidColorBrush(Colors.OliveDrab);
-                label_srdData.Content = data[0] + '/' + data[1];
+                label_srdData.Content = dzien + '/' + miesiac;
             }               
             if (dzienTygodnia == 3)
             {
@@ -467,7 +452,7 @@ namespace Baza
                 label_cztData.Content = null;
                 label_ptnData.Content = null;
                 stackCZ.Background = new SolidColorBrush(Colors.OliveDrab);
-                label_cztData.Content = data[0] + '/' + data[1];
+                label_cztData.Content = dzien + '/' + miesiac;
             }               
             if (dzienTygodnia == 4)
             {
@@ -482,15 +467,8 @@ namespace Baza
                 label_cztData.Content = null;
                 label_ptnData.Content = null;
                 stackPT.Background = new SolidColorBrush(Colors.OliveDrab);
-                label_ptnData.Content = data[0] + '/' + data[1];
+                label_ptnData.Content = dzien + '/' + miesiac;
             }
-                
-           
-            using (db)
-            {
-                  // trzeba pobrac z bazy dane dot. dyzurow
-            }
-
         }
 
         private void pacjentIdTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -549,7 +527,14 @@ namespace Baza
                     if (btn is Button)
                     {
                         if (((Button)btn).Background.ToString() == Colors.Orange.ToString())
-                            ((Button)btn).Background = new SolidColorBrush(Colors.LimeGreen);
+                        {
+                        ((Button)btn).Background = new SolidColorBrush(Colors.LimeGreen);
+                        }
+                            
+                        if (((Button)btn).Background.ToString() == Colors.Red.ToString())
+                        {
+
+                        }
                     }
                 }
             }
@@ -809,6 +794,7 @@ namespace Baza
                         {
                             label_pndData.Content = now.AddDays(n).Day + "/" + now.AddDays(n).Month;
                             stackPN.Background = new SolidColorBrush(Colors.OliveDrab);
+                            selectedDate = label_pndData.Content.ToString();
                         }
                         int licznik = 0;
                         foreach (UIElement b in _PN_.Children)
@@ -837,6 +823,7 @@ namespace Baza
                         {
                             label_wtrData.Content = now.AddDays(n+1).Day + "/" + now.AddDays(n+1).Month;
                             stackWT.Background = new SolidColorBrush(Colors.OliveDrab);
+                            selectedDate = label_wtrData.Content.ToString();
                         }
                         int licznik = 0;
                         foreach (UIElement b in _WT_.Children)
@@ -865,6 +852,7 @@ namespace Baza
                         {
                             label_srdData.Content = now.AddDays(n+2).Day + "/" + now.AddDays(n+2).Month;
                             stackSR.Background = new SolidColorBrush(Colors.OliveDrab);
+                            selectedDate = label_srdData.Content.ToString();
                         }
                         int licznik = 0;
                         foreach (UIElement b in _SR_.Children)
@@ -893,6 +881,7 @@ namespace Baza
                         {
                             label_cztData.Content = now.AddDays(n+3).Day + "/" + now.AddDays(n+3).Month;
                             stackCZ.Background = new SolidColorBrush(Colors.OliveDrab);
+                            selectedDate = label_cztData.Content.ToString();
                         }
                         int licznik = 0;
                         foreach (UIElement b in _CZ_.Children)
@@ -922,6 +911,7 @@ namespace Baza
                             //label_pndData.Content = now.Day + "/" + now.Month;
                             label_ptnData.Content = now.AddDays(n+4).Day + "/" + now.AddDays(n+4).Month;
                             stackPT.Background = new SolidColorBrush(Colors.OliveDrab);
+                            selectedDate = label_ptnData.Content.ToString();
                         }
                         int licznik = 0;
                         foreach (UIElement b in _PT_.Children)
@@ -945,7 +935,9 @@ namespace Baza
                         continue;
                     }
                 }
-            }          
+            }
+
+         
         }
     
 }
